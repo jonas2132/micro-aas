@@ -30,7 +30,7 @@
  *   JsonWriting(env);
  * ```
  *
- * @author [jrud]
+ * @author [jrud&DevAZK]
  * @version 1.0
  */
 package com.softwareag.app.data;
@@ -47,21 +47,21 @@ import org.eclipse.digitaltwin.aas4j.v3.dataformat.json.JsonDeserializer;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.json.JsonSerializer;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
-public class JsonDataRepository {
+public class JsonDataRepository implements DataRepository{
 
     // Static variables for file paths
-    private static String workingDir = System.getProperty("user.dir");
-    private static String resourceDir = workingDir + "/src/main/resources";
-    private static String outputDir = workingDir + "/output";
-    private static String inputFileName = "CarbonFootprint_v.03.json";
-    private static String outputFileName = "CarbonFootprint_Output_v.03.json";
+    private final String workingDir = System.getProperty("user.dir");
+    private final String resourceDir = workingDir + "/src/main/resources";
+    private final String outputDir = workingDir + "/output";
+    private final String inputFileName = "CarbonFootprint_v.03.json";
+    private final String outputFileName = "CarbonFootprint_Output_v.03.json";
 
     /**
      * Read digital twin environment data from a JSON file.
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public static Environment JsonReading() {
+    public Environment read() {
         File inputFile = new File(resourceDir + "/" + inputFileName);
 
         System.out.println("Reading from the file: " + inputFile);
@@ -89,7 +89,7 @@ public class JsonDataRepository {
      *
      * @param env The Environment object containing the data to be written.
      */
-    public static void JsonWriting(Environment env) {
+    public void write(Environment env) {
         File outputFile = new File(outputDir + "/" + outputFileName);
         System.out.println("Writing to the file: " + outputFile);
 

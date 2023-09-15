@@ -30,7 +30,7 @@
  * AASXDataRepository.AASXWriting(env);
  * ```
  *
- * @author [jrud]
+ * @author [jrud&DevAZK]
  * @version 1.0
  */
 package com.softwareag.app.data;
@@ -53,21 +53,21 @@ import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.AASXSerializer;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
-public class AASXDataRepository {
+public class AASXDataRepository implements DataRepository{
 
     // Static variables for file paths
-    private static final String workingDir = System.getProperty("user.dir");
-    private static final String resourceDir = workingDir + "/src/main/resources";
-    private static final String outputDir = workingDir + "/output";
-    private static final String inputFileName = "CarbonFootprint_v.03.aasx";
-    private static final String outputFileName = "CarbonFootprint_Output_v.03.aasx";
+    private final String workingDir = System.getProperty("user.dir");
+    private final String resourceDir = workingDir + "/src/main/resources";
+    private final String outputDir = workingDir + "/output";
+    private final String inputFileName = "CarbonFootprint_v.03.aasx";
+    private final String outputFileName = "CarbonFootprint_Output_v.03.aasx";
 
     /**
      * Read digital twin environment data from an AASX file.
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public static Environment AASXReading() {
+    public  Environment read() {
         File inputFile = new File(resourceDir + "/" + inputFileName);
         System.out.println("Reading from the file: " + inputFile);
 
@@ -101,7 +101,7 @@ public class AASXDataRepository {
      *
      * @param env The Environment object containing the data to be written.
      */
-    public static void AASXWriting(Environment env) {
+    public void write(Environment env) {
         File outputFile = new File(outputDir + "/" + outputFileName);
 
         final List<InMemoryFile> fileList = new ArrayList<>();

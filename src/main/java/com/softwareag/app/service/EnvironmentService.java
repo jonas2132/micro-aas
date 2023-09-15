@@ -27,7 +27,7 @@
  * - The class assumes that there is only one Asset Administration Shell within the environment, this could be
  *   a problem in the future. Let's keep an eye on it.
  *
- * @author [jrud]
+ * @author [DevAZK]
  * @version 1.0
  */
 package com.softwareag.app.service;
@@ -35,32 +35,51 @@ package com.softwareag.app.service;
 import java.util.List;
 
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
+import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.eclipse.digitaltwin.aas4j.v3.model.Property;
 import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
-import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
-import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment;
 
-public class EnvironmentService extends DefaultEnvironment {
+public class EnvironmentService implements Environment{
 
-    // Instance variables
-    protected Environment env;
-    protected AssetAdministrationShell assetAdministrationShell;
-    protected List<Submodel> submodelList;
-    protected String submodelName = "CarbonFootprint";
-    protected String submodelElementCollectionName = "ProductCarbonFootprint";
-    protected String propertyName = "PCFCO2eq";
+    private Environment environment;
+    private final String submodelName = "CarbonFootprint";
+    private final String submodelElementCollectionName = "ProductCarbonFootprint";
+    private final String propertyName = "PCFCO2eq";
 
-    /**
-     * Constructor for EnvironmentService.
-     *
-     * @param env The digital twin Environment object to work with.
-     */
-    public EnvironmentService(Environment env) {
-        this.env = env;
-        this.assetAdministrationShell = this.env.getAssetAdministrationShells().get(0);
-        this.submodelList = this.env.getSubmodels();
+    public EnvironmentService(Environment environment) {
+        this.environment = environment;
+    }
+
+    @Override
+    public List<AssetAdministrationShell> getAssetAdministrationShells() {
+        return environment.getAssetAdministrationShells();
+    }
+
+    @Override
+    public void setAssetAdministrationShells(List<AssetAdministrationShell> assetAdministrationShells) {
+        environment.setAssetAdministrationShells(assetAdministrationShells);
+    }
+
+    @Override
+    public List<ConceptDescription> getConceptDescriptions() {
+        return environment.getConceptDescriptions();
+    }
+
+    @Override
+    public void setConceptDescriptions(List<ConceptDescription> conceptDescriptions) {
+        environment.setConceptDescriptions(conceptDescriptions);
+    }
+
+    @Override
+    public List<Submodel> getSubmodels() {
+        return environment.getSubmodels();
+    }
+
+    @Override
+    public void setSubmodels(List<Submodel> submodels) {
+        environment.setSubmodels(submodels);
     }
 
     /**
@@ -70,7 +89,7 @@ public class EnvironmentService extends DefaultEnvironment {
      * 
      */
     public void updatePCFCO2eq(String newCO2eq) {
-        for (Submodel submodel : this.submodelList) {
+        /* for (Submodel submodel : getSubmodels()) {
             if (submodel.getIdShort().equals(this.submodelName)) {
                 for (SubmodelElement submodelElement : submodel.getSubmodelElements()) {
                     if (submodelElement.getIdShort().equals(this.submodelElementCollectionName)) {
@@ -86,10 +105,20 @@ public class EnvironmentService extends DefaultEnvironment {
                     }
                 }
             }
-        }
+        } */
+
+        getSubmodels().stream()
+        .filter(submodel -> submodel.getIdShort().equals(this.submodelName))
+        .flatMap(submodel -> submodel.getSubmodelElements().stream())
+        .filter(submodelElement -> submodelElement.getIdShort().equals(this.submodelElementCollectionName))
+        .filter(submodelElement -> submodelElement instanceof SubmodelElementCollection)
+        .map(submodelElement -> (SubmodelElementCollection) submodelElement)
+        .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
+        .filter(element -> element instanceof Property && element.getIdShort().equals(propertyName))
+        .map(element -> (Property) element)
+        .forEach(property -> property.setValue(newCO2eq));
+
     }
-
-
-
-
+    
+    
 }

@@ -6,7 +6,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.softwareag.app.data.AASXDataRepository;
+import com.softwareag.app.data.DataRepository;
+import com.softwareag.app.service.EnvironmentService;
 
 
 @SpringBootApplication
@@ -49,25 +55,20 @@ public class App {
         }
     }
 
-
-
-
-    /*****************************************************
-     * Block 6: Start of the Spring Application
-     *****************************************************/
-
-    /* SpringApplication.run(App.class, args); */
-
     public static void main(String[] args) {
-        // Environment env = AASXDataRepository.AASXReading();
 
-        // EnvironmentService envServ = new EnvironmentService(env);
-        // envServ.updatePCFCO2eq("30");
+        DataRepository dataRepository = new AASXDataRepository();
+        Environment env = dataRepository.read();
 
-        /* AASXDataRepository.AASXWriting(env);
-        JsonDataRepository.JsonWriting(env); */
+        EnvironmentService envServ = new EnvironmentService(env);
+        envServ.getSubmodels().forEach(model -> {
+            System.out.println(model.getId());
+        });
 
-        startAPI();
+        envServ.updatePCFCO2eq("a");
+
+
+   //     startAPI();
 
     }
 
