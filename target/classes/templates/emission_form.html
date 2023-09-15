@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CO2 Emissions Calculator</title>
+</head>
+<body>
+    <h1>CO2 Emissions Calculator</h1>
+    <form action="/calculate" method="post">
+        <!-- Input for CO2KG -->
+        <label for="co2kg">CO2KG:</label>
+        <input type="text" id="co2kg" name="co2kg" placeholder="CO2KG">
+        <br>
+        
+        <!-- Input for CO2Equivalent -->
+        <label for="co2Equivalent">CO2 Equivalent:</label>
+        <input type="text" id="co2Equivalent" name="co2Equivalent" placeholder="CO2 Equivalent">
+        <br>
+        
+        <!-- Input for producedAssets -->
+        <label for="producedAssets">Produced Assets:</label>
+        <input type="text" id="producedAssets" name="producedAssets" placeholder="Produced Assets">
+        <br>
+        
+        <!-- Dropdown menu -->
+        <label for="calculationType">Calculation Type:</label>
+        <select id="calculationType" name="calculationType">
+            <option value="EnergyConsumtionProductionSite">Energy Consumption Production Site</option>
+            <option value="MachineEnergyConsumption">Machine Energy Consumption</option>
+            <option value="ProductionEmissions">Production Emissions</option>
+            <option value="WasteRelatedEmissions">Waste Related Emissions</option>
+        </select>
+        <br>
+
+        <button type="submit">Calculate</button>
+    </form>
+</body>
+</html>
