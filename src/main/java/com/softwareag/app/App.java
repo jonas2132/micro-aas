@@ -10,50 +10,15 @@ import java.net.Socket;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.softwareag.app.api.HTTPService;
 import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
+import com.softwareag.app.data.JsonDataRepository;
 import com.softwareag.app.service.EnvironmentService;
 
 
 @SpringBootApplication
 public class App {
-
-    /*****************************************************
-     * Block 1: ServerSocket Port listening Block
-     *****************************************************/
-
-    public static void startAPI() {
-        int port = 8080; // Desired port number
-
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Listening on port " + port);
-
-            while (true) {
-                try (Socket clientSocket = serverSocket.accept();
-                        BufferedReader reader = new BufferedReader(
-                                new InputStreamReader(clientSocket.getInputStream()));
-                        OutputStream outputStream = clientSocket.getOutputStream()) {
-
-                    System.out.println("Received data from API:");
-                    String inputLine;
-
-                    while ((inputLine = reader.readLine()) != null) {
-                        System.out.println(inputLine);
-                    }
-
-                    System.out.println("End of API data");
-
-                    // Send HTTP 200 response back to the client
-                    String response = "HTTP/1.1 200 OK\r\n\r\n";
-                    outputStream.write(response.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) {
 
@@ -67,10 +32,10 @@ public class App {
 
         //envServ.updatePCFCO2eq("test");
 
-        dataRepository.write(env, "CarbonFootprint_v.03.aasx");
+      //  DataRepository dataJsonRepository = new JsonDataRepository();
+      //  dataJsonRepository.write(env, "CarbonFootprint_v.03_TST.json");
 
-
-      //  startAPI();
+        HTTPService.start();
 
     }
 

@@ -46,6 +46,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.bag.CollectionBag;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.DeserializationException;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.SerializationException;
@@ -121,6 +122,5 @@ public class AASXDataRepository implements DataRepository{
             System.err.println("Failed to write on the output file.");
             e.printStackTrace(); // Printing the stack trace
         }
-
     }
 }
