@@ -58,17 +58,19 @@ public class App {
     public static void main(String[] args) {
 
         DataRepository dataRepository = new AASXDataRepository();
-        Environment env = dataRepository.read();
+        Environment env = dataRepository.read("CarbonFootprint_v.03.aasx");
 
-        EnvironmentService envServ = new EnvironmentService(env);
+        /*EnvironmentService envServ = new EnvironmentService(env);
         envServ.getSubmodels().forEach(model -> {
             System.out.println(model.getId());
-        });
+        }); */
 
-        envServ.updatePCFCO2eq("a");
+        //envServ.updatePCFCO2eq("test");
+
+        dataRepository.write(env, "CarbonFootprint_v.03.aasx");
 
 
-   //     startAPI();
+      //  startAPI();
 
     }
 

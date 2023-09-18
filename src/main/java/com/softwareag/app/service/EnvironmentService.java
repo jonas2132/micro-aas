@@ -39,14 +39,15 @@ import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.eclipse.digitaltwin.aas4j.v3.model.Property;
 import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
+import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
 
 public class EnvironmentService implements Environment{
 
     private Environment environment;
     private final String submodelName = "CarbonFootprint";
-    private final String submodelElementCollectionName = "ProductCarbonFootprint";
-    private final String propertyName = "PCFCO2eq";
+    private final String submodelElementCollectionNamePCF = "ProductCarbonFootprint";
+    private final String propertyNamePCF = "PCFCO2eq";
 
     public EnvironmentService(Environment environment) {
         this.environment = environment;
@@ -89,36 +90,32 @@ public class EnvironmentService implements Environment{
      * 
      */
     public void updatePCFCO2eq(String newCO2eq) {
-        /* for (Submodel submodel : getSubmodels()) {
-            if (submodel.getIdShort().equals(this.submodelName)) {
-                for (SubmodelElement submodelElement : submodel.getSubmodelElements()) {
-                    if (submodelElement.getIdShort().equals(this.submodelElementCollectionName)) {
-                        if (submodelElement instanceof SubmodelElementCollection) {
-                            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) submodelElement;
-                            for (SubmodelElement element : submodelElementCollection.getValue()) {
-                                if (element instanceof Property && element.getIdShort().equals(propertyName)) {
-                                    Property property = (Property) element;
-                                    property.setValue(newCO2eq);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } */
-
         getSubmodels().stream()
-        .filter(submodel -> submodel.getIdShort().equals(this.submodelName))
+        .filter(submodel -> isSubmodelCPF(submodel))
         .flatMap(submodel -> submodel.getSubmodelElements().stream())
-        .filter(submodelElement -> submodelElement.getIdShort().equals(this.submodelElementCollectionName))
-        .filter(submodelElement -> submodelElement instanceof SubmodelElementCollection)
+        .filter(submodelElement -> isElementPCF(submodelElement))
         .map(submodelElement -> (SubmodelElementCollection) submodelElement)
         .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
-        .filter(element -> element instanceof Property && element.getIdShort().equals(propertyName))
+        .filter(element -> isPropertyPCFCO2eq(element))
         .map(element -> (Property) element)
         .forEach(property -> property.setValue(newCO2eq));
 
+        //Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream, Filter ist wie eine Abfrage
     }
+
+    private boolean isSubmodelCPF(Submodel submodel){
+        return submodel.getIdShort().equals(this.submodelName);
+    }
+
+    private boolean isElementPCF(SubmodelElement submodelElement){
+        return submodelElement.getIdShort().equals(this.submodelElementCollectionNamePCF) && submodelElement instanceof SubmodelElementCollection;
+    }
+
+    private boolean isPropertyPCFCO2eq(SubmodelElement submodelElement){
+        return submodelElement instanceof Property && submodelElement.getIdShort().equals(propertyNamePCF);
+    }
+
+
     
     
 }
