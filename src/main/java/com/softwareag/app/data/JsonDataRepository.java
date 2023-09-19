@@ -40,9 +40,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.DeserializationException;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.SerializationException;
+import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.json.JsonDeserializer;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.json.JsonSerializer;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
@@ -89,7 +91,7 @@ public class JsonDataRepository implements DataRepository{
      *
      * @param env The Environment object containing the data to be written.
      */
-    public void write(Environment env, String outputFilename) {
+    public void write(Environment env, List<InMemoryFile> fileList, String outputFilename) {
         File outputFile = new File(outputDir + "/" + outputFilename);
         System.out.println("Writing to the file: " + outputFile);
 

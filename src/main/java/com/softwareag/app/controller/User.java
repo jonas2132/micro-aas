@@ -1,4 +1,4 @@
-package com.softwareag.app.controller.restapi;
+package com.softwareag.app.controller;
 
 public class User {
     private String name;

@@ -1,5 +1,7 @@
 package com.softwareag.app.service.CO2Calculation;
 
+import java.util.Map;
+
 public class MachineEnergyConsumption implements CO2Emission{
 
     private double runtime;
@@ -7,8 +9,8 @@ public class MachineEnergyConsumption implements CO2Emission{
     private double co2Equivalent;
 
 
-
-    public double calculate() {
+    @Override
+    public double calculate(Map<String, Double> data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'calculate'");
     }
