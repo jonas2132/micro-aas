@@ -35,6 +35,7 @@
  */
 package com.softwareag.app.data;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -45,6 +46,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.bag.CollectionBag;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.DeserializationException;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.SerializationException;
@@ -59,16 +61,16 @@ public class AASXDataRepository implements DataRepository{
     private final String workingDir = System.getProperty("user.dir");
     private final String resourceDir = workingDir + "/src/main/resources";
     private final String outputDir = workingDir + "/output";
-    private final String inputFileName = "CarbonFootprint_v.03.aasx";
-    private final String outputFileName = "CarbonFootprint_Output_v.03.aasx";
+    //private final String inputFileName = "CarbonFootprint_v.03.aasx";
+    //private final String outputFileName = "CarbonFootprint_Output_v.03.aasx";
 
     /**
      * Read digital twin environment data from an AASX file.
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public  Environment read() {
-        File inputFile = new File(resourceDir + "/" + inputFileName);
+    public  Environment read(String inputFilename) {
+        File inputFile = new File(resourceDir + "/" + inputFilename);
         System.out.println("Reading from the file: " + inputFile);
 
         try {
@@ -101,11 +103,11 @@ public class AASXDataRepository implements DataRepository{
      *
      * @param env The Environment object containing the data to be written.
      */
-    public void write(Environment env) {
-        File outputFile = new File(outputDir + "/" + outputFileName);
+    public void write(Environment env, String outputFilename) {
+        File outputFile = new File(outputDir + "/" + outputFilename);
+
 
         final List<InMemoryFile> fileList = new ArrayList<>();
-
         // Example of adding additional files to the AASX, if needed:
         // byte[] operationManualContent = { 0, 1, 2, 3, 4 };
         // InMemoryFile file = new InMemoryFile(operationManualContent, "Draft_PCF_Submodel.pdf");
@@ -114,7 +116,7 @@ public class AASXDataRepository implements DataRepository{
         try (OutputStream fileOutputStream = new FileOutputStream(outputFile)) {
             AASXSerializer serializer = new AASXSerializer();
             serializer.write(env, fileList, fileOutputStream);
-            System.out.println("Successfully wrote on Output file");
+            System.out.println("Successfully wrote on Output file.");
         } catch (SerializationException | IOException e) {
             // Handle the exceptions here
             System.err.println("Failed to write on the output file.");

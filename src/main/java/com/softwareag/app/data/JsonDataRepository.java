@@ -53,16 +53,16 @@ public class JsonDataRepository implements DataRepository{
     private final String workingDir = System.getProperty("user.dir");
     private final String resourceDir = workingDir + "/src/main/resources";
     private final String outputDir = workingDir + "/output";
-    private final String inputFileName = "CarbonFootprint_v.03.json";
-    private final String outputFileName = "CarbonFootprint_Output_v.03.json";
+    //private final String inputFileName = "CarbonFootprint_v.03.json";
+    //private final String outputFileName = "CarbonFootprint_Output_v.03.json";
 
     /**
      * Read digital twin environment data from a JSON file.
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public Environment read() {
-        File inputFile = new File(resourceDir + "/" + inputFileName);
+    public Environment read(String inputFilename) {
+        File inputFile = new File(resourceDir + "/" + inputFilename);
 
         System.out.println("Reading from the file: " + inputFile);
 
@@ -89,8 +89,8 @@ public class JsonDataRepository implements DataRepository{
      *
      * @param env The Environment object containing the data to be written.
      */
-    public void write(Environment env) {
-        File outputFile = new File(outputDir + "/" + outputFileName);
+    public void write(Environment env, String outputFilename) {
+        File outputFile = new File(outputDir + "/" + outputFilename);
         System.out.println("Writing to the file: " + outputFile);
 
         try {
