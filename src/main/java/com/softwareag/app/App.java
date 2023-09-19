@@ -10,11 +10,6 @@ import java.net.Socket;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.softwareag.app.controller.APIController;
-import com.softwareag.app.controller.socketapi.APIObserver;
-import com.softwareag.app.controller.socketapi.ObservableSubject;
-import com.softwareag.app.controller.socketapi.Observer;
 import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.JsonDataRepository;

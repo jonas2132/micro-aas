@@ -106,11 +106,11 @@ public class AASXDataRepository implements DataRepository{
      *
      * @param env The Environment object containing the data to be written.
      */
-    public void write(Environment env, String outputFilename) {
+    public void write(Environment env, List<InMemoryFile> fileList, String outputFilename) {
         File outputFile = new File(outputDir + "/" + outputFilename);
 
         try{
-        List<InMemoryFile> fileList = new ArrayList<>();
+        fileList = new ArrayList<>();
         // Example of adding additional files to the AASX, if needed:
         // byte[] operationManualContent = { 0, 1, 2, 3, 4 };
         // InMemoryFile file = new InMemoryFile(operationManualContent, "Draft_PCF_Submodel.pdf");
