@@ -16,8 +16,8 @@ public class APIController {
     @PostMapping("/sendEmissions")
     public void sendEmissionData(@RequestBody Map<String, Double> data) {
         System.out.println("Received data");
-        CalculationFactory calcFactory = new CalculationFactory();
-        calcFactory.createCO2EmissionCalculator(CalculationMethod.ENERGY_CONSUMPTION_PRODUCTION_SITE).calculate(data);
+        CalculationFactory calcFactory = new CalculationFactory(CalculationMethod.ENERGY_CONSUMPTION_PRODUCTION_SITE);
+        calcFactory.calculate(data);
     }
 
     /* @PostMapping("/sendEmissions")
