@@ -43,6 +43,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,7 @@ import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.AASXDeserializer;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.AASXSerializer;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
+import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
 
 public class AASXDataRepository implements DataRepository{
 
@@ -106,12 +109,15 @@ public class AASXDataRepository implements DataRepository{
     public void write(Environment env, String outputFilename) {
         File outputFile = new File(outputDir + "/" + outputFilename);
 
-
-        final List<InMemoryFile> fileList = new ArrayList<>();
+        try{
+        List<InMemoryFile> fileList = new ArrayList<>();
         // Example of adding additional files to the AASX, if needed:
         // byte[] operationManualContent = { 0, 1, 2, 3, 4 };
         // InMemoryFile file = new InMemoryFile(operationManualContent, "Draft_PCF_Submodel.pdf");
         // fileList.add(file);
+
+        //byte[] fileContent = Files.readAllBytes(Path.of(resourceDir + "/test.txt"));
+        //fileList.add(0, new InMemoryFile(fileContent, resourceDir + "/test.txt"));
 
         try (OutputStream fileOutputStream = new FileOutputStream(outputFile)) {
             AASXSerializer serializer = new AASXSerializer();
@@ -122,5 +128,6 @@ public class AASXDataRepository implements DataRepository{
             System.err.println("Failed to write on the output file.");
             e.printStackTrace(); // Printing the stack trace
         }
+        }catch(Exception ex) { ex.printStackTrace(); }
     }
 }

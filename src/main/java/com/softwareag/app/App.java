@@ -8,13 +8,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.softwareag.app.controller.APIController;
 import com.softwareag.app.controller.socketapi.APIObserver;
 import com.softwareag.app.controller.socketapi.ObservableSubject;
 import com.softwareag.app.controller.socketapi.Observer;
-import com.softwareag.app.api.HTTPService;
 import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.JsonDataRepository;
@@ -25,9 +25,11 @@ import com.softwareag.app.service.EnvironmentService;
 public class App {
 
     public static void main(String[] args) {
+        
+        SpringApplication.run(App.class, args);
 
         DataRepository dataRepository = new AASXDataRepository();
-        Environment env = dataRepository.read("CarbonFootprint_v.03.aasx");
+        Environment env = dataRepository.read("02_Bosch_v.03.aasx");
 
         /*EnvironmentService envServ = new EnvironmentService(env);
         envServ.getSubmodels().forEach(model -> {
@@ -39,12 +41,12 @@ public class App {
       //  DataRepository dataJsonRepository = new JsonDataRepository();
       //  dataJsonRepository.write(env, "CarbonFootprint_v.03_TST.json");
 
-        HTTPService.start();
+    //  dataRepository.write(env, "CarbonFootprint_v.03_TST.aasx");
 
-        ObservableSubject api = new APIController();
+       /* ObservableSubject api = new APIController();
         Observer apoObserver = new APIObserver();
         api.addObserver(apoObserver);
-        ((APIController) api).startAPI();
+        ((APIController) api).startAPI(); */
         
 
     }

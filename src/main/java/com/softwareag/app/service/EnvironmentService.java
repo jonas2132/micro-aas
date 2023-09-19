@@ -31,7 +31,7 @@
  * @version 1.0
  */
 package com.softwareag.app.service;
-
+//Decorator Pattern
 import java.util.List;
 
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
