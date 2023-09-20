@@ -31,9 +31,12 @@
  * @version 1.0
  */
 package com.softwareag.app.service;
+import java.util.ArrayList;
+import java.util.Collection;
 //Decorator Pattern
 import java.util.List;
 
+import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
@@ -45,6 +48,7 @@ import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
 public class EnvironmentService implements Environment{
 
     private Environment environment;
+    private List<InMemoryFile> fileList = new ArrayList<>();
     private final String submodelName = "CarbonFootprint";
     private final String submodelElementCollectionNamePCF = "ProductCarbonFootprint";
     private final String propertyNamePCF = "PCFCO2eq";
@@ -81,6 +85,18 @@ public class EnvironmentService implements Environment{
     @Override
     public void setSubmodels(List<Submodel> submodels) {
         environment.setSubmodels(submodels);
+    }
+
+    public Environment getEnvironmentInstance() {
+        return this.environment;
+    }
+
+    public void setFilelist(List<InMemoryFile> fileList) {
+        this.fileList = fileList;
+    }
+
+    public List<InMemoryFile> getFileList() {
+        return this.fileList;
     }
 
     /**

@@ -49,6 +49,8 @@ import org.eclipse.digitaltwin.aas4j.v3.dataformat.json.JsonDeserializer;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.json.JsonSerializer;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
+import com.softwareag.app.service.EnvironmentService;
+
 public class JsonDataRepository implements DataRepository{
 
     // Static variables for file paths
@@ -63,7 +65,7 @@ public class JsonDataRepository implements DataRepository{
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public Environment read(String inputFilename) {
+    public EnvironmentService read(String inputFilename) {
         File inputFile = new File(resourceDir + "/" + inputFilename);
 
         System.out.println("Reading from the file: " + inputFile);
@@ -74,7 +76,7 @@ public class JsonDataRepository implements DataRepository{
 
             Environment env = deserializer.read(in);
 
-            return env;
+            return new EnvironmentService(env);
         } catch (FileNotFoundException e) {
             System.err.println("Error: The specified file was not found. Please check the file path and try again.");
             e.printStackTrace();
@@ -91,13 +93,13 @@ public class JsonDataRepository implements DataRepository{
      *
      * @param env The Environment object containing the data to be written.
      */
-    public void write(Environment env, List<InMemoryFile> fileList, String outputFilename) {
+    public void write(EnvironmentService env, String outputFilename) {
         File outputFile = new File(outputDir + "/" + outputFilename);
         System.out.println("Writing to the file: " + outputFile);
 
         try {
             JsonSerializer serializer = new JsonSerializer();
-            serializer.write(outputFile, env);
+            serializer.write(outputFile, env.getEnvironmentInstance());
             System.out.println("Successfully wrote on Output file.");
         } catch (SerializationException | IOException e) {
             // Handle the exceptions here

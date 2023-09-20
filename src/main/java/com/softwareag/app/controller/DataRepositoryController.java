@@ -31,7 +31,7 @@ public class DataRepositoryController {
         Environment env = currentDataRepository.read(fileName + (dataType == DataType.AASX ? ".aasx" : ".json"));
         EnvironmentService envServ = new EnvironmentService(env);
         envServ.updatePCFCO2eq(Double.toString(data));
-        currentDataRepository.write(env, null, fileName);
+        currentDataRepository.write(envServ, fileName);
 
     }
 }

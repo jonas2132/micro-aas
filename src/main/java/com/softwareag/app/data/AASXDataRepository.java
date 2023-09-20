@@ -58,6 +58,8 @@ import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
 
+import com.softwareag.app.service.EnvironmentService;
+
 public class AASXDataRepository implements DataRepository{
 
     // Static variables for file paths
@@ -72,7 +74,7 @@ public class AASXDataRepository implements DataRepository{
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public  Environment read(String inputFilename) {
+    public  EnvironmentService read(String inputFilename) {
         File inputFile = new File(resourceDir + "/" + inputFilename);
         System.out.println("Reading from the file: " + inputFile);
 
@@ -80,7 +82,10 @@ public class AASXDataRepository implements DataRepository{
             InputStream in = new FileInputStream(inputFile);
             AASXDeserializer deserializer = new AASXDeserializer(in);
             Environment env = deserializer.read();
-            return env;
+            
+            EnvironmentService envService = new EnvironmentService(env);
+            envService.setFilelist(deserializer.getRelatedFiles());
+            return envService;
 
         } catch (FileNotFoundException e) {
             System.err.println("Error: The specified file was not found. Please check the file path and try again.");
@@ -106,11 +111,10 @@ public class AASXDataRepository implements DataRepository{
      *
      * @param env The Environment object containing the data to be written.
      */
-    public void write(Environment env, List<InMemoryFile> fileList, String outputFilename) {
+    public void write(EnvironmentService env, String outputFilename) {
         File outputFile = new File(outputDir + "/" + outputFilename);
 
         try{
-        fileList = new ArrayList<>();
         // Example of adding additional files to the AASX, if needed:
         // byte[] operationManualContent = { 0, 1, 2, 3, 4 };
         // InMemoryFile file = new InMemoryFile(operationManualContent, "Draft_PCF_Submodel.pdf");
@@ -121,7 +125,7 @@ public class AASXDataRepository implements DataRepository{
 
         try (OutputStream fileOutputStream = new FileOutputStream(outputFile)) {
             AASXSerializer serializer = new AASXSerializer();
-            serializer.write(env, fileList, fileOutputStream);
+            serializer.write(env.getEnvironmentInstance(), env.getFileList(), fileOutputStream);
             System.out.println("Successfully wrote on Output file.");
         } catch (SerializationException | IOException e) {
             // Handle the exceptions here
