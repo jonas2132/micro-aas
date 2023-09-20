@@ -119,6 +119,18 @@ public class EnvironmentService implements Environment{
         //Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream, Filter ist wie eine Abfrage
     }
 
+    public void printPCFCO2eq() {
+        getSubmodels().stream()
+        .filter(submodel -> isSubmodelCPF(submodel))
+        .flatMap(submodel -> submodel.getSubmodelElements().stream())
+        .filter(submodelElement -> isElementPCF(submodelElement))
+        .map(submodelElement -> (SubmodelElementCollection) submodelElement)
+        .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
+        .filter(element -> isPropertyPCFCO2eq(element))
+        .map(element -> (Property) element)
+        .forEach(property -> System.out.println(property.getValue()));
+    }
+
     private boolean isSubmodelCPF(Submodel submodel){
         return submodel.getIdShort().equals(this.submodelName);
     }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.softwareag.app.data.DataType;
 import com.softwareag.app.service.CO2Calculation.CalculationFactory;
 import com.softwareag.app.service.CO2Calculation.CalculationMethod;
 
@@ -15,9 +16,12 @@ public class APIController {
     
     @PostMapping("/sendEmissions")
     public void sendEmissionData(@RequestBody Map<String, Double> data) {
-        System.out.println("Received data");
+        System.out.println("Received data. . .");
         CalculationFactory calcFactory = new CalculationFactory(CalculationMethod.ENERGY_CONSUMPTION_PRODUCTION_SITE);
-        calcFactory.calculate(data);
+
+        DataRepositoryController dataRepoController = new DataRepositoryController(DataType.AASX);
+        dataRepoController.processData(calcFactory.calculate(data), "CarbonFootprint_v.03.upd");
+
     }
 
     /* @PostMapping("/sendEmissions")

@@ -12,12 +12,16 @@ public class CalculationFactory {
         switch (calculationMethod) {
             case ENERGY_CONSUMPTION_PRODUCTION_SITE:
                 calculator = new EnergyConsumptionProductionSite();
+                break;
             case MACHINE_ENERGY_CONSUMPTION:
                 calculator = new MachineEnergyConsumption();
+                break;
             case PRODUCTION_EMISSIONS:
                 calculator = new ProductionEmissions();
+                break;
             case WASTE_RELATED_EMISSIONS:
                 calculator = new WasteRelatedEmissions();
+                break;
             default:
                 throw new IllegalArgumentException("Calculation method is not provided");
         }

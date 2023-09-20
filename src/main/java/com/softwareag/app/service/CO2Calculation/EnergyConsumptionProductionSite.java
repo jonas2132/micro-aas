@@ -16,7 +16,7 @@ public class EnergyConsumptionProductionSite implements CO2Emission {
         double result = 0.0;
         result = (productionSiteEnergyConsumption - percentageOfRenewableEnergy*productionSiteEnergyConsumption) * co2Equivalent / producedAssets;
         System.out.println("Average Energy Consumption of the asset in the certain production site: " + result);
-        return 0.0;
+        return result;
     }
 
     public void initData(Map<String, Double> data){

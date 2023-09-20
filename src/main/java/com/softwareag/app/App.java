@@ -15,9 +15,6 @@ public class App {
         
         SpringApplication.run(App.class, args);
 
-        DataRepository dataRepository = new AASXDataRepository();
-        Environment env = dataRepository.read("02_Bosch_v.03.aasx");
-
         /*EnvironmentService envServ = new EnvironmentService(env);
         envServ.getSubmodels().forEach(model -> {
             System.out.println(model.getId());
