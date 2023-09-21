@@ -17,6 +17,5 @@ public class WebController {
         model.addAttribute("message", message);
         return "emission_form"; // This corresponds to a view named "view.html" in your templates folder
     }
-
-    
+        
 }
