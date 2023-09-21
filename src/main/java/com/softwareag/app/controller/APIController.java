@@ -19,8 +19,8 @@ public class APIController {
         System.out.println("Received data. . .");
         CalculationFactory calcFactory = new CalculationFactory(CalculationMethod.ENERGY_CONSUMPTION_PRODUCTION_SITE);
 
-        DataRepositoryController dataRepoController = new DataRepositoryController(DataType.AASX);
-        dataRepoController.processData(calcFactory.calculate(data), "CarbonFootprint_v.03.upd");
+        DataRepositoryController dataRepoController = new DataRepositoryController(DataType.JSON);
+        dataRepoController.processData(calcFactory.calculate(data), "CarbonFootprint_v.03");
 
     }
 
