@@ -91,7 +91,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "2.43",
+        "value" : "2700.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
