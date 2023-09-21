@@ -24,9 +24,6 @@ public class APIController {
 
     }
 
-    /* @PostMapping("/sendEmissions")
-    public void sendEmissionData(@RequestBody String data) {
-        System.out.println("Received data: " + data);
-    } */
+
 
 }

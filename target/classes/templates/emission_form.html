@@ -6,6 +6,21 @@
 </head>
 <body>
     <h1>CO2 Emissions Calculator</h1>
+    <form action="/uploadFile" method="post" enctype="multipart/form-data">
+        <!-- File upload input -->
+        <label for="file">Upload File:</label>
+        <input type="file" id="file" name="file">
+        <br>
+        
+        <!-- Input for output file name -->
+        <label for="outputFileName">Output File Name:</label>
+        <input type="text" id="outputFileName" name="outputFileName" placeholder="Output File Name">
+        <br>
+        
+        <!-- Submit button for file upload -->
+        <button type="submit">Upload File</button>
+    </form>
+
     <form action="/calculate" method="post">
         <!-- Input for CO2KG -->
         <label for="co2kg">CO2KG:</label>
@@ -32,7 +47,13 @@
         </select>
         <br>
 
+        <!-- Submit button for data processing -->
         <button type="submit">Calculate</button>
     </form>
+
+    <!-- Message window -->
+    <div id="messageWindow" th:utext="${message}">
+        <!-- Display messages from REST API here -->
+    </div>
 </body>
 </html>
