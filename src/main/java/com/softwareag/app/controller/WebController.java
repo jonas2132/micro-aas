@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class WebController {
 
     @GetMapping("/welcome")
-    public String welcomeView() {
+    public String welcomeView(Model model) {
         // Add any necessary data to the model for rendering the view
-        return "welcome_view"; // This corresponds to a view named "view.html" in your templates folder
+        model.addAttribute("pageTitle", "Meine Ansicht");
+        return "welcome"; // This corresponds to a view named "view.html" in your templates folder
     }
 
 
