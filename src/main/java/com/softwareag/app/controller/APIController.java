@@ -21,7 +21,6 @@ public class APIController {
 
         DataRepositoryController dataRepoController = new DataRepositoryController(DataType.JSON);
         dataRepoController.processData(calcFactory.calculate(data), "CarbonFootprint_v.03");
-
     }
 
 

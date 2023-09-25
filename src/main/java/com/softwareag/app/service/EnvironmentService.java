@@ -31,10 +31,15 @@
  * @version 1.0
  */
 package com.softwareag.app.service;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 //Decorator Pattern
 import java.util.List;
+import java.util.Queue;
+
+import javax.naming.InvalidNameException;
 
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
@@ -45,7 +50,10 @@ import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
 
-public class EnvironmentService implements Environment{
+import com.softwareag.app.data.SubmodelElementCollectionType;
+import com.softwareag.app.data.SubmodelElementPropertyType;
+
+public class EnvironmentService implements Environment {
 
     private Environment environment;
     private List<InMemoryFile> fileList = new ArrayList<>();
@@ -100,50 +108,83 @@ public class EnvironmentService implements Environment{
     }
 
     /**
-     * Update the value of the "PCFCO2eq" property within the specified submodel and collection.
+     * Update the value of the "PCFCO2eq" property within the specified submodel and
+     * collection.
      *
      * @param newCO2eq The new value to set for the "PCFCO2eq" property.
      * 
      */
-    public void updatePCFCO2eq(String newCO2eq) {
-        getSubmodels().stream()
-        .filter(submodel -> isSubmodelCPF(submodel))
-        .flatMap(submodel -> submodel.getSubmodelElements().stream())
-        .filter(submodelElement -> isElementPCF(submodelElement))
-        .map(submodelElement -> (SubmodelElementCollection) submodelElement)
-        .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
-        .filter(element -> isPropertyPCFCO2eq(element))
-        .map(element -> (Property) element)
-        .forEach(property -> property.setValue(newCO2eq));
-
-        //Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream, Filter ist wie eine Abfrage
+    public void updateProperty(String value, SubmodelElementPropertyType propertyType,
+            SubmodelElementCollectionType... submodelElementCollections) {
+        try {
+            getSubmodels().stream()
+                    .filter(submodel -> isSubmodelCPF(submodel))
+                    .map(submodelElement -> (SubmodelElementCollection) getCertainSubmodelElementCollection(
+                            submodelElementCollections))
+                    .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
+                    .filter(element -> isProperty(element, propertyType))
+                    .map(element -> (Property) element)
+                    .forEach(property -> property.setValue(value));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
+        // Filter ist wie eine Abfrage
     }
 
-    public void printPCFCO2eq() {
-        getSubmodels().stream()
-        .filter(submodel -> isSubmodelCPF(submodel))
-        .flatMap(submodel -> submodel.getSubmodelElements().stream())
-        .filter(submodelElement -> isElementPCF(submodelElement))
-        .map(submodelElement -> (SubmodelElementCollection) submodelElement)
-        .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
-        .filter(element -> isPropertyPCFCO2eq(element))
-        .map(element -> (Property) element)
-        .forEach(property -> System.out.println(property.getValue()));
+    public SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelElementCollectionType... collections) {
+
+        Queue<SubmodelElementCollectionType> collectionQueue = new LinkedList<>();
+        for (SubmodelElementCollectionType collection : collections)
+            collectionQueue.offer(collection);
+
+        SubmodelElementCollection submodelElement = null;
+
+        for (Submodel submodel : getSubmodels()) {
+            if (!isSubmodelCPF(submodel))
+                continue;
+            while (!collectionQueue.isEmpty()) {
+                Iterable<SubmodelElement> elements = collections.length == collectionQueue.size()
+                        ? submodel.getSubmodelElements()
+                        : submodelElement.getValue(); // bei erstem Element anderer Zugriff
+                for (SubmodelElement element : elements) {
+                    if (!(element instanceof SubmodelElementCollection))
+                        continue;
+                    if (isSubmodelElementCollection(collectionQueue, element)) {
+                        submodelElement = (SubmodelElementCollection) element;
+                        break;
+                    }
+                }
+            }
+            return submodelElement;
+        }
+
+        return null;
+
     }
 
-    private boolean isSubmodelCPF(Submodel submodel){
-        return submodel.getIdShort().equals(this.submodelName);
+    private boolean isProperty(SubmodelElement submodelElement,
+            SubmodelElementPropertyType submodelElementPropertyType) {
+        return submodelElement instanceof Property
+                && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
 
-    private boolean isElementPCF(SubmodelElement submodelElement){
-        return submodelElement.getIdShort().equals(this.submodelElementCollectionNamePCF) && submodelElement instanceof SubmodelElementCollection;
+    private boolean isSubmodelCPF(Submodel submodel) throws IllegalArgumentException {
+        if (submodel.getIdShort().equals(this.submodelName))
+            return true;
+        throw new IllegalArgumentException("Wrong submodel, submodel must contain CarbonFootprint!");
     }
 
-    private boolean isPropertyPCFCO2eq(SubmodelElement submodelElement){
-        return submodelElement instanceof Property && submodelElement.getIdShort().equals(propertyNamePCF);
+    private boolean isSubmodelElementCollection(Queue<SubmodelElementCollectionType> collectionQueue,
+            SubmodelElement submodelElement) {
+
+        SubmodelElementCollectionType collectionType = collectionQueue.peek();
+        if (submodelElement.getIdShort().equals(collectionType.getIdShort())
+                && submodelElement instanceof SubmodelElementCollection) {
+            collectionQueue.poll();
+            return true;
+        }
+        return false;
     }
 
-
-    
-    
 }
