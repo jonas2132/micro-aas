@@ -115,7 +115,6 @@ public class EnvironmentService implements Environment{
         .filter(element -> isPropertyPCFCO2eq(element))
         .map(element -> (Property) element)
         .forEach(property -> property.setValue(newCO2eq));
-
         //Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream, Filter ist wie eine Abfrage
     }
 
