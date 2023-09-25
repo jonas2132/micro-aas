@@ -15,10 +15,9 @@ public class WebController {
     }
 
 
-    @PostMapping("/aas/overview")
+    @GetMapping("/aas/overview")
     public String showOverview(){
         return "overview";
-    
     }
 
 
