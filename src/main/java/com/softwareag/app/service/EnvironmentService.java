@@ -132,7 +132,7 @@ public class EnvironmentService implements Environment {
         // Filter ist wie eine Abfrage
     }
 
-    public SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelElementCollectionType... collections) {
+    private SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelElementCollectionType... collections) {
 
         Queue<SubmodelElementCollectionType> collectionQueue = new LinkedList<>();
         for (SubmodelElementCollectionType collection : collections)
