@@ -1,8 +1,17 @@
-#imageButton {
-    background-image: url('aas_logo.png'); /* Replace 'your-image.jpg' with the path to your image file */
-    width: 227px; /* Adjust the width to match your image's dimensions */
-    height: 132px; /* Adjust the height to match your image's dimensions */
-    border: none; /* Remove the button border */
-    background-color: transparent; /* Remove background color */
-    cursor: pointer; /* Change cursor to a pointer on hover (optional) */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
+
+/* Verwenden Sie Flexbox, um die Seitenhöhe anzupassen */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Der Hauptbereich (main) wird flexibel und nimmt den verbleibenden Platz ein */
+main {
+    flex: 1;
+}
+
