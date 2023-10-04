@@ -52,6 +52,7 @@ import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
 
 import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
+import com.softwareag.app.data.SubmodelType;
 
 public class EnvironmentService implements Environment {
 
@@ -114,12 +115,11 @@ public class EnvironmentService implements Environment {
      * @param newCO2eq The new value to set for the "PCFCO2eq" property.
      * 
      */
-    public void updateProperty(String value, SubmodelElementPropertyType propertyType,
+    public void updateProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
             SubmodelElementCollectionType... submodelElementCollections) {
         try {
             getSubmodels().stream()
-                    .filter(submodel -> isSubmodelCPF(submodel))
-                    .map(submodelElement -> (SubmodelElementCollection) getCertainSubmodelElementCollection(
+                    .map(submodelElement -> (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType,
                             submodelElementCollections))
                     .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
                     .filter(element -> isProperty(element, propertyType))
@@ -132,7 +132,25 @@ public class EnvironmentService implements Environment {
         // Filter ist wie eine Abfrage
     }
 
-    private SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelElementCollectionType... collections) {
+
+   /* public void updateProperty(String value, SubmodelElementPropertyType propertyType,
+            SubmodelElementCollectionType... submodelElementCollections) {
+        try {
+            getSubmodels().stream()
+                    .map(submodelElement -> (SubmodelElementCollection) getCertainSubmodelElementCollection(
+                            submodelElementCollections))
+                    .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
+                    .filter(element -> isProperty(element, propertyType))
+                    .map(element -> (Property) element)
+                    .forEach(property -> property.setValue(value));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
+        // Filter ist wie eine Abfrage
+    } */
+
+    private SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelType submodelType, SubmodelElementCollectionType... collections) {
 
         Queue<SubmodelElementCollectionType> collectionQueue = new LinkedList<>();
         for (SubmodelElementCollectionType collection : collections)
@@ -141,7 +159,7 @@ public class EnvironmentService implements Environment {
         SubmodelElementCollection submodelElement = null;
 
         for (Submodel submodel : getSubmodels()) {
-            if (!isSubmodelCPF(submodel))
+            if (!isSubmodelTypeOf(submodel, submodelType))
                 continue;
             while (!collectionQueue.isEmpty()) {
                 Iterable<SubmodelElement> elements = collections.length == collectionQueue.size()
@@ -169,8 +187,8 @@ public class EnvironmentService implements Environment {
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
 
-    private boolean isSubmodelCPF(Submodel submodel) throws IllegalArgumentException {
-        if (submodel.getIdShort().equals(this.submodelName))
+    private boolean isSubmodelTypeOf(Submodel submodel, SubmodelType submodelType) throws IllegalArgumentException {
+        if (submodel.getIdShort().equals(submodelType.getIdShort()))
             return true;
         throw new IllegalArgumentException("Wrong submodel, submodel must contain CarbonFootprint!");
     }
