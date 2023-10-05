@@ -1,5 +1,7 @@
 package com.softwareag.app.controller;
 
+import java.io.File;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +36,23 @@ public class WebController {
 
 
     @PostMapping("/aas/submission")
-    public String submussion(
+    public String submission(
+        //parameter Asset Administration Shell
         @RequestParam("assetIDshort") String assetIDshort,
         @RequestParam("assetID") String assetID,
+
+        //parameter Nameplate
+        @RequestParam("URIOfTheProduct") String URIOfTheProduct,
+        @RequestParam("ManufacturerName") String ManufacturerName,
+        @RequestParam("SerialNumber") double SerialNumber,
+        @RequestParam("YearOfConstruction") String YearOfConstruction,
+        @RequestParam("DateOfManufacture") String DateOfManufacture,
+        //parameter Technical Data
+        @RequestParam("ManufacturerOrderCode") String ManufacturerOrderCode,
+        @RequestParam("ManufacturerLogo") File ManufacturerLogo,
+        @RequestParam("ProductImage") File ProductImage,
+
+        //Parameter Carbon Footprint
         @RequestParam("PCFCalculationMethod") String PCFCalculationMethod,
         @RequestParam("PCFCO2eq") double PCFCO2eq,
         @RequestParam("PCFQuantityOfMeasureForCalculation") double PCFQuantityOfMeasureForCalculation,
