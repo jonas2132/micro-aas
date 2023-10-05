@@ -45,6 +45,7 @@ import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
+import org.eclipse.digitaltwin.aas4j.v3.model.File;
 import org.eclipse.digitaltwin.aas4j.v3.model.Property;
 import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
@@ -109,10 +110,9 @@ public class EnvironmentService implements Environment {
     }
 
     /**
-     * Update the value of the "PCFCO2eq" property within the specified submodel and
-     * collection.
+     * TO DO - Documentation
      *
-     * @param newCO2eq The new value to set for the "PCFCO2eq" property.
+     * 
      * 
      */
     public void updateProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
@@ -132,23 +132,20 @@ public class EnvironmentService implements Environment {
         // Filter ist wie eine Abfrage
     }
 
-
-   /* public void updateProperty(String value, SubmodelElementPropertyType propertyType,
+    public void updateFile(String path, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
             SubmodelElementCollectionType... submodelElementCollections) {
         try {
             getSubmodels().stream()
-                    .map(submodelElement -> (SubmodelElementCollection) getCertainSubmodelElementCollection(
+                    .map(submodelElement -> (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType,
                             submodelElementCollections))
                     .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
-                    .filter(element -> isProperty(element, propertyType))
-                    .map(element -> (Property) element)
-                    .forEach(property -> property.setValue(value));
+                    .filter(element -> isFile(element, propertyType))
+                    .map(element -> (File) element)
+                    .forEach(property -> property.setValue(path));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
-        // Filter ist wie eine Abfrage
-    } */
+    }
 
     private SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelType submodelType, SubmodelElementCollectionType... collections) {
 
@@ -184,6 +181,12 @@ public class EnvironmentService implements Environment {
     private boolean isProperty(SubmodelElement submodelElement,
             SubmodelElementPropertyType submodelElementPropertyType) {
         return submodelElement instanceof Property
+                && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
+    }
+
+    private boolean isFile(SubmodelElement submodelElement,
+            SubmodelElementPropertyType submodelElementPropertyType) {
+        return submodelElement instanceof File
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
 
