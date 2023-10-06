@@ -9,9 +9,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.softwareag.app.App;
+import com.softwareag.app.data.DataRepository;
+import com.softwareag.app.data.DataType;
+import com.softwareag.app.data.SubmodelElementCollectionType;
+import com.softwareag.app.data.SubmodelElementPropertyType;
+import com.softwareag.app.data.SubmodelType;
+import com.softwareag.app.service.EnvironmentService;
+
 
 @Controller
 public class WebController {
+
+    private DataRepository currentDataRepository;
+    private DataType currenDataType;
 
     @GetMapping("/welcome")
     public String welcomeView(Model model) {
@@ -49,14 +60,15 @@ public class WebController {
         @RequestParam("DateOfManufacture") String DateOfManufacture,
         //parameter Technical Data
         @RequestParam("ManufacturerOrderCode") String ManufacturerOrderCode,
-        @RequestParam("ManufacturerLogo") File ManufacturerLogo,
-        @RequestParam("ProductImage") File ProductImage,
+        //@RequestParam("ManufacturerLogo") File ManufacturerLogo,
+       // @RequestParam("ProductImage") File ProductImage,
 
         //Parameter Carbon Footprint
         @RequestParam("PCFCalculationMethod") String PCFCalculationMethod,
         @RequestParam("PCFCO2eq") double PCFCO2eq,
         @RequestParam("PCFQuantityOfMeasureForCalculation") double PCFQuantityOfMeasureForCalculation,
         @RequestParam("PCFLiveCyclePhase") String PCFLiveCyclePhase,
+
         @RequestParam("TCFCalculationMethod") String TCFCalculationMethod,
         @RequestParam("TCFCO2eq") double TCFCO2eq,
         @RequestParam("TCFReferenceValueForCalculation") String TCFReferenceValueForCalculation,
@@ -64,16 +76,39 @@ public class WebController {
         @RequestParam("TCFLiveCyclePhase") String TCFLiveCyclePhase
 
     ){
-        System.out.println(assetIDshort);
-        System.out.println(assetID);
-        System.out.println(PCFCalculationMethod);
-        System.out.println(PCFQuantityOfMeasureForCalculation);
-        System.out.println(PCFLiveCyclePhase);
-        System.out.println(TCFCalculationMethod);
-        System.out.println(TCFCO2eq);
-        System.out.println(TCFReferenceValueForCalculation);
-        System.out.println(TCFQuantityOfMeasureForCalculation);
-        System.out.println(TCFLiveCyclePhase);
+        currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
+        currenDataType = App.dataRepositoryController.getCurrentDataType();
+
+        EnvironmentService envServ = currentDataRepository.read("FullAASTemplate" + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
+     
+        envServ.updateAssetIDShort(assetIDshort);
+        envServ.updateAssetID(assetID);
+
+        /* Product Carbon Footprint */
+        envServ.updateProperty(PCFCalculationMethod, SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.PCF_CALCULATION_METHOD, SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+        envServ.updateProperty(Double.toString(PCFCO2eq), SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.PCFCO2EQ, SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+        envServ.updateProperty(Double.toString(PCFQuantityOfMeasureForCalculation), SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION, SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+        envServ.updateProperty(PCFLiveCyclePhase, SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE, SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+
+        /* Transport Carbon Footprint */
+        envServ.updateProperty(TCFCalculationMethod, SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.TCF_CALCULATION_METHOD, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+        envServ.updateProperty(Double.toString(TCFCO2eq), SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.TCFCO2EQ, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+        envServ.updateProperty(TCFReferenceValueForCalculation, SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+        envServ.updateProperty(TCFQuantityOfMeasureForCalculation, SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+
+        /* Technical Data */
+        envServ.updateProperty(ManufacturerOrderCode, SubmodelType.TECHNICAL_DATA, SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, SubmodelElementCollectionType.GENERAL_INFORMATION);
+    //    envServ.updateFile(ManufacturerLogo.getPath(), SubmodelType.TECHNICAL_DATA, SubmodelElementPropertyType.MANUFACTURER_LOGO, SubmodelElementCollectionType.GENERAL_INFORMATION);
+    //    envServ.updateFile(ProductImage.getPath(), SubmodelType.TECHNICAL_DATA, SubmodelElementPropertyType.PRODUCT_IMAGE, SubmodelElementCollectionType.GENERAL_INFORMATION);
+
+        /* Nameplate */
+        envServ.updateProperty(URIOfTheProduct, SubmodelType.NAMEPLATE, SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
+        envServ.updateMultilanguageProperty(ManufacturerName, SubmodelType.NAMEPLATE, SubmodelElementPropertyType.MANUFACTURER_NAME);
+        envServ.updateProperty(Double.toString(SerialNumber), SubmodelType.NAMEPLATE, SubmodelElementPropertyType.SERIAL_NUMBER);
+        envServ.updateProperty(YearOfConstruction, SubmodelType.NAMEPLATE, SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION);
+        envServ.updateProperty(DateOfManufacture, SubmodelType.NAMEPLATE, SubmodelElementPropertyType.DATE_OF_MANUFACTURE); 
+
+        currentDataRepository.write(envServ, assetIDshort + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
         return "redirect:/aas/overview";
     }
 

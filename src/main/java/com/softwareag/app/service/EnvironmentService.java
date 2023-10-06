@@ -46,10 +46,14 @@ import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.eclipse.digitaltwin.aas4j.v3.model.File;
+import org.eclipse.digitaltwin.aas4j.v3.model.LangStringTextType;
+import org.eclipse.digitaltwin.aas4j.v3.model.MultiLanguageProperty;
 import org.eclipse.digitaltwin.aas4j.v3.model.Property;
 import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringNameType;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringTextType;
 
 import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
@@ -115,16 +119,32 @@ public class EnvironmentService implements Environment {
      * 
      * 
      */
-    public void updateProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
+    public void updateAssetID(String value) {
+        getAssetAdministrationShells().get(0).setId(value);
+    }
+
+    public void updateAssetIDShort(String value) {
+        getAssetAdministrationShells().get(0).setIdShort(value);
+    }
+
+    public void updateMultilanguageProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
             SubmodelElementCollectionType... submodelElementCollections) {
+        System.out.println("Updating MultilanguageProperty " + propertyType.getIdShort() + " . . .");
         try {
-            getSubmodels().stream()
-                    .map(submodelElement -> (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType,
-                            submodelElementCollections))
-                    .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
-                    .filter(element -> isProperty(element, propertyType))
-                    .map(element -> (Property) element)
-                    .forEach(property -> property.setValue(value));
+            List<LangStringTextType> valueList = new ArrayList<>();
+            DefaultLangStringTextType stringTextType = new DefaultLangStringTextType();
+
+            stringTextType.setLanguage("de");
+            stringTextType.setText(value);
+            valueList.add(0, stringTextType);
+            
+            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = submodelElementCollection != null ? submodelElementCollection.getValue() : getSubmodelOfType(submodelType).getSubmodelElements();
+            
+            subModelElements.stream()
+                    .filter(element -> isMultilanguageProperty(element, propertyType))
+                    .map(element -> (MultiLanguageProperty) element)
+                    .forEach(property -> property.setValue(valueList));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -132,13 +152,30 @@ public class EnvironmentService implements Environment {
         // Filter ist wie eine Abfrage
     }
 
+    public void updateProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
+            SubmodelElementCollectionType... submodelElementCollections) {
+        System.out.println("Updating Property " + propertyType.getIdShort() + " . . .");
+        try {
+            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = submodelElementCollection != null ? submodelElementCollection.getValue() : getSubmodelOfType(submodelType).getSubmodelElements();
+
+            subModelElements.stream()
+                    .filter(element -> isProperty(element, propertyType))
+                    .map(element -> (Property) element)
+                    .forEach(property -> property.setValue(value));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void updateFile(String path, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
             SubmodelElementCollectionType... submodelElementCollections) {
+        System.out.println("Updating File " + propertyType.getIdShort() + " . . .");
         try {
-            getSubmodels().stream()
-                    .map(submodelElement -> (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType,
-                            submodelElementCollections))
-                    .flatMap(submodelElementCollection -> submodelElementCollection.getValue().stream())
+            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = submodelElementCollection != null ? submodelElementCollection.getValue() : getSubmodelOfType(submodelType).getSubmodelElements();
+            
+            subModelElements.stream()
                     .filter(element -> isFile(element, propertyType))
                     .map(element -> (File) element)
                     .forEach(property -> property.setValue(path));
@@ -154,28 +191,38 @@ public class EnvironmentService implements Environment {
             collectionQueue.offer(collection);
 
         SubmodelElementCollection submodelElement = null;
+        Submodel submodel = getSubmodelOfType(submodelType);
 
+        while (!collectionQueue.isEmpty()) {
+            Iterable<SubmodelElement> elements = collections.length == collectionQueue.size()
+                    ? submodel.getSubmodelElements()
+                    : submodelElement.getValue(); // bei erstem Element anderer Zugriff
+            for (SubmodelElement element : elements) {
+                if (!(element instanceof SubmodelElementCollection))
+                    continue;
+                if (isSubmodelElementCollection(collectionQueue, element)) {
+                    submodelElement = (SubmodelElementCollection) element;
+                    break;
+                }
+            }
+        }
+        return submodelElement;
+        
+    }
+
+    private Submodel getSubmodelOfType(SubmodelType submodelType) {
         for (Submodel submodel : getSubmodels()) {
             if (!isSubmodelTypeOf(submodel, submodelType))
                 continue;
-            while (!collectionQueue.isEmpty()) {
-                Iterable<SubmodelElement> elements = collections.length == collectionQueue.size()
-                        ? submodel.getSubmodelElements()
-                        : submodelElement.getValue(); // bei erstem Element anderer Zugriff
-                for (SubmodelElement element : elements) {
-                    if (!(element instanceof SubmodelElementCollection))
-                        continue;
-                    if (isSubmodelElementCollection(collectionQueue, element)) {
-                        submodelElement = (SubmodelElementCollection) element;
-                        break;
-                    }
-                }
-            }
-            return submodelElement;
+            return submodel;
         }
-
         return null;
+    }
 
+    private boolean isMultilanguageProperty(SubmodelElement submodelElement,
+            SubmodelElementPropertyType submodelElementPropertyType) {
+        return submodelElement instanceof MultiLanguageProperty
+                && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
 
     private boolean isProperty(SubmodelElement submodelElement,
@@ -193,7 +240,7 @@ public class EnvironmentService implements Environment {
     private boolean isSubmodelTypeOf(Submodel submodel, SubmodelType submodelType) throws IllegalArgumentException {
         if (submodel.getIdShort().equals(submodelType.getIdShort()))
             return true;
-        throw new IllegalArgumentException("Wrong submodel, submodel must contain CarbonFootprint!");
+        return false;
     }
 
     private boolean isSubmodelElementCollection(Queue<SubmodelElementCollectionType> collectionQueue,

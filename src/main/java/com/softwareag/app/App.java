@@ -4,15 +4,20 @@ import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.softwareag.app.controller.DataRepositoryController;
 import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
+import com.softwareag.app.data.DataType;
 
 
 @SpringBootApplication
 public class App {
 
+    public static DataRepositoryController dataRepositoryController;
+
     public static void main(String[] args) {
         
+        dataRepositoryController = new DataRepositoryController(DataType.JSON);
         SpringApplication.run(App.class, args);
 
         /*EnvironmentService envServ = new EnvironmentService(env);
