@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -13,4 +14,15 @@ body {
 /* Der Hauptbereich (main) wird flexibel und nimmt den verbleibenden Platz ein */
 main {
     flex: 1;
+}
+
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 600px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
 }

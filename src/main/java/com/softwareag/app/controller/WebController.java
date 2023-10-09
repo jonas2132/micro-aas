@@ -1,7 +1,10 @@
 package com.softwareag.app.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.junit.Before;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,11 @@ public class WebController {
 
     private DataRepository currentDataRepository;
     private DataType currenDataType;
+    private List<EnvironmentService> environmentServices = new ArrayList<>();
+    
+
+
+
 
     @GetMapping("/welcome")
     public String welcomeView(Model model) {
@@ -34,7 +42,18 @@ public class WebController {
 
     @GetMapping("/aas/overview")
     public String showOverview(Model model){
+        // set page name
         model.addAttribute("pageTitle", "AAS Overview");
+
+        //create one inital environmentService to display
+/*         currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
+        currenDataType = App.dataRepositoryController.getCurrentDataType();
+        EnvironmentService env =currentDataRepository.read("FullAASTemplate" + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
+        environmentServices.add(env);
+        System.out.println("CO2: " + env.getPropertyValue(SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.PCFCO2EQ , SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT)); */
+
+        model.addAttribute("environmentServices", environmentServices);
+        
         return "overview";
     }
 
@@ -108,7 +127,9 @@ public class WebController {
         envServ.updateProperty(YearOfConstruction, SubmodelType.NAMEPLATE, SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION);
         envServ.updateProperty(DateOfManufacture, SubmodelType.NAMEPLATE, SubmodelElementPropertyType.DATE_OF_MANUFACTURE); 
 
-        currentDataRepository.write(envServ, assetIDshort + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
+        environmentServices.add(envServ);
+
+        // currentDataRepository.write(envServ, assetIDshort + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
         return "redirect:/aas/overview";
     }
 

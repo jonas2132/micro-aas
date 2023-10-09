@@ -37,6 +37,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 //Decorator Pattern
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 
 import javax.naming.InvalidNameException;
@@ -127,7 +128,16 @@ public class EnvironmentService implements Environment {
         getAssetAdministrationShells().get(0).setIdShort(value);
     }
 
-    public void updateMultilanguageProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
+    public String getAssetID() {
+        return getAssetAdministrationShells().get(0).getId();
+    }
+
+    public String getAssetIDShort() {
+        return getAssetAdministrationShells().get(0).getIdShort();
+    }
+
+    public void updateMultilanguageProperty(String value, SubmodelType submodelType,
+            SubmodelElementPropertyType propertyType,
             SubmodelElementCollectionType... submodelElementCollections) {
         System.out.println("Updating MultilanguageProperty " + propertyType.getIdShort() + " . . .");
         try {
@@ -137,10 +147,13 @@ public class EnvironmentService implements Environment {
             stringTextType.setLanguage("de");
             stringTextType.setText(value);
             valueList.add(0, stringTextType);
-            
-            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType, submodelElementCollections);
-            Collection<SubmodelElement> subModelElements = submodelElementCollection != null ? submodelElementCollection.getValue() : getSubmodelOfType(submodelType).getSubmodelElements();
-            
+
+            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
+                    submodelType, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = submodelElementCollection != null
+                    ? submodelElementCollection.getValue()
+                    : getSubmodelOfType(submodelType).getSubmodelElements();
+
             subModelElements.stream()
                     .filter(element -> isMultilanguageProperty(element, propertyType))
                     .map(element -> (MultiLanguageProperty) element)
@@ -152,12 +165,49 @@ public class EnvironmentService implements Environment {
         // Filter ist wie eine Abfrage
     }
 
+    public String getPropertyValue(SubmodelType submodelType, SubmodelElementPropertyType propertyType,
+            SubmodelElementCollectionType... submodelElementCollections) {
+
+        System.out.println("Getting Property " + propertyType.getIdShort() + " . . .");
+        try {
+            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
+                    submodelType, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = submodelElementCollection != null
+                    ? submodelElementCollection.getValue()
+                    : getSubmodelOfType(submodelType).getSubmodelElements();
+
+            return subModelElements.stream()
+                    .filter(element -> isProperty(element, propertyType))
+                    .map(element -> ((Property) element).getValue())
+                    .findFirst()
+                    .map(Object::toString)
+                    .orElse("0");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+    }
+
+
+    // no final solution yet, but rn its not possible to call the enums on the frontend
+    public String getPCFCO2(){
+        return getPropertyValue(SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.PCFCO2EQ , SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+    }
+
+    public String getTCFCO2(){
+        return getPropertyValue(SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.TCFCO2EQ , SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+    }
+
     public void updateProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
             SubmodelElementCollectionType... submodelElementCollections) {
         System.out.println("Updating Property " + propertyType.getIdShort() + " . . .");
         try {
-            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType, submodelElementCollections);
-            Collection<SubmodelElement> subModelElements = submodelElementCollection != null ? submodelElementCollection.getValue() : getSubmodelOfType(submodelType).getSubmodelElements();
+            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
+                    submodelType, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = submodelElementCollection != null
+                    ? submodelElementCollection.getValue()
+                    : getSubmodelOfType(submodelType).getSubmodelElements();
 
             subModelElements.stream()
                     .filter(element -> isProperty(element, propertyType))
@@ -172,9 +222,12 @@ public class EnvironmentService implements Environment {
             SubmodelElementCollectionType... submodelElementCollections) {
         System.out.println("Updating File " + propertyType.getIdShort() + " . . .");
         try {
-            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(submodelType, submodelElementCollections);
-            Collection<SubmodelElement> subModelElements = submodelElementCollection != null ? submodelElementCollection.getValue() : getSubmodelOfType(submodelType).getSubmodelElements();
-            
+            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
+                    submodelType, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = submodelElementCollection != null
+                    ? submodelElementCollection.getValue()
+                    : getSubmodelOfType(submodelType).getSubmodelElements();
+
             subModelElements.stream()
                     .filter(element -> isFile(element, propertyType))
                     .map(element -> (File) element)
@@ -184,7 +237,8 @@ public class EnvironmentService implements Environment {
         }
     }
 
-    private SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelType submodelType, SubmodelElementCollectionType... collections) {
+    private SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelType submodelType,
+            SubmodelElementCollectionType... collections) {
 
         Queue<SubmodelElementCollectionType> collectionQueue = new LinkedList<>();
         for (SubmodelElementCollectionType collection : collections)
@@ -207,7 +261,7 @@ public class EnvironmentService implements Environment {
             }
         }
         return submodelElement;
-        
+
     }
 
     private Submodel getSubmodelOfType(SubmodelType submodelType) {
