@@ -76,7 +76,7 @@ public class AASXDataRepository implements DataRepository{
      */
     public  EnvironmentService read(String inputFilename) {
         File inputFile = new File(resourceDir + "/" + inputFilename);
-        System.out.println("Reading from the file: " + inputFile);
+        System.out.println("Reading from file: " + inputFile);
 
         try {
             InputStream in = new FileInputStream(inputFile);
@@ -126,7 +126,7 @@ public class AASXDataRepository implements DataRepository{
         try (OutputStream fileOutputStream = new FileOutputStream(outputFile)) {
             AASXSerializer serializer = new AASXSerializer();
             serializer.write(env.getEnvironmentInstance(), env.getFileList(), fileOutputStream);
-            System.out.println("Successfully wrote on Output file.");
+            System.out.println("Successfully wrote on output file (" + outputFilename +")");
         } catch (SerializationException | IOException e) {
             // Handle the exceptions here
             System.err.println("Failed to write on the output file.");

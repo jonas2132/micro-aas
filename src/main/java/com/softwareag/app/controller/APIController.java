@@ -20,7 +20,7 @@ public class APIController {
         CalculationFactory calcFactory = new CalculationFactory(CalculationMethod.ENERGY_CONSUMPTION_PRODUCTION_SITE);
 
         DataRepositoryController dataRepoController = new DataRepositoryController(DataType.JSON);
-        dataRepoController.processData(calcFactory.calculate(data), "CarbonFootprint_v.03");
+        dataRepoController.processData(calcFactory.calculate(data), "FullAASTemplate");
     }
 
 

@@ -1,9 +1,4 @@
-com\softwareag\app\co2\ProductionEmissions.class
-com\softwareag\app\co2\CO2Emission.class
-com\softwareag\app\co2\WasteRelatedEmissions.class
-com\softwareag\app\co2\CalculationFactory.class
+com\softwareag\app\controller\DataRepositoryController$1.class
+com\softwareag\app\service\CO2Calculation\CalculationFactory$1.class
 com\softwareag\app\utils\AASSimple.class
-com\softwareag\app\co2\EnergyConsumtionProductionSite.class
 com\softwareag\app\App.class
-com\softwareag\app\co2\MachineEnergyConsumption.class
-com\softwareag\app\controller\CO2InputController.class

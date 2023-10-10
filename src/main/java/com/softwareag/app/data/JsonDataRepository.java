@@ -67,8 +67,7 @@ public class JsonDataRepository implements DataRepository{
      */
     public EnvironmentService read(String inputFilename) {
         File inputFile = new File(resourceDir + "/" + inputFilename);
-
-        System.out.println("Reading from the file: " + inputFile);
+        System.out.println("Reading from file: " + inputFile);
 
         try {
             InputStream in = new FileInputStream(inputFile);
@@ -100,7 +99,7 @@ public class JsonDataRepository implements DataRepository{
         try {
             JsonSerializer serializer = new JsonSerializer();
             serializer.write(outputFile, env.getEnvironmentInstance());
-            System.out.println("Successfully wrote on Output file.");
+            System.out.println("Successfully wrote on output file (" + outputFilename +")");
         } catch (SerializationException | IOException e) {
             // Handle the exceptions here
             System.err.println("Failed to write on the output file.");
