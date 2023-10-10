@@ -50,6 +50,22 @@
             </tbody>
           </table>
         </div>
+        <!-- Add Button -->
+        <button class="btn btn-primary mt-auto" id="exportButton">Export the AAS</button>
+        <script>
+          // Get a reference to the button element by its ID
+          var button = document.getElementById("exportButton");
+
+          // Define a function that will be executed when the button is clicked
+          function buttonClickAction() {
+            // Perform an action, e.g., make an HTTP GET request to a specific URL
+            window.location.href = "/aas/export"; // Navigate to the specified URL
+          }
+
+          // Add a click event listener to the button element
+          button.addEventListener("click", buttonClickAction);
+        </script>
+
       </div>
     </div>
 
