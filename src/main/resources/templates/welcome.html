@@ -1,0 +1,23 @@
+<!-- template.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: head}"></head>
+
+<body>
+  <header th:replace="~{fragments/general :: header}"></header>
+  <main>
+    <div class="container h-100 py-3 d-flex flex-row justify-content-center align-items-center">
+      <form action="/aas/overview" method="GET">
+        <!-- Der Submit-Button löst den POST-Request aus -->
+        <input type="image" src="press_to_start.png" alt="Absenden" style="width: 300px; height: auto;">
+      </form>
+    </div>
+
+  </main>
+
+  <footer th:replace="~{fragments/general :: footer}"></footer>
+
+</body>
+
+</html>
