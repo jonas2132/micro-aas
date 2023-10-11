@@ -1,0 +1,67 @@
+<!-- template.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: head}"></head>
+
+<body>
+  <header th:replace="~{fragments/general :: header}"></header>
+  <main>
+    <div class="container h-100 py-3">
+      <div class="py-4 px-3 rounded-2 border shadow-sm bg-light h-100 d-flex flex-column">
+        <div class="table-toolbar mb-2 d-flex justify-content-end">
+          <!-- Add Button -->
+          <button class="btn btn-primary ml-auto" id="addButton">Add</button>
+          <script>
+            var button = document.getElementById("addButton");
+            function buttonClickAction() {
+              window.location.href = "/aas/form"; 
+            }
+            button.addEventListener("click", buttonClickAction);
+          </script>
+
+        </div>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">ID-short</th>
+                <th scope="col">PCF CO2eq</th>
+                <th scope="col">PCF CO2eq</th>
+                <th scope="col">Life Cycle Phase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Iterate through the list of EnvironmentService objects and display them in rows -->
+              <tr th:each="envService : ${environmentServices}">
+                <td th:text="${envService.getAssetID()}">Asset ID</td>
+                <td th:text="${envService.getAssetIDShort()}">Asset ID Short</td>
+                <td th:text="${envService.getPCFCO2()}">placeholder</td>
+                <td th:text="${envService.getTCFCO2()}">placeholder</td>
+                <td>placeholder</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Export Button -->
+        <button class="btn btn-primary mt-auto" id="exportButton">Export the AAS</button>
+        <script>
+          var button = document.getElementById("exportButton");
+          // The function that will be executed when the button is clicked
+          function buttonClickAction() {
+            window.location.href = "/aas/export";
+          }
+          button.addEventListener("click", buttonClickAction);
+        </script>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer th:replace="~{fragments/general :: footer}"></footer>
+
+</body>
+
+</html>
