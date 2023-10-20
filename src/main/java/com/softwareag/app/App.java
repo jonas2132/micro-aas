@@ -8,6 +8,9 @@ import com.softwareag.app.controller.DataRepositoryController;
 import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
+import com.softwareag.app.service.AASBuilder;
+import com.softwareag.app.service.EnvironmentService;
+import com.softwareag.app.utils.AASSimple;
 
 
 @SpringBootApplication
@@ -18,6 +21,10 @@ public class App {
     public static void main(String[] args) {
         
         dataRepositoryController = new DataRepositoryController(DataType.JSON);
+        Environment env = AASBuilder.createEnvironment();
+        dataRepositoryController.getCurrenDataRepository().write(new EnvironmentService(env), "test.json");
+
+        
         SpringApplication.run(App.class, args);
 
         /*EnvironmentService envServ = new EnvironmentService(env);

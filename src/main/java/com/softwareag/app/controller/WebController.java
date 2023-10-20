@@ -150,8 +150,8 @@ public class WebController {
         currenDataType = App.dataRepositoryController.getCurrentDataType();
         environmentServices.stream()
                 .forEach(envServ -> {
-                    String assetIDshort = envServ.getAssetIDShort();
-                    currentDataRepository.write(envServ, assetIDshort + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
+                        String assetIDshort = envServ.getAssetIDShort();
+                        currentDataRepository.write(envServ, assetIDshort + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
                 });
         return "redirect:/aas/overview";
     }

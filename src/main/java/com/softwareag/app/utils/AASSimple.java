@@ -183,7 +183,7 @@ public class AASSimple {
                                 .build())
                         .type(ReferenceTypes.EXTERNAL_REFERENCE)
                         .build())
-                .submodels(
+           /*     .submodels(
                         new DefaultReference.Builder()
                                 .keys(new DefaultKey.Builder()
                                         .type(KeyTypes.SUBMODEL)
@@ -198,7 +198,7 @@ public class AASSimple {
                                         .value(SUBMODEL_DOCUMENTATION_ID)
                                         .build())
                                 .type(ReferenceTypes.EXTERNAL_REFERENCE)
-                                .build())
+                                .build()) */
                 .build();
     }
 
@@ -450,8 +450,8 @@ public class AASSimple {
         return new DefaultEnvironment.Builder()
                 .assetAdministrationShells(createAAS())
                 .submodels(createSubmodelTechnicalData())
-                .submodels(createSubmodelDocumentation())
-                .submodels(createSubmodelOperationalData())
+             /*   .submodels(createSubmodelDocumentation())
+                .submodels(createSubmodelOperationalData()) */
                 .conceptDescriptions(createConceptDescriptionTitle())
                 .conceptDescriptions(createConceptDescriptionDigitalFile())
                 .conceptDescriptions(createConceptDescriptionMaxRotationSpeed())

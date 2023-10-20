@@ -55,6 +55,7 @@ import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringNameType;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringTextType;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel;
 
 import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
@@ -136,6 +137,29 @@ public class EnvironmentService implements Environment {
         return getAssetAdministrationShells().get(0).getIdShort();
     }
 
+    /*
+    private Submodel getSubmodelCopy(SubmodelType submodelType, String newId, String newIdShort) {
+        Submodel submodel = getSubmodelOfType(submodelType);
+        DefaultSubmodel submodelCopy = new DefaultSubmodel();
+
+        submodelCopy.setQualifiers(submodel.getQualifiers());
+        submodelCopy.setKind(submodel.getKind());
+        submodelCopy.setSemanticID(submodel.getSemanticID());
+        submodelCopy.setSupplementalSemanticIds(submodel.getSupplementalSemanticIds());
+        submodelCopy.setAdministration(submodel.getAdministration());
+        submodelCopy.setId(newId);
+        submodelCopy.setCategory(submodel.getCategory());
+        submodelCopy.setDescription(submodel.getDescription());
+        submodelCopy.setDisplayName(submodel.getDisplayName());
+        submodelCopy.setIdShort(newIdShort);
+        submodelCopy.setExtensions(submodel.getExtensions());
+        submodelCopy.setEmbeddedDataSpecifications(submodel.getEmbeddedDataSpecifications());
+        submodelCopy.setSubmodelElements(submodel.getSubmodelElements());
+
+        return submodelCopy;
+    } */
+
+
     public void updateMultilanguageProperty(String value, SubmodelType submodelType,
             SubmodelElementPropertyType propertyType,
             SubmodelElementCollectionType... submodelElementCollections) {
@@ -148,11 +172,7 @@ public class EnvironmentService implements Environment {
             stringTextType.setText(value);
             valueList.add(0, stringTextType);
 
-            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
-                    submodelType, submodelElementCollections);
-            Collection<SubmodelElement> subModelElements = submodelElementCollection != null
-                    ? submodelElementCollection.getValue()
-                    : getSubmodelOfType(submodelType).getSubmodelElements();
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelType, submodelElementCollections);
 
             subModelElements.stream()
                     .filter(element -> isMultilanguageProperty(element, propertyType))
@@ -165,16 +185,45 @@ public class EnvironmentService implements Environment {
         // Filter ist wie eine Abfrage
     }
 
+    public void updateProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
+            SubmodelElementCollectionType... submodelElementCollections) {
+        System.out.println("Updating Property " + propertyType.getIdShort() + " . . .");
+        try {
+
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelType, submodelElementCollections);
+
+            subModelElements.stream()
+                    .filter(element -> isProperty(element, propertyType))
+                    .map(element -> (Property) element)
+                    .forEach(property -> property.setValue(value));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void updateFile(String path, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
+            SubmodelElementCollectionType... submodelElementCollections) {
+        System.out.println("Updating File " + propertyType.getIdShort() + " . . .");
+        try {
+
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelType, submodelElementCollections);
+
+            subModelElements.stream()
+                    .filter(element -> isFile(element, propertyType))
+                    .map(element -> (File) element)
+                    .forEach(property -> property.setValue(path));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public String getPropertyValue(SubmodelType submodelType, SubmodelElementPropertyType propertyType,
             SubmodelElementCollectionType... submodelElementCollections) {
 
-        System.out.println("Getting Property " + propertyType.getIdShort() + " . . .");
+        System.out.println("Reading Property " + propertyType.getIdShort() + " . . .");
         try {
-            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
-                    submodelType, submodelElementCollections);
-            Collection<SubmodelElement> subModelElements = submodelElementCollection != null
-                    ? submodelElementCollection.getValue()
-                    : getSubmodelOfType(submodelType).getSubmodelElements();
+            
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelType, submodelElementCollections);
 
             return subModelElements.stream()
                     .filter(element -> isProperty(element, propertyType))
@@ -198,43 +247,17 @@ public class EnvironmentService implements Environment {
     public String getTCFCO2(){
         return getPropertyValue(SubmodelType.CARBON_FOOTPRINT, SubmodelElementPropertyType.TCFCO2EQ , SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
     }
+    //
 
-    public void updateProperty(String value, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
-            SubmodelElementCollectionType... submodelElementCollections) {
-        System.out.println("Updating Property " + propertyType.getIdShort() + " . . .");
-        try {
-            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
+    private Collection<SubmodelElement> getSubmodelElements(SubmodelType submodelType, SubmodelElementCollectionType... submodelElementCollections) {
+
+        SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
                     submodelType, submodelElementCollections);
-            Collection<SubmodelElement> subModelElements = submodelElementCollection != null
-                    ? submodelElementCollection.getValue()
-                    : getSubmodelOfType(submodelType).getSubmodelElements();
+        Collection<SubmodelElement> subModelElements = submodelElementCollection != null
+                ? submodelElementCollection.getValue()
+                : getSubmodelOfType(submodelType).getSubmodelElements();
+        return subModelElements;
 
-            subModelElements.stream()
-                    .filter(element -> isProperty(element, propertyType))
-                    .map(element -> (Property) element)
-                    .forEach(property -> property.setValue(value));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void updateFile(String path, SubmodelType submodelType, SubmodelElementPropertyType propertyType,
-            SubmodelElementCollectionType... submodelElementCollections) {
-        System.out.println("Updating File " + propertyType.getIdShort() + " . . .");
-        try {
-            SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
-                    submodelType, submodelElementCollections);
-            Collection<SubmodelElement> subModelElements = submodelElementCollection != null
-                    ? submodelElementCollection.getValue()
-                    : getSubmodelOfType(submodelType).getSubmodelElements();
-
-            subModelElements.stream()
-                    .filter(element -> isFile(element, propertyType))
-                    .map(element -> (File) element)
-                    .forEach(property -> property.setValue(path));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     private SubmodelElementCollection getCertainSubmodelElementCollection(SubmodelType submodelType,

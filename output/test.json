@@ -1,0 +1,236 @@
+{
+  "assetAdministrationShells" : [ {
+    "modelType" : "AssetAdministrationShell",
+    "assetInformation" : {
+      "assetKind" : "NotApplicable",
+      "globalAssetId" : "HTTP://SOFTWARE.AG.COM/351SDSG31SG3541S"
+    },
+    "submodels" : [ {
+      "keys" : [ {
+        "type" : "Submodel",
+        "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
+      } ],
+      "type" : "ExternalReference"
+    } ],
+    "id" : "testId",
+    "idShort" : "testIdshort"
+  } ],
+  "conceptDescriptions" : [ {
+    "modelType" : "ConceptDescription",
+    "id" : "http://www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Description/Title",
+    "idShort" : "Title",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/aas/3/0/RC02/DataSpecificationIEC61360"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "dataType" : "STRING_TRANSLATABLE",
+        "definition" : [ {
+          "language" : "EN",
+          "text" : "SprachabhängigerTiteldesDokuments."
+        } ],
+        "shortName" : [ {
+          "language" : "EN",
+          "text" : "Title"
+        }, {
+          "language" : "DE",
+          "text" : "Titel"
+        } ],
+        "sourceOfDefinition" : "ExampleString",
+        "unit" : "ExampleString",
+        "preferredName" : [ {
+          "language" : "EN",
+          "text" : "Title"
+        }, {
+          "language" : "DE",
+          "text" : "Titel"
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "http://www.vdi2770.com/blatt1/Entwurf/Okt18/cd/StoredDocumentRepresentation/DigitalFile",
+    "idShort" : "DigitalFile",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/aas/3/0/RC02/DataSpecificationIEC61360"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "dataType" : "STRING",
+        "definition" : [ {
+          "language" : "EN",
+          "text" : "A file representing the document version. In addition to the mandatory PDF file, other files can be specified."
+        } ],
+        "shortName" : [ {
+          "language" : "EN",
+          "text" : "DigitalFile"
+        }, {
+          "language" : "DE",
+          "text" : "DigitaleDatei"
+        } ],
+        "sourceOfDefinition" : "ExampleString",
+        "unit" : "ExampleString",
+        "preferredName" : [ {
+          "language" : "EN",
+          "text" : "DigitalFile"
+        }, {
+          "language" : "EN",
+          "text" : "DigitalFile"
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "administration" : {
+      "revision" : "1",
+      "version" : "2"
+    },
+    "id" : "0173-1#02-BAA120#008",
+    "category" : "PROPERTY",
+    "idShort" : "MaxRotationSpeed",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/aas/3/0/RC02/DataSpecificationIEC61360"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "dataType" : "REAL_MEASURE",
+        "definition" : [ {
+          "language" : "de",
+          "text" : "HöchstezulässigeDrehzahl,mitwelcherderMotoroderdieSpeiseinheitbetriebenwerdendarf"
+        }, {
+          "language" : "EN",
+          "text" : "Greatestpermissiblerotationspeedwithwhichthemotororfeedingunitmaybeoperated"
+        } ],
+        "sourceOfDefinition" : "ExampleString",
+        "unit" : "1/min",
+        "preferredName" : [ {
+          "language" : "de",
+          "text" : "max.Drehzahl"
+        }, {
+          "language" : "en",
+          "text" : "Max.rotationspeed"
+        } ],
+        "unitId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#05-AAA650#002"
+          } ],
+          "type" : "ExternalReference"
+        }
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "http://customer.com/cd/1/1/18EBD56F6B43D895",
+    "category" : "PROPERTY",
+    "idShort" : "RotationSpeed",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/aas/3/0/RC02/DataSpecificationIEC61360"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "dataType" : "REAL_MEASURE",
+        "definition" : [ {
+          "language" : "DE",
+          "text" : "Aktuelle Drehzahl, mitwelcher der Motor oder die Speiseinheit betrieben wird"
+        }, {
+          "language" : "EN",
+          "text" : "Actual rotationspeed with which the motor or feedingunit is operated"
+        } ],
+        "shortName" : [ {
+          "language" : "DE",
+          "text" : "AktuelleDrehzahl"
+        }, {
+          "language" : "EN",
+          "text" : "ActRotationSpeed"
+        } ],
+        "sourceOfDefinition" : "ExampleString",
+        "unit" : "1/min",
+        "preferredName" : [ {
+          "language" : "DE",
+          "text" : "AktuelleDrehzahl"
+        }, {
+          "language" : "EN",
+          "text" : "Actualrotationspeed"
+        } ],
+        "unitId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#05-AAA650#002"
+          } ],
+          "type" : "ExternalReference"
+        }
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "http://www.vdi2770.com/blatt1/Entwurf/Okt18/cd/Document",
+    "idShort" : "Document",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/aas/3/0/RC02/DataSpecificationIEC61360"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "dataType" : "STRING",
+        "definition" : [ {
+          "language" : "EN",
+          "text" : "Feste und geordnete Menge von für die Verwendung durch Personen bestimmte Informationen, die verwaltet und als Einheit zwischen Benutzern und System ausgetauscht werden kann."
+        } ],
+        "shortName" : [ {
+          "language" : "EN",
+          "text" : "Document"
+        }, {
+          "language" : "DE",
+          "text" : "Dokument"
+        } ],
+        "sourceOfDefinition" : "[ISO15519-1:2010]",
+        "unit" : "ExampleString",
+        "preferredName" : [ {
+          "language" : "EN",
+          "text" : "Document"
+        } ]
+      }
+    } ]
+  } ],
+  "submodels" : [ {
+    "modelType" : "Submodel",
+    "id" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0",
+    "idShort" : "CarbonFootprint",
+    "semanticId" : {
+      "keys" : [ {
+        "type" : "GlobalReference",
+        "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
+      } ],
+      "type" : "ExternalReference"
+    },
+    "description" : [ {
+      "language" : "en",
+      "text" : "The Submodel provides the means to access the Carbon Footprint of the asset."
+    } ]
+  } ]
+}
