@@ -21,8 +21,9 @@ public class App {
     public static void main(String[] args) {
         
         dataRepositoryController = new DataRepositoryController(DataType.JSON);
-        Environment env = AASBuilder.createEnvironment();
-        dataRepositoryController.getCurrenDataRepository().write(new EnvironmentService(env), "test.json");
+        Environment environment = AASBuilder.createCopy(dataRepositoryController.getCurrenDataRepository().read("FullAASTemplate.json"));
+    //    Environment env = AASBuilder.createEnvironment();
+        dataRepositoryController.getCurrenDataRepository().write(new EnvironmentService(environment), "test.json");
 
         
         SpringApplication.run(App.class, args);
