@@ -6,9 +6,8 @@
 
 <body>
   <header th:replace="~{fragments/general :: header}"></header>
-  <main class="container py-3">
-    <div class="py-4 px-3 rounded-2 border shadow-sm bg-light h-100 d-flex justify-content-center">
-      <div class="col-md-8 order-md-1">
+  <main class="container d-flex flex-column h-100 py-3">
+    <div class="rounded-2 border shadow-sm bg-light flex-fill px-5 py-4">
         <h4 class="mb-3">AAS Configurator</h4>
         Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and Carbon Footprint. Add all relevant
         informations and submit save.
@@ -295,7 +294,6 @@
           <hr class="my-5">
           <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
         </form>
-      </div>
     </div>
 
   </main>
