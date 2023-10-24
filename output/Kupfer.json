@@ -24,8 +24,8 @@
       } ],
       "type" : "ModelReference"
     } ],
-    "id" : "https://example.company.de/id/1234/ExampleAsset",
-    "idShort" : "ExampleAsset"
+    "id" : "https://example.company.de/id/1234/Kupfer",
+    "idShort" : "Kupfer"
   } ],
   "conceptDescriptions" : [ {
     "modelType" : "ConceptDescription",
@@ -82,7 +82,7 @@
       "idShort" : "ProductCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU222#001",
+        "value" : "0173-1#07-ABV505#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -104,7 +104,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "200.0",
+        "value" : "123.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -148,7 +148,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "10.0",
+        "value" : "123.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -170,7 +170,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU209#001",
+        "value" : "0173-1#07-ABU210#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -386,7 +386,7 @@
       "idShort" : "TransportCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABV505#001",
+        "value" : "0173-1#07-ABU221#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -408,7 +408,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "500.0",
+        "value" : "123.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -452,7 +452,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "10",
+        "value" : "123",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1038,7 +1038,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "1231523",
+        "value" : "123",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1656,7 +1656,7 @@
     "idShort" : "Nameplate",
     "submodelElements" : [ {
       "modelType" : "Property",
-      "value" : "https://example.company.de/id/1234",
+      "value" : "https://example.company.de/id/Kupfer",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2511,7 +2511,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "456456.0",
+      "value" : "1231.0",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2532,7 +2532,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "20323",
+      "value" : "13",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2553,7 +2553,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2023-10-05",
+      "value" : "123",
       "valueType" : "xs:date",
       "qualifiers" : [ {
         "type" : "Multiplicity",

@@ -24,8 +24,8 @@
       } ],
       "type" : "ModelReference"
     } ],
-    "id" : "https://example.company.de/id/1234/ExampleAsset2",
-    "idShort" : "ExampleAsset2"
+    "id" : "https://example.company.de/id/1234/Eisenerz",
+    "idShort" : "Eisenerz"
   } ],
   "conceptDescriptions" : [ {
     "modelType" : "ConceptDescription",
@@ -82,7 +82,7 @@
       "idShort" : "ProductCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU221#001",
+        "value" : "0173-1#07-ABU222#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -104,7 +104,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "1212.0",
+        "value" : "232.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -148,7 +148,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "121.0",
+        "value" : "2323.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -170,7 +170,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU209#001",
+        "value" : "0173-1#07-ABU211#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -386,7 +386,7 @@
       "idShort" : "TransportCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU221#001",
+        "value" : "0173-1#07-ABU223#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -408,7 +408,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "1000.0",
+        "value" : "2323.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -452,7 +452,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "20",
+        "value" : "23",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1038,7 +1038,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "1231523",
+        "value" : "2323",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1656,7 +1656,7 @@
     "idShort" : "Nameplate",
     "submodelElements" : [ {
       "modelType" : "Property",
-      "value" : "https://example.company.de/id/12342453234",
+      "value" : "https://example.company.de/id/1234",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -1692,7 +1692,7 @@
       },
       "value" : [ {
         "language" : "de",
-        "text" : "Example Company2"
+        "text" : "Example Company"
       } ],
       "description" : [ {
         "language" : "en",
@@ -2511,7 +2511,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "456456.0",
+      "value" : "123123.0",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2532,7 +2532,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "20323",
+      "value" : "12323",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2553,7 +2553,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2023-10-05",
+      "value" : "2323",
       "valueType" : "xs:date",
       "qualifiers" : [ {
         "type" : "Multiplicity",

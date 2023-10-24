@@ -135,11 +135,15 @@ public class WebController {
                 return "redirect:/aas/overview";
         }
 
-        @GetMapping("/aas/export")
-        public String exportAAS() {
+        @PostMapping("/aas/export")
+        public String exportAAS(@RequestParam("selectedItems") List<String> selectedItems, @RequestParam("exportFormat") String exportFormat) {
+                System.out.println(selectedItems);
+                System.out.println(exportFormat);
+
                 currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
                 currenDataType = App.dataRepositoryController.getCurrentDataType();
                 environmentServices.stream()
+                                .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
                                 .forEach(envServ -> {
                                         String assetIDshort = envServ.getAssetIDShort();
                                         currentDataRepository.write(envServ, assetIDshort
