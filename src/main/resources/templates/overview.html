@@ -14,49 +14,60 @@
     </div> -->
     <div class="rounded-2 border shadow-sm bg-light flex-fill px-5 py-4 d-flex flex-column">
       <!--Table structure-->
-      <div class="d-flex flex-column flex-fill">
-        <!--Table header-->
-        <div class="d-flex justify-content-end mb-2">
-          <button class="btn btn-primary ml-auto" id="addButton">Add</button>
-          <script>
-            var button = document.getElementById("addButton");
-            function buttonClickAction() {
-              window.location.href = "/aas/form";
-            }
-            button.addEventListener("click", buttonClickAction);
-          </script>
-        </div>
-        <!--Table body-->
-        <div class="flex-fill">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">ID-short</th>
-                <th scope="col">PCF CO2eq</th>
-                <th scope="col">PCF CO2eq</th>
-                <th scope="col">Life Cycle Phase</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Iterate through the list of EnvironmentService objects and display them in rows -->
-              <tr th:each="envService : ${environmentServices}">
-                <td th:text="${envService.getAssetID()}">Asset ID</td>
-                <td th:text="${envService.getAssetIDShort()}">Asset ID Short</td>
-                <td th:text="${envService.getPCFCO2()}">placeholder</td>
-                <td th:text="${envService.getTCFCO2()}">placeholder</td>
-                <td>placeholder</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!--Table Export Button-->
-        <div class="row mt-2 mx-0">
-          <button class="col-10 btn btn-primary" id="exportButton">Export the AAS</button>
-          <div class=" col-2 bg-info">Test</div>
-        </div>
+      <!--Table header-->
+      <div class="d-flex justify-content-end mb-2">
+        <button class="btn btn-primary ml-auto" id="addButton">Add</button>
+        <script>
+          var button = document.getElementById("addButton");
+          function buttonClickAction() {
+            window.location.href = "/aas/form";
+          }
+          button.addEventListener("click", buttonClickAction);
+        </script>
       </div>
+
+      <form action="/aas/export" method="post" class="d-flex flex-column flex-fill">
+          <!--Table body-->
+
+          <div class="flex-fill">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Select</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">ID-short</th>
+                  <th scope="col">PCF CO2eq</th>
+                  <th scope="col">PCF CO2eq</th>
+                  <th scope="col">Life Cycle Phase</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Iterate through the list of EnvironmentService objects and display them in rows -->
+                <tr th:each="envService : ${environmentServices}">
+                  <td>
+                    <input type="checkbox" name="selectedItems" th:value="${envService.getAssetID()}">
+                  </td>
+                  <td th:text="${envService.getAssetID()}">Asset ID</td>
+                  <td th:text="${envService.getAssetIDShort()}">Asset ID Short</td>
+                  <td th:text="${envService.getPCFCO2()}">placeholder</td>
+                  <td th:text="${envService.getTCFCO2()}">placeholder</td>
+                  <td>placeholder</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--Table Export Button-->
+          <div class="row mt-2 mx-0">
+            <button type="submit" class="col-10 btn btn-primary" id="exportButton">Export the AAS ass ...</button>
+            <div class="col-2 px-1">
+              <select class="form-control" id="exportFormat" name="exportFormat">
+                <option value="json">JSON</option>
+                <option value="aasx">AASX</option>
+              </select>
+            </div>
+
+          </div>
+      </form>
 
     </div>
   </main>

@@ -6,14 +6,16 @@
 
 <body>
   <header th:replace="~{fragments/general :: header}"></header>
-  <main class="container d-flex flex-column h-100 py-3">
-    <div class="rounded-2 border shadow-sm bg-light flex-fill px-5 py-4">
-        <h4 class="mb-3">AAS Configurator</h4>
-        Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and Carbon Footprint. Add all relevant
-        informations and submit save.
+  <main class="container d-flex flex-column py-3">
+    <div class="rounded-2 border shadow-sm bg-light flex-fill px-5 py-4 d-flex flex-column">
+      <h4 class="mb-3">AAS Configurator</h4>
+      Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and
+      Carbon Footprint. Add all relevant
+      informations and submit save.
 
-        <hr class="mb-4">
-        <form class="needs-validation" method="post" action="/aas/submission">
+      <hr class="mb-4">
+      <form class="needs-validation flex-fill d-flex flex-column" method="post" action="/aas/submission">
+        <div class="flex-fill">
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="assetIDshort">Asset ID short</label>
@@ -32,7 +34,6 @@
               </div>
             </div>
           </div>
-
           <div class="accordion mt-4" id="accordionExample">
             <!--Expandable div for the submodel Nameplate -->
             <div class="accordion-item">
@@ -284,16 +285,12 @@
               </div>
             </div>
           </div>
-
-
-
-
-
-
-
           <hr class="my-5">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
-        </form>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary btn-lg align-self-end align-self-bottom" type="submit">Save</button>
+        </div>
+      </form>
     </div>
 
   </main>
