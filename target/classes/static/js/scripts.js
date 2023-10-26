@@ -10,7 +10,7 @@ $(document).ready(function () {
         var newAccordionItem = `
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingCarbonFootprint${carbonFootprintCounter}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button id="CarbonFootprintButton" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseCarbonFootprint${carbonFootprintCounter}" aria-expanded="false"
                 aria-controls="collapseCarbonFootprint${carbonFootprintCounter}">
                 Carbon Footprint${carbonFootprintCounter}
@@ -19,9 +19,17 @@ $(document).ready(function () {
         <div id="collapseCarbonFootprint${carbonFootprintCounter}" class="accordion-collapse collapse"
             aria-labelledby="headingCarbonFootprint${carbonFootprintCounter}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-
+            <div class="mb-3">
+            <label for="assetIDshortSubmodel">Asset ID short</label>
+            <input name="assetIDshortSubmodel" type="text" class="form-control" id="assetIDshortSubmodel" placeholder="Asset name of the Submodel"
+              value="" required="">
+            <div class="invalid-feedback">
+              Valid short asset ID is required.
+            </div>
+          </div>
                 <h5 class="mt-5">Product Carbon Footprint</h5>
                 <hr class="mb-4">
+                
                     <div class="mb-3">
                         <label for="PCFCalculationMethod">Calculation Method</label>
                         <select name="PCFCalculationMethod" class="form-select d-block w-100" id="PCFCalculationMethod"
@@ -171,5 +179,21 @@ $(document).ready(function () {
 
         // Append the new accordion item to the accordion container
         $(".accordion").append(newAccordionItem);
+
+        // Add a class to the new Carbon Footprint item for easier selection
+        var newCarbonFootprintItem = $(`.accordion-item:nth-last-child(1)`);
+        newCarbonFootprintItem.addClass(`carbon-footprint-item-${carbonFootprintCounter}`);
+
+        // Get the input field for this Carbon Footprint item
+        var assetIDshortSubmodelInput = $(`.carbon-footprint-item-${carbonFootprintCounter} input[name="assetIDshortSubmodel"]`);
+        var accordionButton = $(`.carbon-footprint-item-${carbonFootprintCounter} button`);
+
+        // Add an input event listener to update the Nameplate Accordion Button
+        assetIDshortSubmodelInput.on("input", function () {
+            var inputValue = assetIDshortSubmodelInput.val();
+            accordionButton.text(`Carbon Footprint${carbonFootprintCounter} - ${inputValue}`);
+        });
     });
 });
+
+
