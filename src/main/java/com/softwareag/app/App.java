@@ -1,12 +1,9 @@
 package com.softwareag.app;
 
-import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.softwareag.app.controller.DataRepositoryController;
-import com.softwareag.app.data.AASXDataRepository;
-import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
 
 
