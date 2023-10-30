@@ -21,9 +21,12 @@ public class App {
     public static void main(String[] args) {
         
         dataRepositoryController = new DataRepositoryController(DataType.JSON);
-        Environment environment = AASBuilder.createCopy(dataRepositoryController.getCurrenDataRepository().read("FullAASTemplate.json"));
-    //    Environment env = AASBuilder.createEnvironment();
-        dataRepositoryController.getCurrenDataRepository().write(new EnvironmentService(environment), "test.json");
+        EnvironmentService envService = dataRepositoryController.getCurrenDataRepository().read("FullAASTemplate.json");
+
+        envService.duplicateSubmodel("CarbonFootprint", "Carbon_2");
+        envService.addCustomReferenceProperty("Carbon_2");
+        
+        dataRepositoryController.getCurrenDataRepository().write(envService, "test.json");
 
         
         SpringApplication.run(App.class, args);
