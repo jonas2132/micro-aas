@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html,
 body {
     height: 100%;
@@ -25,4 +26,33 @@ main {
 
 .table-wrapper-scroll-y {
     display: block;
+=======
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Verwenden Sie Flexbox, um die Seitenhöhe anzupassen */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Der Hauptbereich (main) wird flexibel und nimmt den verbleibenden Platz ein */
+main {
+    flex: 1;
+}
+
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 600px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+>>>>>>> 85f1ee0444d181271c172aa85c5ff8a9e62409d5
 }
