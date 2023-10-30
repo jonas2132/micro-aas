@@ -60,85 +60,37 @@ public class WebController {
                         // @RequestParam("ProductImage") File ProductImage,
 
                         // Parameter Carbon Footprint
-                        @RequestParam("PCFCalculationMethod") String PCFCalculationMethod,
-                        @RequestParam("PCFCO2eq") double PCFCO2eq,
-                        @RequestParam("PCFQuantityOfMeasureForCalculation") double PCFQuantityOfMeasureForCalculation,
-                        @RequestParam("PCFLiveCyclePhase") String PCFLiveCyclePhase,
+                        @RequestParam("PCFCalculationMethod") String[] PCFCalculationMethod,
+                        @RequestParam("PCFCO2eq") double[] PCFCO2eq,
+                        @RequestParam("PCFQuantityOfMeasureForCalculation") double[] PCFQuantityOfMeasureForCalculation,
+                        @RequestParam("PCFLiveCyclePhase") String[] PCFLiveCyclePhase,
 
-                        @RequestParam("TCFCalculationMethod") String TCFCalculationMethod,
-                        @RequestParam("TCFCO2eq") double TCFCO2eq,
-                        @RequestParam("TCFReferenceValueForCalculation") String TCFReferenceValueForCalculation,
-                        @RequestParam("TCFQuantityOfMeasureForCalculation") String TCFQuantityOfMeasureForCalculation) {
-                currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
-                currenDataType = App.dataRepositoryController.getCurrentDataType();
+                        @RequestParam("TCFCalculationMethod") String[] TCFCalculationMethod,
+                        @RequestParam("TCFCO2eq") double[] TCFCO2eq,
+                        @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
+                        @RequestParam("TCFQuantityOfMeasureForCalculation") String[] TCFQuantityOfMeasureForCalculation) {
 
-                EnvironmentService envServ = currentDataRepository
-                                .read("FullAASTemplate" + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
-
-                envServ.updateAssetIDShort(assetIDshort);
-                envServ.updateAssetID(assetID);
-
-        /* Product Carbon Footprint */
-        envServ.updateProperty(PCFCalculationMethod, "CarbonFootprint",
-                SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
-                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
-        envServ.updateProperty(Double.toString(PCFCO2eq), "CarbonFootprint",
-                SubmodelElementPropertyType.PCFCO2EQ, SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
-        envServ.updateProperty(Double.toString(PCFQuantityOfMeasureForCalculation), "CarbonFootprint",
-                SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
-                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
-        envServ.updateProperty(PCFLiveCyclePhase, "CarbonFootprint",
-                SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
-                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
-
-        /* Transport Carbon Footprint */
-        envServ.updateProperty(TCFCalculationMethod, "CarbonFootprint",
-                SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
-                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
-        envServ.updateProperty(Double.toString(TCFCO2eq), "CarbonFootprint",
-                SubmodelElementPropertyType.TCFCO2EQ, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
-        envServ.updateProperty(TCFReferenceValueForCalculation, "CarbonFootprint",
-                SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION,
-                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
-        envServ.updateProperty(TCFQuantityOfMeasureForCalculation, "CarbonFootprint",
-                SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
-                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
-
-        /* Technical Data */
-        envServ.updateProperty(ManufacturerOrderCode, "TechnicalData",
-                SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, SubmodelElementCollectionType.GENERAL_INFORMATION);
-        // envServ.updateFile(ManufacturerLogo.getPath(), "TechnicalData",
-        // SubmodelElementPropertyType.MANUFACTURER_LOGO,
-        // SubmodelElementCollectionType.GENERAL_INFORMATION);
-        // envServ.updateFile(ProductImage.getPath(), "TechnicalData",
-        // SubmodelElementPropertyType.PRODUCT_IMAGE,
-        // SubmodelElementCollectionType.GENERAL_INFORMATION);
-
-        /* Nameplate */
-        envServ.updateProperty(URIOfTheProduct, "Nameplate", SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
-        envServ.updateMultilanguageProperty(ManufacturerName, "Nameplate",
-                SubmodelElementPropertyType.MANUFACTURER_NAME);
-        envServ.updateProperty(Double.toString(SerialNumber), "Nameplate",
-                SubmodelElementPropertyType.SERIAL_NUMBER);
-        envServ.updateProperty(YearOfConstruction, "Nameplate",
-                SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION);
-        envServ.updateProperty(DateOfManufacture, "Nameplate",
-                SubmodelElementPropertyType.DATE_OF_MANUFACTURE);
-
-                environmentServices.add(envServ);
+                        for(String method: PCFCalculationMethod){
+                                System.out.println(method);
+                        }        
                 return "redirect:/aas/overview";
         }
 
-    @GetMapping("/aas/export")
-    public String exportAAS() {
-        currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
-        currenDataType = App.dataRepositoryController.getCurrentDataType();
-        environmentServices.stream()
-                .forEach(envServ -> {
-                        String assetIDshort = envServ.getAssetIDShort();
-                        currentDataRepository.write(envServ, assetIDshort + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
-                });
-        return "redirect:/aas/overview";
-    }
+        @PostMapping("/aas/export")
+        public String exportAAS(@RequestParam("selectedItems") List<String> selectedItems, @RequestParam("exportFormat") String exportFormat) {
+                System.out.println(selectedItems);
+                System.out.println(exportFormat);
+
+                currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
+                currenDataType = App.dataRepositoryController.getCurrentDataType();
+                environmentServices.stream()
+                                .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
+                                .forEach(envServ -> {
+                                        String assetIDshort = envServ.getAssetIDShort();
+                                        currentDataRepository.write(envServ, assetIDshort
+                                                        + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
+                                });
+                return "redirect:/aas/overview";
+        }
 
 }

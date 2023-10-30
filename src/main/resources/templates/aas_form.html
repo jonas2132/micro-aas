@@ -6,15 +6,16 @@
 
 <body>
   <header th:replace="~{fragments/general :: header}"></header>
-  <main class="container py-3">
-    <div class="py-4 px-3 rounded-2 border shadow-sm bg-light h-100 d-flex justify-content-center">
-      <div class="col-md-8 order-md-1">
-        <h4 class="mb-3">AAS Configurator</h4>
-        Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and Carbon Footprint. Add all relevant
-        informations and submit save.
+  <main class="container d-flex flex-column py-3">
+    <div class="rounded-2 border shadow-sm bg-light flex-fill px-5 py-4 d-flex flex-column">
+      <h4 class="mb-3">AAS Configurator</h4>
+      Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and
+      Carbon Footprint. Add all relevant
+      informations and submit save.
 
-        <hr class="mb-4">
-        <form class="needs-validation" method="post" action="/aas/submission">
+      <hr class="mb-4">
+      <form id="submodel-form" class="needs-validation flex-fill d-flex flex-column" method="post" action="/aas/submission">
+        <div class="flex-fill">
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="assetIDshort">Asset ID short</label>
@@ -33,12 +34,11 @@
               </div>
             </div>
           </div>
-
           <div class="accordion mt-4" id="accordionExample">
             <!--Expandable div for the submodel Nameplate -->
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingNameplate">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                <button id="nameplateButton"class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseNameplate" aria-expanded="false" aria-controls="collapseNameplate">
                   Nameplate
                 </button>
@@ -92,7 +92,7 @@
                 </div>
               </div>
             </div>
-            <!--Expandable div for the submodel Carbon Technical Data -->
+            <!--Expandable div for the submodel Technical Data -->
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTechnicalData">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -127,7 +127,7 @@
             <!--Expandable div for the submodel Carbon Footprint -->
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingCarbonFootprint">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                <button id="carbon-footprint-button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseCarbonFootprint" aria-expanded="false"
                   aria-controls="collapseCarbonFootprint">
                   Carbon Footprint
@@ -141,7 +141,7 @@
                   <hr class="mb-4">
                   <div class="mb-3">
                     <label for="PCFCalculationMethod">Calculation Method</label>
-                    <select name="PCFCalculationMethod" class="custom-select d-block w-100" id="PCFCalculationMethod"
+                    <select name="PCFCalculationMethod" class="form-select d-block w-100" id="PCFCalculationMethod"
                       required="">
                       <option value="">Choose...</option>
                       <option value="0173-1#07-ABU223#001">EN 15804</option>
@@ -170,9 +170,9 @@
                       <input name="PCFQuantityOfMeasureForCalculation" type="number" class="form-control"
                         id="PCFQuantityOfMeasureForCalculation" placeholder="0" min="0">
                     </div>
-                    <div class="col-3 mb-3">
+                    <div class="col-2 mb-3">
                       <label for="PCFReferenceValueForCalculation">Reference Value</label>
-                      <select name="PCFReferenceValueForCalculation" class="custom-select d-block"
+                      <select name="PCFReferenceValueForCalculation" class="form-select custom-select d-block"
                         id="PCFReferenceValueForCalculation" required="">
                         <option value="">Choose...</option>
                         <option value="0173-1#07-ABZ596#001">g</option>
@@ -197,7 +197,7 @@
 
                   <div class="mb-3">
                     <label for="PCFLiveCyclePhase">Live Cycle Phase of the Product</label>
-                    <select name="PCFLiveCyclePhase" class="custom-select d-block w-100" id="PCFLiveCyclePhase"
+                    <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase"
                       required="">
                       <option value="">Choose...</option>
                       <option value="0173-1#07-ABU208#001">A1 – raw material supply (and upstream production)</option>
@@ -231,7 +231,7 @@
 
                   <div class="mb-3">
                     <label for="TCFCalculationMethod">Calculation Method</label>
-                    <select name="TCFCalculationMethod" class="custom-select d-block w-100" id="TCFCalculationMethod"
+                    <select name="TCFCalculationMethod" class="form-select d-block w-100" id="TCFCalculationMethod"
                       required="">
                       <option value="">Choose...</option>
                       <option value="0173-1#07-ABU223#001">EN 15804</option>
@@ -261,9 +261,9 @@
                       <input name="TCFQuantityOfMeasureForCalculation" type="number" class="form-control"
                         id="TCFQuantityOfMeasureForCalculation" placeholder="0" min="0">
                     </div>
-                    <div class="col-3 mb-3">
+                    <div class="col-2 mb-3">
                       <label for="TCFReferenceValueForCalculation">Reference Value</label>
-                      <select name="TCFReferenceValueForCalculation" class="custom-select d-block w-100"
+                      <select name="TCFReferenceValueForCalculation" class="form-select d-block w-100"
                         id="TCFReferenceValueForCalculation" required="">
                         <option value="">Choose...</option>
                         <option value="0173-1#07-ABZ596#001">g</option>
@@ -285,17 +285,16 @@
               </div>
             </div>
           </div>
-
-
-
-
-
-
-
-          <hr class="my-5">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
-        </form>
-      </div>
+          <!--Add a new accordion item over the Add button-->
+          <div class="d-flex justify-content-end">
+            <button id="addAccordionItem" class="btn custom-add-button rounded-5 mt-2" type="button">+</button>
+          </div>
+          <hr class="my-4">
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary btn-lg align-self-end align-self-bottom" type="submit">Save</button>
+        </div>
+      </form>
     </div>
 
   </main>
