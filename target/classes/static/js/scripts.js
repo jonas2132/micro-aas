@@ -1,6 +1,7 @@
 /**
  * Adds a new accordion item to the AAS/Form page when the "addAccordionItem" button is clicked.
  * Each new item is added with an incremented Carbon Footprint number.
+ * Each new item gets added a javaclass 
  */
 $(document).ready(function () {
     var carbonFootprintCounter = 1;
@@ -13,7 +14,7 @@ $(document).ready(function () {
             <button id="CarbonFootprintButton" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseCarbonFootprint${carbonFootprintCounter}" aria-expanded="false"
                 aria-controls="collapseCarbonFootprint${carbonFootprintCounter}">
-                Carbon Footprint${carbonFootprintCounter}
+                Carbon Footprint
             </button>
         </h2>
         <div id="collapseCarbonFootprint${carbonFootprintCounter}" class="accordion-collapse collapse"
@@ -191,9 +192,23 @@ $(document).ready(function () {
         // Add an input event listener to update the Nameplate Accordion Button
         assetIDshortSubmodelInput.on("input", function () {
             var inputValue = assetIDshortSubmodelInput.val();
-            accordionButton.text(`Carbon Footprint${carbonFootprintCounter} - ${inputValue}`);
+            accordionButton.text(`Carbon Footprint - ${inputValue}`);
         });
     });
+});
+
+
+$(document).ready(function () {
+
+    var assetIDshortInput = $(`#assetIDshort`);
+    var accordionButtonCarbonFootprint = $(`#carbon-footprint-button`);
+
+    assetIDshortInput.on("input", function () {
+        var inputValue = assetIDshortInput.val();
+        accordionButtonCarbonFootprint.text(`Carbon Footprint- ${inputValue}`);
+    });
+
+
 });
 
 
