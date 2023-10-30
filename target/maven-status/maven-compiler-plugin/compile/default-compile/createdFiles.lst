@@ -1,5 +1,7 @@
+com\softwareag\app\utils\AASFull.class
 com\softwareag\app\data\SubmodelElementCollectionType.class
 com\softwareag\app\service\CO2Calculation\CalculationFactory.class
+com\softwareag\app\service\AASBuilder.class
 com\softwareag\app\controller\DataRepositoryController$1.class
 com\softwareag\app\service\CO2Calculation\EnergyConsumptionProductionSite.class
 com\softwareag\app\service\CO2Calculation\CalculationMethod.class
@@ -18,5 +20,4 @@ com\softwareag\app\data\SubmodelElementPropertyType.class
 com\softwareag\app\data\DataRepository.class
 com\softwareag\app\App.class
 com\softwareag\app\controller\APIController.class
-com\softwareag\app\data\SubmodelType.class
 com\softwareag\app\data\DataType.class

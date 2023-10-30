@@ -21,8 +21,8 @@ $(document).ready(function () {
             aria-labelledby="headingCarbonFootprint${carbonFootprintCounter}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
             <div class="mb-3">
-            <label for="assetIDshortSubmodel">Asset ID short</label>
-            <input name="assetIDshortSubmodel" type="text" class="form-control" id="assetIDshortSubmodel" placeholder="Asset name of the Submodel"
+            <label for="assetIDshort">Asset ID short</label>
+            <input name="assetIDshort" type="text" class="form-control" id="assetIDshort" placeholder="Asset name of the Submodel"
               value="" required="">
             <div class="invalid-feedback">
               Valid short asset ID is required.
@@ -186,7 +186,7 @@ $(document).ready(function () {
         newCarbonFootprintItem.addClass(`carbon-footprint-item-${carbonFootprintCounter}`);
 
         // Get the input field for this Carbon Footprint item
-        var assetIDshortSubmodelInput = $(`.carbon-footprint-item-${carbonFootprintCounter} input[name="assetIDshortSubmodel"]`);
+        var assetIDshortSubmodelInput = $(`.carbon-footprint-item-${carbonFootprintCounter} input[name="assetIDshort"]`);
         var accordionButton = $(`.carbon-footprint-item-${carbonFootprintCounter} button`);
 
         // Add an input event listener to update the Nameplate Accordion Button

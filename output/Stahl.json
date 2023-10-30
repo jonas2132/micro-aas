@@ -10,21 +10,27 @@
         "type" : "Submodel",
         "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
       } ],
-      "type" : "ModelReference"
+      "type" : "ExternalReference"
     }, {
       "keys" : [ {
         "type" : "Submodel",
         "value" : "https://admin-shell.io/ZVEI/TechnicalData/Submodel/1/2"
       } ],
-      "type" : "ModelReference"
+      "type" : "ExternalReference"
     }, {
       "keys" : [ {
         "type" : "Submodel",
         "value" : "www.example.com/ids/sm/1225_9020_5022_1974"
       } ],
-      "type" : "ModelReference"
+      "type" : "ExternalReference"
+    }, {
+      "keys" : [ {
+        "type" : "Submodel",
+        "value" : "https://admin-shell.io/idta/CarbonFootprinter/CarbonFootprinter/1/0/CarbonFootprint_Kupf"
+      } ],
+      "type" : "ExternalReference"
     } ],
-    "id" : "https://example.company.de/id/1234/Stahl",
+    "id" : "https://test.id.com",
     "idShort" : "Stahl"
   } ],
   "conceptDescriptions" : [ {
@@ -66,6 +72,1010 @@
         } ]
       }
     } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO133#002---4A22B452",
+    "idShort" : "StateCounty",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "federal state a part of a state"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO205#002---01F2CB67",
+    "idShort" : "NameOfContact",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "surname of a contact person"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO206#002---5C7B0FA5",
+    "idShort" : "FirstName",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "first name of a contact person"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO207#002---15ACFC9B",
+    "idShort" : "MiddleNames",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "middle names of contact person"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO208#003---33DBB8C0",
+    "idShort" : "Title",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "common, formal, religious, or other title preceding a contact person's name"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO209#003---322118AB",
+    "idShort" : "AcademicTitle",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "academic title preceding a contact person's name"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO210#002---58F69A82",
+    "idShort" : "FurtherDetailsOfContact",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "additional information of the contact person"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "https://admin-shell.io/zvei/nameplate/2/0/Nameplate/Markings/Marking/ExplosionSafeties---788822A3",
+    "idShort" : "ExplosionSafeties",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "Collection of explosion safety specifications"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO131#002---2FC7AD3C",
+    "idShort" : "ZipCodeOfPOBox",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "ZIP code of P.O. box address"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO130#002---2041C62F",
+    "idShort" : "POBox",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "P.O. box number"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO129#002---478FBF08",
+    "idShort" : "Zipcode",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "ZIP code of address"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO128#002---14539AEB",
+    "idShort" : "Street",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "street name and house number"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "https://admin-shell.io/zvei/nameplate/1/0/ ContactInformations/ContactInformation/IPCommunication/TypeOfCommunication---78064A1A",
+    "idShort" : "TypeOfCommunication",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "characterization of an IP-based communication channel"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAQ326#002---7F566FC9",
+    "idShort" : "AddressOfAdditionalLink",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "web site address where information about the product or contact is given"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/---1876D50E",
+    "idShort" : "IPCommunication{00}",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "ContactInformation/IPCommunication IP-based communication channels, e.g. chat or video call"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO201#002---17CCE1FE",
+    "idShort" : "TypeOfPublicKey",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "characterization of a public key according to its encryption process"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO199#003---560D8713",
+    "idShort" : "TypeOfEmailAddress",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "characterization of an e-mail address according to its location or usage"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO200#002---0C05D4F0",
+    "idShort" : "PublicKey",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "public part of an unsymmetrical key pair to sign or encrypt text or messages"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO198#002---22EC5CCB",
+    "idShort" : "EmailAddress",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "electronic mail address of a business partner"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAQ836#005---5EFD3A21",
+    "idShort" : "Email",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "E-mail address and encryption method"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO196#003---0D3AF138",
+    "idShort" : "TypeOfFaxNumber",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "characterization of the fax according its location or usage"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO195#002---6F6A6143",
+    "idShort" : "FaxNumber",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "complete telephone number to be called to reach a business partner's fax machine"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAQ834#005---509F7AD8",
+    "idShort" : "Fax",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "Fax number including type"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/AvailableTime/---0BFFA3C4",
+    "idShort" : "AvailableTime",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "Specification of the available time window"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO137#003---2638868C",
+    "idShort" : "TypeOfTelephone",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "characterization of a telephone according to its location or usage"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO136#002---0177F2E4",
+    "idShort" : "TelephoneNumber",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "complete telephone number to be called to reach a business partner"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/Phone---50A4141B",
+    "idShort" : "Phone",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "Phone number including type"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO127#003---384505EB",
+    "idShort" : "Department",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "administrative section within an organisation where a business partner is located"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAW001#001---68A6170C",
+    "idShort" : "Company",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "name of the company"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO132#002---2A3D4601",
+    "idShort" : "CityTown",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "town or city"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/TimeZone---330E4199",
+    "idShort" : "TimeZone",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "offsets from Coordinated Universal Time (UTC)"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/Language---70B1BE30",
+    "idShort" : "Language",
+    "isCaseOf" : [ {
+      "keys" : [ {
+        "type" : "GlobalReference",
+        "value" : "0173-1#02-AAO895#003"
+      } ],
+      "type" : "ModelReference"
+    } ],
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "Available language"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "id" : "0173-1#02-AAO134#002---5BC7FA05",
+    "idShort" : "NationalCode",
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "code of a country"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
+  }, {
+    "modelType" : "ConceptDescription",
+    "administration" : {
+      "revision" : "",
+      "version" : ""
+    },
+    "id" : "https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation---72ECAD67",
+    "idShort" : "ContactInformation",
+    "isCaseOf" : [ {
+      "keys" : [ {
+        "type" : "GlobalReference",
+        "value" : "0173-1#02-AAQ837#005"
+      } ],
+      "type" : "ModelReference"
+    } ],
+    "embeddedDataSpecifications" : [ {
+      "dataSpecification" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "dataSpecificationContent" : {
+        "modelType" : "DataSpecificationIec61360",
+        "definition" : [ {
+          "language" : "en",
+          "text" : "The SMC “ContactInformation” contains information on how to contact the manufacturer or an authorised service provider, e.g. when a maintenance service is required"
+        } ],
+        "shortName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ],
+        "value" : "",
+        "preferredName" : [ {
+          "language" : "en",
+          "text" : ""
+        } ]
+      }
+    } ]
   } ],
   "submodels" : [ {
     "modelType" : "Submodel",
@@ -104,7 +1114,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "1.3123234E7",
+        "value" : "33.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -148,7 +1158,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "2342.0",
+        "value" : "33.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -170,7 +1180,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU210#001",
+        "value" : "0173-1#07-ABU212#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -386,7 +1396,7 @@
       "idShort" : "TransportCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU222#001",
+        "value" : "0173-1#07-ABU221#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -408,7 +1418,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "23424.0",
+        "value" : "33.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -430,7 +1440,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABZ598#001",
+        "value" : "0173-1#07-ABZ597#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -452,7 +1462,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "23422",
+        "value" : "333",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -869,10 +1879,6 @@
   }, {
     "modelType" : "Submodel",
     "kind" : "Instance",
-    "administration" : {
-      "revision" : "2",
-      "version" : "1"
-    },
     "id" : "https://admin-shell.io/ZVEI/TechnicalData/Submodel/1/2",
     "idShort" : "TechnicalData",
     "submodelElements" : [ {
@@ -1038,7 +2044,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "123",
+        "value" : "23423424",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1656,7 +2662,7 @@
     "idShort" : "Nameplate",
     "submodelElements" : [ {
       "modelType" : "Property",
-      "value" : "https://example.company.de/id/Stahl",
+      "value" : "https://URITESTnameplate",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -1692,7 +2698,7 @@
       },
       "value" : [ {
         "language" : "de",
-        "text" : "Example Company"
+        "text" : "Nameplate AG"
       } ],
       "description" : [ {
         "language" : "en",
@@ -2511,7 +3517,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "1231.0",
+      "value" : "234234.0",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2532,7 +3538,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "123",
+      "value" : "2023",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2553,7 +3559,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "123",
+      "value" : "2022-01-02",
       "valueType" : "xs:date",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3990,6 +4996,805 @@
     "description" : [ {
       "language" : "en",
       "text" : "Contains the nameplate information attached to the product"
+    } ]
+  }, {
+    "modelType" : "Submodel",
+    "kind" : "Instance",
+    "id" : "https://admin-shell.io/idta/CarbonFootprinter/CarbonFootprinter/1/0/CarbonFootprint_Kupf",
+    "idShort" : "CarbonFootprint_Kupf",
+    "submodelElements" : [ {
+      "modelType" : "SubmodelElementCollection",
+      "qualifiers" : [ {
+        "type" : "Cardinality",
+        "value" : "ZeroToMany",
+        "valueType" : "xs:string"
+      } ],
+      "idShort" : "ProductCarbonFootprint",
+      "value" : [ {
+        "modelType" : "Property",
+        "value" : "0173-1#07-ABU221#001",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "OneToMany",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFCalculationMethod",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG854#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Standard, method for determining the greenhouse gas emissions of a product"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "33.0",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFCO2eq",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG855#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Sum of all greenhouse gas emissions of a product according to the quantification requirements of the standard"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFReferenceValueForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG856#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Quantity unit of the product to which the PCF information on the CO2 footprint refers"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "33.0",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFQuantityOfMeasureForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG857#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Quantity of the product to which the PCF information on the CO2 footprint refers"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "0173-1#07-ABU212#001",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "OneToMany",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFLiveCyclePhase",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG858#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Life cycle stages of the product according to the quantification requirements of the standard to which the PCF carbon footprint statement refers"
+        } ]
+      }, {
+        "modelType" : "SubmodelElementCollection",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "idShort" : "PCFGoodsAddressHandover",
+        "value" : [ {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Street",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH956#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Street indication of the place of transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "HouseNumber",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH957#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Number for identification or differentiation of individual houses of a street"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "ZipCode",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH958#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Zip code of the goods transfer address"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "CityTown",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH959#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Indication of the city or town of the transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Country",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-AAO259#005"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Country where the product is transmitted"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Latitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH960#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Longitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH961#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+          } ]
+        } ],
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABI497#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Indicates the place of hand-over of the goods "
+        } ]
+      } ],
+      "semanticId" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/idta/CarbonFootprint/ProductCarbonFootprint/1/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "description" : [ {
+        "language" : "en",
+        "text" : "Balance of greenhouse gas emissions along the entire life cycle of a product in a defined application and in relation to a defined unit of use"
+      } ]
+    }, {
+      "modelType" : "SubmodelElementCollection",
+      "qualifiers" : [ {
+        "type" : "Cardinality",
+        "value" : "ZeroToMany",
+        "valueType" : "xs:string"
+      } ],
+      "idShort" : "TransportCarbonFootprint",
+      "value" : [ {
+        "modelType" : "Property",
+        "value" : "0173-1#07-ABU221#001",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFCalculationMethod",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG859#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Standard, method for determining the greenhouse gas emissions for the transport of a product"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "33.0",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFCO2eq",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG860#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Sum of all greenhouse gas emissions from vehicle operation"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "0173-1#07-ABZ597#001",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFReferenceValueForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG861#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Amount of product to which the TCF carbon footprint statement relates"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "333",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFQuantityOfMeasureForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG862#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Quantity of the product to which the TCF information on the CO2 footprint refers"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFProcessesForGreenhouseGasEmissionInATransportService",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG863#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Processes in a transport service to determine the sum of all direct or indirect greenhouse gas emissions from fuel supply and vehicle operation"
+        } ]
+      }, {
+        "modelType" : "SubmodelElementCollection",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "idShort" : "TCFGoodsTransportAddressTakeover",
+        "value" : [ {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Street",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH956#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Street indication of the place of transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "HouseNumber",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH957#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Number for identification or differentiation of individual houses of a street"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "ZipCode",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH958#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Zip code of the goods transfer address"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "CityTown",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH959#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Indication of the city or town of the transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Country",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-AAO259#005"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Country where the product is transmitted"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Latitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH960#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Longitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH961#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+          } ]
+        } ],
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABI499#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Indication of the place of receipt of goods "
+        } ]
+      }, {
+        "modelType" : "SubmodelElementCollection",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "idShort" : "TCFGoodsTransportAddressHandover",
+        "value" : [ {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Street",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH956#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Street indication of the place of transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "HouseNumber",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH957#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Number for identification or differentiation of individual houses of a street"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "ZipCode",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH958#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Zip code of the goods transfer address"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "CityTown",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH959#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Indication of the city or town of the transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Country",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-AAO259#005"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Country where the product is transmitted"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Latitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH960#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Longitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH961#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+          } ]
+        } ],
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABI498#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Indicates the hand-over address of the goods transport "
+        } ]
+      } ],
+      "semanticId" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/idta/CarbonFootprint/TransportCarbonFootprint/1/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "description" : [ {
+        "language" : "en",
+        "text" : "Balance of greenhouse gas emissions generated by a transport service of a product"
+      } ]
+    } ],
+    "semanticId" : {
+      "keys" : [ {
+        "type" : "GlobalReference",
+        "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
+      } ],
+      "type" : "ExternalReference"
+    },
+    "description" : [ {
+      "language" : "en",
+      "text" : "The Submodel provides the means to access the Carbon Footprint of the asset."
     } ]
   } ]
 }

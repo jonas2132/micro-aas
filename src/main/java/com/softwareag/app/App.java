@@ -1,5 +1,6 @@
 package com.softwareag.app;
 
+import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -20,16 +21,7 @@ public class App {
     public static void main(String[] args) {
         
         dataRepositoryController = new DataRepositoryController(DataType.JSON);
-        EnvironmentService envService = dataRepositoryController.getCurrenDataRepository().read("FullAASTemplate.json");
-
-        envService.duplicateSubmodel("CarbonFootprint", "Carbon_2");
-        envService.addCustomReferenceProperty("Carbon_2");
-
-        envService.updateProperty("test", "Carbon_2", SubmodelElementPropertyType.REFERENCE_PROPERTY);
-        
-        dataRepositoryController.getCurrenDataRepository().write(envService, "test.json");
-
-        
+     
         SpringApplication.run(App.class, args);
 
         /*EnvironmentService envServ = new EnvironmentService(env);
