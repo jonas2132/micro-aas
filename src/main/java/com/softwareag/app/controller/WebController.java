@@ -14,7 +14,6 @@ import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
 import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
-import com.softwareag.app.data.SubmodelType;
 import com.softwareag.app.service.EnvironmentService;
 
 @Controller
@@ -79,73 +78,67 @@ public class WebController {
                 envServ.updateAssetIDShort(assetIDshort);
                 envServ.updateAssetID(assetID);
 
-                /* Product Carbon Footprint */
-                envServ.updateProperty(PCFCalculationMethod, SubmodelType.CARBON_FOOTPRINT,
-                                SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
-                                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
-                envServ.updateProperty(Double.toString(PCFCO2eq), SubmodelType.CARBON_FOOTPRINT,
-                                SubmodelElementPropertyType.PCFCO2EQ,
-                                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
-                envServ.updateProperty(Double.toString(PCFQuantityOfMeasureForCalculation),
-                                SubmodelType.CARBON_FOOTPRINT,
-                                SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
-                                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
-                envServ.updateProperty(PCFLiveCyclePhase, SubmodelType.CARBON_FOOTPRINT,
-                                SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
-                                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+        /* Product Carbon Footprint */
+        envServ.updateProperty(PCFCalculationMethod, "CarbonFootprint",
+                SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
+                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+        envServ.updateProperty(Double.toString(PCFCO2eq), "CarbonFootprint",
+                SubmodelElementPropertyType.PCFCO2EQ, SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+        envServ.updateProperty(Double.toString(PCFQuantityOfMeasureForCalculation), "CarbonFootprint",
+                SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
+                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+        envServ.updateProperty(PCFLiveCyclePhase, "CarbonFootprint",
+                SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
+                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
 
-                /* Transport Carbon Footprint */
-                envServ.updateProperty(TCFCalculationMethod, SubmodelType.CARBON_FOOTPRINT,
-                                SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
-                                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
-                envServ.updateProperty(Double.toString(TCFCO2eq), SubmodelType.CARBON_FOOTPRINT,
-                                SubmodelElementPropertyType.TCFCO2EQ,
-                                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
-                envServ.updateProperty(TCFReferenceValueForCalculation, SubmodelType.CARBON_FOOTPRINT,
-                                SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION,
-                                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
-                envServ.updateProperty(TCFQuantityOfMeasureForCalculation, SubmodelType.CARBON_FOOTPRINT,
-                                SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
-                                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+        /* Transport Carbon Footprint */
+        envServ.updateProperty(TCFCalculationMethod, "CarbonFootprint",
+                SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
+                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+        envServ.updateProperty(Double.toString(TCFCO2eq), "CarbonFootprint",
+                SubmodelElementPropertyType.TCFCO2EQ, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+        envServ.updateProperty(TCFReferenceValueForCalculation, "CarbonFootprint",
+                SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION,
+                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+        envServ.updateProperty(TCFQuantityOfMeasureForCalculation, "CarbonFootprint",
+                SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
+                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
 
-                /* Technical Data */
-                envServ.updateProperty(ManufacturerOrderCode, SubmodelType.TECHNICAL_DATA,
-                                SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE,
-                                SubmodelElementCollectionType.GENERAL_INFORMATION);
-                // envServ.updateFile(ManufacturerLogo.getPath(), SubmodelType.TECHNICAL_DATA,
-                // SubmodelElementPropertyType.MANUFACTURER_LOGO,
-                // SubmodelElementCollectionType.GENERAL_INFORMATION);
-                // envServ.updateFile(ProductImage.getPath(), SubmodelType.TECHNICAL_DATA,
-                // SubmodelElementPropertyType.PRODUCT_IMAGE,
-                // SubmodelElementCollectionType.GENERAL_INFORMATION);
+        /* Technical Data */
+        envServ.updateProperty(ManufacturerOrderCode, "TechnicalData",
+                SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, SubmodelElementCollectionType.GENERAL_INFORMATION);
+        // envServ.updateFile(ManufacturerLogo.getPath(), "TechnicalData",
+        // SubmodelElementPropertyType.MANUFACTURER_LOGO,
+        // SubmodelElementCollectionType.GENERAL_INFORMATION);
+        // envServ.updateFile(ProductImage.getPath(), "TechnicalData",
+        // SubmodelElementPropertyType.PRODUCT_IMAGE,
+        // SubmodelElementCollectionType.GENERAL_INFORMATION);
 
-                /* Nameplate */
-                envServ.updateProperty(URIOfTheProduct, SubmodelType.NAMEPLATE,
-                                SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
-                envServ.updateMultilanguageProperty(ManufacturerName, SubmodelType.NAMEPLATE,
-                                SubmodelElementPropertyType.MANUFACTURER_NAME);
-                envServ.updateProperty(Double.toString(SerialNumber), SubmodelType.NAMEPLATE,
-                                SubmodelElementPropertyType.SERIAL_NUMBER);
-                envServ.updateProperty(YearOfConstruction, SubmodelType.NAMEPLATE,
-                                SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION);
-                envServ.updateProperty(DateOfManufacture, SubmodelType.NAMEPLATE,
-                                SubmodelElementPropertyType.DATE_OF_MANUFACTURE);
+        /* Nameplate */
+        envServ.updateProperty(URIOfTheProduct, "Nameplate", SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
+        envServ.updateMultilanguageProperty(ManufacturerName, "Nameplate",
+                SubmodelElementPropertyType.MANUFACTURER_NAME);
+        envServ.updateProperty(Double.toString(SerialNumber), "Nameplate",
+                SubmodelElementPropertyType.SERIAL_NUMBER);
+        envServ.updateProperty(YearOfConstruction, "Nameplate",
+                SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION);
+        envServ.updateProperty(DateOfManufacture, "Nameplate",
+                SubmodelElementPropertyType.DATE_OF_MANUFACTURE);
 
                 environmentServices.add(envServ);
                 return "redirect:/aas/overview";
         }
 
-        @GetMapping("/aas/export")
-        public String exportAAS() {
-                currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
-                currenDataType = App.dataRepositoryController.getCurrentDataType();
-                environmentServices.stream()
-                                .forEach(envServ -> {
-                                        String assetIDshort = envServ.getAssetIDShort();
-                                        currentDataRepository.write(envServ, assetIDshort
-                                                        + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
-                                });
-                return "redirect:/aas/overview";
-        }
+    @GetMapping("/aas/export")
+    public String exportAAS() {
+        currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
+        currenDataType = App.dataRepositoryController.getCurrentDataType();
+        environmentServices.stream()
+                .forEach(envServ -> {
+                        String assetIDshort = envServ.getAssetIDShort();
+                        currentDataRepository.write(envServ, assetIDshort + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
+                });
+        return "redirect:/aas/overview";
+    }
 
 }

@@ -35,7 +35,10 @@ public enum SubmodelElementPropertyType {
 
     MANUFACTURER_ORDER_CODE("ManufacturerOrderCode"),
     MANUFACTURER_LOGO("ManufacturerLogo"),
-    PRODUCT_IMAGE("ProductImage");
+    PRODUCT_IMAGE("ProductImage"),
+
+    /* ReferenceProperty */
+    REFERENCE_PROPERTY("ReferenceProperty");
 
 
 

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> devAzk2.0
 {
   "assetAdministrationShells": [
     {
@@ -1686,6 +1689,7 @@
       "isCaseOf": []
     }
   ]
+<<<<<<< HEAD
 =======
 {
   "assetAdministrationShells": [
@@ -3375,4 +3379,6 @@
     }
   ]
 >>>>>>> 85f1ee0444d181271c172aa85c5ff8a9e62409d5
+=======
+>>>>>>> devAzk2.0
 }
