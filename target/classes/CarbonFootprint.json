@@ -1,0 +1,1688 @@
+{
+  "assetAdministrationShells": [
+    {
+      "hasDataSpecification": [],
+      "asset": {
+        "keys": []
+      },
+      "submodels": [
+        {
+          "keys": [
+            {
+              "type": "Submodel",
+              "local": true,
+              "value": "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0",
+              "index": 0,
+              "idType": "IRDI"
+            }
+          ]
+        }
+      ],
+      "conceptDictionaries": [],
+      "identification": {
+        "idType": "",
+        "id": ""
+      },
+      "idShort": "AasTemplate",
+      "modelType": {
+        "name": "AssetAdministrationShell"
+      }
+    }
+  ],
+  "assets": [],
+  "submodels": [
+    {
+      "semanticId": {
+        "keys": [
+          {
+            "type": "GlobalReference",
+            "local": false,
+            "value": "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0",
+            "index": 0,
+            "idType": "IRDI"
+          }
+        ]
+      },
+      "qualifiers": [],
+      "hasDataSpecification": [],
+      "identification": {
+        "idType": "IRDI",
+        "id": "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
+      },
+      "idShort": "CarbonFootprint",
+      "modelType": {
+        "name": "Submodel"
+      },
+      "kind": "Template",
+      "submodelElements": [
+        {
+          "ordered": false,
+          "allowDuplicates": false,
+          "semanticId": {
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "local": false,
+                "value": "https://admin-shell.io/idta/CarbonFootprint/ProductCarbonFootprint/1/0",
+                "index": 0,
+                "idType": "IRI"
+              }
+            ]
+          },
+          "constraints": [
+            {
+              "type": "Cardinality",
+              "valueType": "",
+              "value": "ZeroToMany",
+              "modelType": {
+                "name": "Qualifier"
+              }
+            }
+          ],
+          "hasDataSpecification": [],
+          "idShort": "ProductCarbonFootprint",
+          "modelType": {
+            "name": "SubmodelElementCollection"
+          },
+          "value": [
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG854#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "OneToMany",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "PCFCalculationMethod",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "string"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Standard, method for determining the greenhouse gas emissions of a product"
+                }
+              ]
+            },
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG855#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "PCFCO2eq",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "double"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Sum of all greenhouse gas emissions of a product according to the quantification requirements of the standard"
+                }
+              ]
+            },
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG856#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "PCFReferenceValueForCalculation",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "string"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Quantity unit of the product to which the PCF information on the CO2 footprint refers"
+                }
+              ]
+            },
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG857#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "PCFQuantityOfMeasureForCalculation",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "double"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Quantity of the product to which the PCF information on the CO2 footprint refers"
+                }
+              ]
+            },
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG858#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "OneToMany",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "PCFLiveCyclePhase",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "string"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Life cycle stages of the product according to the quantification requirements of the standard to which the PCF carbon footprint statement refers"
+                }
+              ]
+            },
+            {
+              "mimeType": "application/pdf",
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "ConceptDescription",
+                    "local": true,
+                    "value": "https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0",
+                    "index": 0,
+                    "idType": "IRI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "ZeroToOne",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "ExplanatoryStatement",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "File"
+              },
+              "kind": "Template"
+            },
+            {
+              "ordered": false,
+              "allowDuplicates": false,
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABI497#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "PCFGoodsAddressHandover",
+              "modelType": {
+                "name": "SubmodelElementCollection"
+              },
+              "value": [
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH956#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Street",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Street indication of the place of transfer of goods"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH957#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "HouseNumber",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Number for identification or differentiation of individual houses of a street"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH958#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "ZipCode",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Zip code of the goods transfer address"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH959#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "CityTown",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Indication of the city or town of the transfer of goods"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-AAO259#005",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Country",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Country where the product is transmitted"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH960#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Latitude",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "double"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH961#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Longitude",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "double"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+                    }
+                  ]
+                }
+              ],
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Indicates the place of hand-over of the goods "
+                }
+              ]
+            }
+          ],
+          "kind": "Template",
+          "descriptions": [
+            {
+              "language": "en",
+              "text": "Balance of greenhouse gas emissions along the entire life cycle of a product in a defined application and in relation to a defined unit of use"
+            }
+          ]
+        },
+        {
+          "ordered": false,
+          "allowDuplicates": false,
+          "semanticId": {
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "local": false,
+                "value": "https://admin-shell.io/idta/CarbonFootprint/TransportCarbonFootprint/1/0",
+                "index": 0,
+                "idType": "IRI"
+              }
+            ]
+          },
+          "constraints": [
+            {
+              "type": "Cardinality",
+              "valueType": "",
+              "value": "ZeroToMany",
+              "modelType": {
+                "name": "Qualifier"
+              }
+            }
+          ],
+          "hasDataSpecification": [],
+          "idShort": "TransportCarbonFootprint",
+          "modelType": {
+            "name": "SubmodelElementCollection"
+          },
+          "value": [
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG859#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "TCFCalculationMethod",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "string"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Standard, method for determining the greenhouse gas emissions for the transport of a product"
+                }
+              ]
+            },
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG860#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "TCFCO2eq",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "double"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Sum of all greenhouse gas emissions from vehicle operation"
+                }
+              ]
+            },
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG861#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "TCFReferenceValueForCalculation",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "string"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Amount of product to which the TCF carbon footprint statement relates"
+                }
+              ]
+            },
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG862#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "TCFQuantityOfMeasureForCalculation",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "double"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Quantity of the product to which the TCF information on the CO2 footprint refers"
+                }
+              ]
+            },
+            {
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABG863#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "TCFProcessesForGreenhouseGasEmissionInATransportService",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "Property"
+              },
+              "valueType": {
+                "dataObjectType": {
+                  "name": "string"
+                }
+              },
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Processes in a transport service to determine the sum of all direct or indirect greenhouse gas emissions from fuel supply and vehicle operation"
+                }
+              ]
+            },
+            {
+              "mimeType": "application/pdf",
+              "value": "",
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "ConceptDescription",
+                    "local": true,
+                    "value": "https://example.com/ids/cd/3291_7022_2032_0718",
+                    "index": 0,
+                    "idType": "IRI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "ZeroToOne",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "ExplanatoryStatement",
+              "category": "PARAMETER",
+              "modelType": {
+                "name": "File"
+              },
+              "kind": "Template"
+            },
+            {
+              "ordered": false,
+              "allowDuplicates": false,
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABI499#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "TCFGoodsTransportAddressTakeover",
+              "category": "",
+              "modelType": {
+                "name": "SubmodelElementCollection"
+              },
+              "value": [
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH956#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Street",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Street indication of the place of transfer of goods"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH957#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "HouseNumber",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Number for identification or differentiation of individual houses of a street"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH958#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "ZipCode",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Zip code of the goods transfer address"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH959#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "CityTown",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Indication of the city or town of the transfer of goods"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-AAO259#005",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Country",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Country where the product is transmitted"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH960#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Latitude",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "double"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH961#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Longitude",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "double"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+                    }
+                  ]
+                }
+              ],
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Indication of the place of receipt of goods "
+                }
+              ]
+            },
+            {
+              "ordered": false,
+              "allowDuplicates": false,
+              "semanticId": {
+                "keys": [
+                  {
+                    "type": "GlobalReference",
+                    "local": false,
+                    "value": "0173-1#02-ABI498#001",
+                    "index": 0,
+                    "idType": "IRDI"
+                  }
+                ]
+              },
+              "constraints": [
+                {
+                  "type": "Cardinality",
+                  "valueType": "",
+                  "value": "One",
+                  "modelType": {
+                    "name": "Qualifier"
+                  }
+                }
+              ],
+              "hasDataSpecification": [],
+              "idShort": "TCFGoodsTransportAddressHandover",
+              "category": "",
+              "modelType": {
+                "name": "SubmodelElementCollection"
+              },
+              "value": [
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH956#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Street",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Street indication of the place of transfer of goods"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH957#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "HouseNumber",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Number for identification or differentiation of individual houses of a street"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH958#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "ZipCode",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Zip code of the goods transfer address"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH959#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "CityTown",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Indication of the city or town of the transfer of goods"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-AAO259#005",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Country",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "string"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Country where the product is transmitted"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH960#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Latitude",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "double"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+                    }
+                  ]
+                },
+                {
+                  "value": "",
+                  "semanticId": {
+                    "keys": [
+                      {
+                        "type": "GlobalReference",
+                        "local": false,
+                        "value": "0173-1#02-ABH961#001",
+                        "index": 0,
+                        "idType": "IRDI"
+                      }
+                    ]
+                  },
+                  "constraints": [
+                    {
+                      "type": "Cardinality",
+                      "valueType": "",
+                      "value": "ZeroToOne",
+                      "modelType": {
+                        "name": "Qualifier"
+                      }
+                    }
+                  ],
+                  "hasDataSpecification": [],
+                  "idShort": "Longitude",
+                  "category": "PARAMETER",
+                  "modelType": {
+                    "name": "Property"
+                  },
+                  "valueType": {
+                    "dataObjectType": {
+                      "name": "double"
+                    }
+                  },
+                  "kind": "Template",
+                  "descriptions": [
+                    {
+                      "language": "en",
+                      "text": "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+                    }
+                  ]
+                }
+              ],
+              "kind": "Template",
+              "descriptions": [
+                {
+                  "language": "en",
+                  "text": "Indicates the hand-over address of the goods transport "
+                }
+              ]
+            }
+          ],
+          "kind": "Template",
+          "descriptions": [
+            {
+              "language": "en",
+              "text": "Balance of greenhouse gas emissions generated by a transport service of a product"
+            }
+          ]
+        }
+      ],
+      "descriptions": [
+        {
+          "language": "en",
+          "text": "The Submodel provides the means to access the Carbon Footprint of the asset."
+        }
+      ]
+    }
+  ],
+  "conceptDescriptions": [
+    {
+      "identification": {
+        "idType": "IRI",
+        "id": "https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0"
+      },
+      "administration": {
+        "version": "1",
+        "revision": "0"
+      },
+      "idShort": "ExplanatoryStatement",
+      "category": "PARAMETER",
+      "modelType": {
+        "name": "ConceptDescription"
+      },
+      "embeddedDataSpecifications": [
+        {
+          "dataSpecification": {
+            "keys": [
+              {
+                "type": "GlobalReference",
+                "local": false,
+                "value": "http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/2/0",
+                "index": 0,
+                "idType": "IRI"
+              }
+            ]
+          },
+          "dataSpecificationContent": {
+            "preferredName": [
+              {
+                "language": "de",
+                "text": "Erklärung"
+              },
+              {
+                "language": "en",
+                "text": "Explanatory statement"
+              }
+            ],
+            "shortName": [],
+            "unit": "",
+            "dataType": "",
+            "definition": [
+              {
+                "language": "de",
+                "text": "Erforderliche oder vorhandene Erklärung, um sicherzustellen, dass eine Fußabdruckkommunikation von einem Käufer, potentiellen Käufer oder Anender des Produktes richtig verstanden werden kann"
+              },
+              {
+                "language": "en",
+                "text": "Explanation which is needed or given so that a footprint communication can be properly understood by a purchaser, potential purchaser or user of the product"
+              }
+            ]
+          }
+        }
+      ],
+      "isCaseOf": []
+    }
+  ]
+}
