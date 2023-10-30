@@ -1,6 +1,7 @@
 package com.softwareag.app;
 
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
+import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,6 +9,8 @@ import com.softwareag.app.controller.DataRepositoryController;
 import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
+import com.softwareag.app.data.SubmodelElementCollectionType;
+import com.softwareag.app.data.SubmodelElementPropertyType;
 import com.softwareag.app.service.AASBuilder;
 import com.softwareag.app.service.EnvironmentService;
 import com.softwareag.app.utils.AASSimple;
@@ -25,6 +28,8 @@ public class App {
 
         envService.duplicateSubmodel("CarbonFootprint", "Carbon_2");
         envService.addCustomReferenceProperty("Carbon_2");
+
+        envService.updateProperty("test", "Carbon_2", SubmodelElementPropertyType.REFERENCE_PROPERTY);
         
         dataRepositoryController.getCurrenDataRepository().write(envService, "test.json");
 

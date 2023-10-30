@@ -5786,6 +5786,7 @@
       } ]
     }, {
       "modelType" : "Property",
+      "value" : "test",
       "valueType" : "xs:string",
       "idShort" : "ReferenceProperty",
       "semanticId" : {
