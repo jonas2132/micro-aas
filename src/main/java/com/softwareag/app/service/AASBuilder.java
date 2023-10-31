@@ -20,11 +20,17 @@ import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultAssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultAssetInformation;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultBlob;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultKey;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultMultiLanguageProperty;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultProperty;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultRange;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReference;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReferenceElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodelElementCollection;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel.Builder;
 
 public class AASBuilder {
@@ -91,7 +97,7 @@ public class AASBuilder {
                                 .kind(submodel.getKind())
                                 .description(submodel.getDescription()).build();
 
-                copyElements(builder, submodel.getSubmodelElements());
+                addElements(builder, submodel.getSubmodelElements());
 
                 return builder;
         }
@@ -105,34 +111,158 @@ public class AASBuilder {
                                 .kind(submodel.getKind())
                                 .description(submodel.getDescription()).build();
 
-                copyElements(builder, submodel.getSubmodelElements());
+                addElements(builder, submodel.getSubmodelElements());
 
                 return builder;
         }
 
         /* SubmodelElements */
 
-        private static void copyElements(Builder builder, Collection<SubmodelElement> elements) {
-                //SubmodelElements morgen manuell erstellen
+        private static void addElements(Builder builder, Collection<SubmodelElement> elements) {
                 elements.forEach(element -> {
-
-                        if (element instanceof SubmodelElementCollection) {
-                                builder.submodelElements((SubmodelElementCollection) element);
-                        } else if (element instanceof Blob) {
-                                builder.submodelElements((Blob) element);
-                        } else if (element instanceof File) {
-                                builder.submodelElements((File) element);
-                        } else if (element instanceof MultiLanguageProperty) {
-                                builder.submodelElements((MultiLanguageProperty) element);
-                        } else if (element instanceof Property) {
-                                builder.submodelElements((Property) element);
-                        } else if (element instanceof Range) {
-                                builder.submodelElements((Range) element);
-                        } else if (element instanceof ReferenceElement) {
-                                builder.submodelElements((ReferenceElement) element);
-                        }
-
+                        builder.submodelElements(copyElement(element));
                 });
+        }
+
+        private static SubmodelElement copyElement(SubmodelElement element) {
+
+                if (element instanceof SubmodelElementCollection) {
+                        return cloneSubmodelElementCollection((SubmodelElementCollection) element);
+                } else if (element instanceof Blob) {
+                        return cloneBlob((Blob) element);
+                } else if (element instanceof File) {
+                        return cloneFile((File) element);
+                } else if (element instanceof MultiLanguageProperty) {
+                        return cloneMultiLanguageProperty((MultiLanguageProperty) element);
+                } else if (element instanceof Property) {
+                        return cloneProperty((Property) element);
+                } else if (element instanceof Range) {
+                        return cloneRange((Range) element);
+                } else if (element instanceof ReferenceElement) {
+                        return cloneReferenceElement((ReferenceElement) element);
+                }
+
+                return null;
+        }
+
+        private static Collection<SubmodelElement> copyElements(Collection<SubmodelElement> elements) {
+                Collection<SubmodelElement> copyOfElements = new ArrayList<>();
+                elements.forEach(element -> {
+                        copyOfElements.add(copyElement(element));
+                });
+                return copyOfElements;
+        }
+
+        private static SubmodelElementCollection cloneSubmodelElementCollection(SubmodelElementCollection element) {
+                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodelElementCollection.Builder builder = new DefaultSubmodelElementCollection.Builder();
+                builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                                .extensions(element.getExtensions())
+                                .semanticID(element.getSemanticID())
+                                .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                                .qualifiers(element.getQualifiers())
+                                .category(element.getCategory())
+                                .description(element.getDescription())
+                                .displayName(element.getDisplayName())
+                                .idShort(element.getIdShort())
+                                .value(copyElements(element.getValue()));
+                return builder.build();
+        }
+
+        private static Blob cloneBlob(Blob element) {
+                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultBlob.Builder builder = new DefaultBlob.Builder();
+                builder.contentType(element.getContentType())
+                        .value(element.getValue())
+                        .embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                        .extensions(element.getExtensions())
+                        .semanticID(element.getSemanticID())
+                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                        .qualifiers(element.getQualifiers())
+                        .category(element.getCategory())
+                        .description(element.getDescription())
+                        .displayName(element.getDisplayName())
+                        .idShort(element.getIdShort());
+                return builder.build();
+        }
+
+        private static File cloneFile(File element) {
+                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultFile.Builder builder = new DefaultFile.Builder();
+                builder.contentType(element.getContentType())
+                        .value(element.getValue())
+                        .embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                        .extensions(element.getExtensions())
+                        .semanticID(element.getSemanticID())
+                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                        .qualifiers(element.getQualifiers())
+                        .category(element.getCategory())
+                        .description(element.getDescription())
+                        .displayName(element.getDisplayName())
+                        .idShort(element.getIdShort());
+                return builder.build();
+        }
+
+        private static MultiLanguageProperty cloneMultiLanguageProperty(MultiLanguageProperty element) {
+                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultMultiLanguageProperty.Builder builder = new DefaultMultiLanguageProperty.Builder();
+                builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                        .extensions(element.getExtensions())
+                        .semanticID(element.getSemanticID())
+                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                        .value(element.getValue())
+                        .valueID(element.getValueID())
+                        .qualifiers(element.getQualifiers())
+                        .category(element.getCategory())
+                        .description(element.getDescription())
+                        .displayName(element.getDisplayName())
+                        .idShort(element.getIdShort());
+                return builder.build();
+        }
+
+        private static Property cloneProperty(Property element) {
+                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultProperty.Builder builder = new DefaultProperty.Builder();
+                builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                        .extensions(element.getExtensions())
+                        .semanticID(element.getSemanticID())
+                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                        .value(element.getValue())
+                        .valueID(element.getValueID())
+                        .valueType(element.getValueType())
+                        .qualifiers(element.getQualifiers())
+                        .category(element.getCategory())
+                        .description(element.getDescription())
+                        .displayName(element.getDisplayName())
+                        .idShort(element.getIdShort());
+                return builder.build();
+        }
+
+        private static Range cloneRange(Range element) {
+                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultRange.Builder builder = new DefaultRange.Builder();
+                builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                        .extensions(element.getExtensions())
+                        .semanticID(element.getSemanticID())
+                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                        .qualifiers(element.getQualifiers())
+                        .max(element.getMax())
+                        .min(element.getMin())
+                        .valueType(element.getValueType())
+                        .category(element.getCategory())
+                        .description(element.getDescription())
+                        .displayName(element.getDisplayName())
+                        .idShort(element.getIdShort());
+                return builder.build();
+        }
+        
+        private static ReferenceElement cloneReferenceElement(ReferenceElement element) {
+                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReferenceElement.Builder builder = new DefaultReferenceElement.Builder();
+                builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                        .extensions(element.getExtensions())
+                        .semanticID(element.getSemanticID())
+                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                        .qualifiers(element.getQualifiers())
+                        .category(element.getCategory())
+                        .description(element.getDescription())
+                        .displayName(element.getDisplayName())
+                        .idShort(element.getIdShort())
+                        .value(element.getValue());
+                return builder.build();
         }
 
         /* Environment */
