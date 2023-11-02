@@ -117,14 +117,18 @@ public class EnvironmentService implements Environment {
      * 
      * 
      */
-    public void duplicateSubmodel(String submodelIdShort, String newSubmodelIdShort) {
-        this.environment = AASBuilder.createCopyWithAddingSubmodel(environment, getSubmodelOfIdShort(submodelIdShort), newSubmodelIdShort, "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0/"+newSubmodelIdShort);
+    public void duplicateSubmodel(String submodelIdShort, String newSubmodelId, String newSubmodelIdShort) {
+        this.environment = new AASModifier(this.environment)
+                .duplicateSubmodel(getSubmodelOfIdShort(submodelIdShort), newSubmodelId, newSubmodelIdShort).build();
+        // this.environment = AASModifier.createCopyWithAddingSubmodel(environment,
+        // getSubmodelOfIdShort(submodelIdShort), newSubmodelIdShort,
+        // "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0/"+newSubmodelIdShort);
     }
 
-    public void addCustomReferenceProperty(String submodelIdShort) {
-        this.environment = AASBuilder.createCopyWithAddingCustomReferenceProperty(environment, getSubmodelOfIdShort(submodelIdShort));
+    public void addCustomElement(String submodelIdShort) {
+       // this.environment = AASModifier.createCopyWithAddingCustomReferenceProperty(environment,
+         //       getSubmodelOfIdShort(submodelIdShort));
     }
-
 
     public void updateAssetID(String value) {
         getAssetAdministrationShells().get(0).setId(value);
@@ -154,7 +158,8 @@ public class EnvironmentService implements Environment {
             stringTextType.setText(value);
             valueList.add(0, stringTextType);
 
-            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
 
             subModelElements.stream()
                     .filter(element -> isMultilanguageProperty(element, propertyType))
@@ -172,7 +177,8 @@ public class EnvironmentService implements Environment {
         System.out.println("Updating Property " + propertyType.getIdShort() + " . . .");
         try {
 
-            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
 
             subModelElements.stream()
                     .filter(element -> isProperty(element, propertyType))
@@ -188,7 +194,8 @@ public class EnvironmentService implements Environment {
         System.out.println("Updating File " + propertyType.getIdShort() + " . . .");
         try {
 
-            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort, submodelElementCollections);
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
 
             subModelElements.stream()
                     .filter(element -> isFile(element, propertyType))
@@ -204,8 +211,9 @@ public class EnvironmentService implements Environment {
 
         System.out.println("Reading Property " + propertyType.getIdShort() + " . . .");
         try {
-            
-            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort, submodelElementCollections);
+
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
 
             return subModelElements.stream()
                     .filter(element -> isProperty(element, propertyType))
@@ -217,24 +225,27 @@ public class EnvironmentService implements Environment {
             ex.printStackTrace();
             return null;
         }
-        
+
     }
 
-
-    // no final solution yet, but rn its not possible to call the enums on the frontend
-    public String getPCFCO2(){
-        return getPropertyValue("CarbonFootprint", SubmodelElementPropertyType.PCFCO2EQ , SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+    // no final solution yet, but rn its not possible to call the enums on the
+    // frontend
+    public String getPCFCO2() {
+        return getPropertyValue("CarbonFootprint", SubmodelElementPropertyType.PCFCO2EQ,
+                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
     }
 
-    public String getTCFCO2(){
-        return getPropertyValue("CarbonFootprint", SubmodelElementPropertyType.TCFCO2EQ , SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+    public String getTCFCO2() {
+        return getPropertyValue("CarbonFootprint", SubmodelElementPropertyType.TCFCO2EQ,
+                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
     }
     //
 
-    private Collection<SubmodelElement> getSubmodelElements(String submodelIdShort, SubmodelElementCollectionType... submodelElementCollections) {
+    private Collection<SubmodelElement> getSubmodelElements(String submodelIdShort,
+            SubmodelElementCollectionType... submodelElementCollections) {
 
         SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
-                    submodelIdShort, submodelElementCollections);
+                submodelIdShort, submodelElementCollections);
         Collection<SubmodelElement> subModelElements = submodelElementCollection != null
                 ? submodelElementCollection.getValue()
                 : getSubmodelOfIdShort(submodelIdShort).getSubmodelElements();

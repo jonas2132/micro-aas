@@ -3,6 +3,7 @@ package com.softwareag.app.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.Blob;
@@ -31,17 +32,28 @@ import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReference;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReferenceElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodelElementCollection;
-import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel.Builder;
 
-public class AASBuilder {
+public class AASModifier {
+
+        private org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultAssetAdministrationShell.Builder assetAdministrationShellBuilder = null;
+        private org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment.Builder environmentBuilder = null;
+        private org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel.Builder submodelBuilder = null;
+
+        private List<Submodel> submodels = new ArrayList<>();
+
+       
 
         /* Asset Administration Shell */
 
-        private static org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultAssetAdministrationShell.Builder copyAAS(
+        public AASModifier(
                         Environment environment) {
-                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultAssetAdministrationShell.Builder builder = new DefaultAssetAdministrationShell.Builder();
+
+                this.environmentBuilder = new DefaultEnvironment.Builder();
+                environmentBuilder.conceptDescriptions(environment.getConceptDescriptions()); //ConceptDescriptions not changing right now, can be copied by default
+
+                this.assetAdministrationShellBuilder = new DefaultAssetAdministrationShell.Builder();
                 AssetAdministrationShell shell = environment.getAssetAdministrationShells().get(0);
-                builder.idShort(shell.getIdShort())
+                this.assetAdministrationShellBuilder.idShort(shell.getIdShort())
                                 .displayName(shell.getDisplayName())
                                 .category(shell.getCategory())
                                 .description(shell.getDescription())
@@ -58,73 +70,68 @@ public class AASBuilder {
                                                 .defaultThumbnail(shell.getAssetInformation().getDefaultThumbnail())
                                                 .build());
                 environment.getSubmodels().forEach(submodel -> {
-                        builder.submodels(new DefaultReference.Builder()
+                        this.assetAdministrationShellBuilder.submodels(new DefaultReference.Builder()
                                         .keys(new DefaultKey.Builder()
                                                         .type(KeyTypes.SUBMODEL)
                                                         .value(submodel.getId())
                                                         .build())
                                         .type(ReferenceTypes.EXTERNAL_REFERENCE)
                                         .build());
+                        this.submodels.add(cloneSubmodel(submodel).build());
                 });
-                return builder;
-        }
-
-        private static org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultAssetAdministrationShell.Builder copyAASWithAddingSubmodel(
-                        Environment environment, String newSubmodelId) {
-
-                org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultAssetAdministrationShell.Builder builder = copyAAS(
-                                environment)
-                                .submodels(new DefaultReference.Builder()
-                                                .keys(new DefaultKey.Builder()
-                                                                .type(KeyTypes.SUBMODEL)
-                                                                .value(newSubmodelId)
-                                                                .build())
-                                                .type(ReferenceTypes.EXTERNAL_REFERENCE)
-                                                .build());
-
-                return builder;
         }
 
         /* Submodels */
 
-        private static org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel.Builder copySubmodel(
-                        Submodel submodel) {
-                Builder builder = new DefaultSubmodel.Builder();
+        private org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel.Builder cloneSubmodel(Submodel submodel) {
 
-                builder.semanticID(submodel.getSemanticID())
+                this.submodelBuilder = new DefaultSubmodel.Builder();
+
+                submodelBuilder.semanticID(submodel.getSemanticID())
                                 .idShort(submodel.getIdShort())
                                 .id(submodel.getId())
                                 .kind(submodel.getKind())
                                 .description(submodel.getDescription()).build();
 
-                addElements(builder, submodel.getSubmodelElements());
+                addElements(submodel.getSubmodelElements());
 
-                return builder;
+                return submodelBuilder;
+
         }
 
-        private static org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel.Builder copySubmodel(
-                        Submodel submodel, String newIdShort, String newId) {
-                Builder builder = new DefaultSubmodel.Builder();
-                builder.semanticID(submodel.getSemanticID())
-                                .idShort(newIdShort)
-                                .id(newId)
-                                .kind(submodel.getKind())
-                                .description(submodel.getDescription()).build();
+        private void addSubmodelToAASSubmodelList(String newSubmodelId) {
 
-                addElements(builder, submodel.getSubmodelElements());
+                this.assetAdministrationShellBuilder.submodels(new DefaultReference.Builder()
+                                .keys(new DefaultKey.Builder()
+                                                .type(KeyTypes.SUBMODEL)
+                                                .value(newSubmodelId)
+                                                .build())
+                                .type(ReferenceTypes.EXTERNAL_REFERENCE)
+                                .build());
+        }
 
-                return builder;
+        public AASModifier duplicateSubmodel(Submodel submodel, String newSubmodelId, String newSubmodelIdShort) {
+
+                this.submodelBuilder = cloneSubmodel(submodel);
+
+                this.submodelBuilder.id(newSubmodelId);
+                this.submodelBuilder.idShort(newSubmodelIdShort);
+                addSubmodelToAASSubmodelList(newSubmodelId);
+                
+                submodels.add(this.submodelBuilder.build());
+
+                return this;
         }
 
         /* SubmodelElements */
 
-        private static void addElements(Builder builder, Collection<SubmodelElement> elements) {
+        private void addElements(Collection<SubmodelElement> elements) {
                 elements.forEach(element -> {
-                        builder.submodelElements(copyElement(element));
+                        this.submodelBuilder.submodelElements(cloneElement(element));
                 });
         }
 
-        private static SubmodelElement copyElement(SubmodelElement element) {
+        private SubmodelElement cloneElement(SubmodelElement element) {
 
                 if (element instanceof SubmodelElementCollection) {
                         return cloneSubmodelElementCollection((SubmodelElementCollection) element);
@@ -145,15 +152,15 @@ public class AASBuilder {
                 return null;
         }
 
-        private static Collection<SubmodelElement> copyElements(Collection<SubmodelElement> elements) {
+        private Collection<SubmodelElement> cloneElements(Collection<SubmodelElement> elements) {
                 Collection<SubmodelElement> copyOfElements = new ArrayList<>();
                 elements.forEach(element -> {
-                        copyOfElements.add(copyElement(element));
+                        copyOfElements.add(cloneElement(element));
                 });
                 return copyOfElements;
         }
 
-        private static SubmodelElementCollection cloneSubmodelElementCollection(SubmodelElementCollection element) {
+        private SubmodelElementCollection cloneSubmodelElementCollection(SubmodelElementCollection element) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodelElementCollection.Builder builder = new DefaultSubmodelElementCollection.Builder();
                 builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
                                 .extensions(element.getExtensions())
@@ -164,110 +171,118 @@ public class AASBuilder {
                                 .description(element.getDescription())
                                 .displayName(element.getDisplayName())
                                 .idShort(element.getIdShort())
-                                .value(copyElements(element.getValue()));
+                                .value(cloneElements(element.getValue()));
                 return builder.build();
         }
 
-        private static Blob cloneBlob(Blob element) {
+        private Blob cloneBlob(Blob element) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultBlob.Builder builder = new DefaultBlob.Builder();
                 builder.contentType(element.getContentType())
-                        .value(element.getValue())
-                        .embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
-                        .extensions(element.getExtensions())
-                        .semanticID(element.getSemanticID())
-                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
-                        .qualifiers(element.getQualifiers())
-                        .category(element.getCategory())
-                        .description(element.getDescription())
-                        .displayName(element.getDisplayName())
-                        .idShort(element.getIdShort());
+                                .value(element.getValue())
+                                .embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                                .extensions(element.getExtensions())
+                                .semanticID(element.getSemanticID())
+                                .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                                .qualifiers(element.getQualifiers())
+                                .category(element.getCategory())
+                                .description(element.getDescription())
+                                .displayName(element.getDisplayName())
+                                .idShort(element.getIdShort());
                 return builder.build();
         }
 
-        private static File cloneFile(File element) {
+        private File cloneFile(File element) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultFile.Builder builder = new DefaultFile.Builder();
                 builder.contentType(element.getContentType())
-                        .value(element.getValue())
-                        .embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
-                        .extensions(element.getExtensions())
-                        .semanticID(element.getSemanticID())
-                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
-                        .qualifiers(element.getQualifiers())
-                        .category(element.getCategory())
-                        .description(element.getDescription())
-                        .displayName(element.getDisplayName())
-                        .idShort(element.getIdShort());
+                                .value(element.getValue())
+                                .embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
+                                .extensions(element.getExtensions())
+                                .semanticID(element.getSemanticID())
+                                .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                                .qualifiers(element.getQualifiers())
+                                .category(element.getCategory())
+                                .description(element.getDescription())
+                                .displayName(element.getDisplayName())
+                                .idShort(element.getIdShort());
                 return builder.build();
         }
 
-        private static MultiLanguageProperty cloneMultiLanguageProperty(MultiLanguageProperty element) {
+        private MultiLanguageProperty cloneMultiLanguageProperty(MultiLanguageProperty element) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultMultiLanguageProperty.Builder builder = new DefaultMultiLanguageProperty.Builder();
                 builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
-                        .extensions(element.getExtensions())
-                        .semanticID(element.getSemanticID())
-                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
-                        .value(element.getValue())
-                        .valueID(element.getValueID())
-                        .qualifiers(element.getQualifiers())
-                        .category(element.getCategory())
-                        .description(element.getDescription())
-                        .displayName(element.getDisplayName())
-                        .idShort(element.getIdShort());
+                                .extensions(element.getExtensions())
+                                .semanticID(element.getSemanticID())
+                                .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                                .value(element.getValue())
+                                .valueID(element.getValueID())
+                                .qualifiers(element.getQualifiers())
+                                .category(element.getCategory())
+                                .description(element.getDescription())
+                                .displayName(element.getDisplayName())
+                                .idShort(element.getIdShort());
                 return builder.build();
         }
 
-        private static Property cloneProperty(Property element) {
+        private Property cloneProperty(Property element) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultProperty.Builder builder = new DefaultProperty.Builder();
                 builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
-                        .extensions(element.getExtensions())
-                        .semanticID(element.getSemanticID())
-                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
-                        .value(element.getValue())
-                        .valueID(element.getValueID())
-                        .valueType(element.getValueType())
-                        .qualifiers(element.getQualifiers())
-                        .category(element.getCategory())
-                        .description(element.getDescription())
-                        .displayName(element.getDisplayName())
-                        .idShort(element.getIdShort());
+                                .extensions(element.getExtensions())
+                                .semanticID(element.getSemanticID())
+                                .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                                .value(element.getValue())
+                                .valueID(element.getValueID())
+                                .valueType(element.getValueType())
+                                .qualifiers(element.getQualifiers())
+                                .category(element.getCategory())
+                                .description(element.getDescription())
+                                .displayName(element.getDisplayName())
+                                .idShort(element.getIdShort());
                 return builder.build();
         }
 
-        private static Range cloneRange(Range element) {
+        private Range cloneRange(Range element) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultRange.Builder builder = new DefaultRange.Builder();
                 builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
-                        .extensions(element.getExtensions())
-                        .semanticID(element.getSemanticID())
-                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
-                        .qualifiers(element.getQualifiers())
-                        .max(element.getMax())
-                        .min(element.getMin())
-                        .valueType(element.getValueType())
-                        .category(element.getCategory())
-                        .description(element.getDescription())
-                        .displayName(element.getDisplayName())
-                        .idShort(element.getIdShort());
+                                .extensions(element.getExtensions())
+                                .semanticID(element.getSemanticID())
+                                .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                                .qualifiers(element.getQualifiers())
+                                .max(element.getMax())
+                                .min(element.getMin())
+                                .valueType(element.getValueType())
+                                .category(element.getCategory())
+                                .description(element.getDescription())
+                                .displayName(element.getDisplayName())
+                                .idShort(element.getIdShort());
                 return builder.build();
         }
-        
-        private static ReferenceElement cloneReferenceElement(ReferenceElement element) {
+
+        private ReferenceElement cloneReferenceElement(ReferenceElement element) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReferenceElement.Builder builder = new DefaultReferenceElement.Builder();
                 builder.embeddedDataSpecifications(element.getEmbeddedDataSpecifications())
-                        .extensions(element.getExtensions())
-                        .semanticID(element.getSemanticID())
-                        .supplementalSemanticIds(element.getSupplementalSemanticIds())
-                        .qualifiers(element.getQualifiers())
-                        .category(element.getCategory())
-                        .description(element.getDescription())
-                        .displayName(element.getDisplayName())
-                        .idShort(element.getIdShort())
-                        .value(element.getValue());
+                                .extensions(element.getExtensions())
+                                .semanticID(element.getSemanticID())
+                                .supplementalSemanticIds(element.getSupplementalSemanticIds())
+                                .qualifiers(element.getQualifiers())
+                                .category(element.getCategory())
+                                .description(element.getDescription())
+                                .displayName(element.getDisplayName())
+                                .idShort(element.getIdShort())
+                                .value(element.getValue());
                 return builder.build();
         }
 
         /* Environment */
 
-        private static org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment.Builder createAASCopy(
+        public Environment build() {
+                this.environmentBuilder.assetAdministrationShells(this.assetAdministrationShellBuilder.build());
+                submodels.forEach(submodel -> {
+                        this.environmentBuilder.submodels(submodel);
+                });
+                return this.environmentBuilder.build();
+        }
+
+     /*   private org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment.Builder createAASCopy(
                         Environment environment,
                         org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultAssetAdministrationShell.Builder assetAdministrationShellBuilder) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment.Builder builder = new DefaultEnvironment.Builder()
@@ -276,7 +291,7 @@ public class AASBuilder {
                 return builder;
         }
 
-        public static Environment createCopyWithAddingCustomReferenceProperty(Environment environment, Submodel model) {
+        public Environment createCopyWithAddingCustomReferenceProperty(Environment environment, Submodel model) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment.Builder builder = createAASCopy(
                                 environment, copyAAS(environment));
 
@@ -308,7 +323,7 @@ public class AASBuilder {
                 return builder.build();
         }
 
-        public static Environment createCopyWithAddingSubmodel(Environment environment, Submodel model,
+        public Environment createCopyWithAddingSubmodel(Environment environment, Submodel model,
                         String newIdShort, String newId) {
                 org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment.Builder builder = createAASCopy(
                                 environment, copyAASWithAddingSubmodel(environment, newId));
@@ -320,5 +335,5 @@ public class AASBuilder {
                                 .build();
 
                 return builder.build();
-        }
+        } */
 }

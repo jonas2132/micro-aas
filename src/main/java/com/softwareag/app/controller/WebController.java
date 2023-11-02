@@ -98,7 +98,7 @@ public class WebController {
 
                                         if(i>0) {
                                                 submodelIdShort += "_" + assetIDshort[i];
-                                                environmentService.duplicateSubmodel("CarbonFootprint", submodelIdShort);
+                                              //  environmentService.duplicateSubmodel("CarbonFootprint", submodelIdShort);
                                         }
 
                                        /* PRODUCT CARBON FOOTPRINT */
