@@ -1186,7 +1186,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU210#001",
+        "value" : "0173-1#07-ABU209#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -2050,7 +2050,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "23423424",
+        "value" : "234234234",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -2704,7 +2704,7 @@
       },
       "value" : [ {
         "language" : "de",
-        "text" : "Test AG"
+        "text" : "Nameplate AG"
       } ],
       "description" : [ {
         "language" : "en",
@@ -3523,7 +3523,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2.3423432E7",
+      "value" : "2.34234234E8",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -5018,7 +5018,7 @@
       "idShort" : "ProductCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU221#001",
+        "value" : "0173-1#07-ABU222#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -5106,7 +5106,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU209#001",
+        "value" : "0173-1#07-ABU212#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -5322,7 +5322,7 @@
       "idShort" : "TransportCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU221#001",
+        "value" : "0173-1#07-ABU222#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -5817,7 +5817,7 @@
       "idShort" : "ProductCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU223#001",
+        "value" : "0173-1#07-ABU222#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -5905,7 +5905,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU211#001",
+        "value" : "0173-1#07-ABU210#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -6121,7 +6121,7 @@
       "idShort" : "TransportCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU223#001",
+        "value" : "0173-1#07-ABU222#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",

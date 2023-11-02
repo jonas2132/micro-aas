@@ -118,7 +118,7 @@ public class EnvironmentService implements Environment {
      * 
      */
     public void duplicateSubmodel(String submodelIdShort, String newSubmodelIdShort) {
-        this.environment = AASBuilder.createCopyWithAddingSubmodel(environment, getSubmodelOfIdShort(submodelIdShort), newSubmodelIdShort, "https://admin-shell.io/idta/CarbonFootprinter/CarbonFootprinter/1/0/"+newSubmodelIdShort);
+        this.environment = AASBuilder.createCopyWithAddingSubmodel(environment, getSubmodelOfIdShort(submodelIdShort), newSubmodelIdShort, "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0/"+newSubmodelIdShort);
     }
 
     public void addCustomReferenceProperty(String submodelIdShort) {
