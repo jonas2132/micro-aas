@@ -150,7 +150,7 @@ public class AASModifier {
                                                 .valueType(DataTypeDefXSD.STRING)
                                                 .category("PARAMETER")
                                                 .description(Arrays.asList(
-                                                        new DefaultLangStringTextType.Builder().text("Das ist eine modellhafte Beschreibung.").language("de").build()
+                                                        new DefaultLangStringTextType.Builder().text("Das ist eine beispielhafte Beschreibung.").language("de").build()
                                                 ))
                                                 .idShort(idShort)
                                                 .build());
