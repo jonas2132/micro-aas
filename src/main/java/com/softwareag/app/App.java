@@ -20,8 +20,7 @@ public class App {
 
     public static void main(String[] args) {
         
-        dataRepositoryController = new DataRepositoryController(DataType.JSON);
-     
+        dataRepositoryController = new DataRepositoryController(DataType.JSON); 
         SpringApplication.run(App.class, args);
 
         /*EnvironmentService envServ = new EnvironmentService(env);
