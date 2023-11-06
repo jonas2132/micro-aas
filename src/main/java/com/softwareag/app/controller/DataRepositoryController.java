@@ -1,10 +1,5 @@
 package com.softwareag.app.controller;
 
-import java.util.ArrayList;
-
-import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
-import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
-
 import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;

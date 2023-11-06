@@ -35,12 +35,9 @@ package com.softwareag.app.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-//Decorator Pattern
 import java.util.List;
-import java.util.Optional;
 import java.util.Queue;
 
-import javax.naming.InvalidNameException;
 
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
@@ -53,9 +50,7 @@ import org.eclipse.digitaltwin.aas4j.v3.model.Property;
 import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
-import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringNameType;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringTextType;
-import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultSubmodel;
 
 import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
@@ -125,9 +120,14 @@ public class EnvironmentService implements Environment {
         // "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0/"+newSubmodelIdShort);
     }
 
-    public void addCustomElement(String submodelIdShort) {
-       // this.environment = AASModifier.createCopyWithAddingCustomReferenceProperty(environment,
-         //       getSubmodelOfIdShort(submodelIdShort));
+    public void duplicateSubmodelElementCollection(String submodelIdShort, String submodelElementCollectionIdShort, String newIdShort) {
+        this.environment = new AASModifier(environment).duplicateSubmodelElementCollection(getSubmodelOfIdShort(submodelIdShort), submodelElementCollectionIdShort, newIdShort)
+            .build();
+    }
+
+    public void addCustomProperty(String submodelIdShort, String popertyIdShort) {
+        this.environment = new AASModifier(environment).addCustomProperty(getSubmodelOfIdShort(submodelIdShort), popertyIdShort)
+            .build();
     }
 
     public void updateAssetID(String value) {
@@ -281,12 +281,10 @@ public class EnvironmentService implements Environment {
     }
 
     private Submodel getSubmodelOfIdShort(String submodelIdShort) {
-        for (Submodel submodel : getSubmodels()) {
-            if (!isSubmodelTypeOf(submodel, submodelIdShort))
-                continue;
-            return submodel;
-        }
-        return null;
+        return getSubmodels().stream()
+                .filter(submodel -> isSubmodelTypeOf(submodel, submodelIdShort))
+                .findFirst()
+                .orElse(null);
     }
 
     private boolean isMultilanguageProperty(SubmodelElement submodelElement,

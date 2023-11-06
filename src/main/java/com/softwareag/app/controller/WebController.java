@@ -3,7 +3,6 @@ package com.softwareag.app.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

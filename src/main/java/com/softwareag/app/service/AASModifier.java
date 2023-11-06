@@ -1,8 +1,8 @@
 package com.softwareag.app.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
@@ -25,8 +25,10 @@ import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultBlob;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultEnvironment;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultKey;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringTextType;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultMultiLanguageProperty;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultProperty;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultQualifier;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultRange;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReference;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReferenceElement;
@@ -124,6 +126,67 @@ public class AASModifier {
         }
 
         /* SubmodelElements */
+
+        public AASModifier addCustomProperty(Submodel submodel, String idShort) {
+
+                submodels.removeIf(model -> model.getIdShort().equals(submodel.getIdShort()));
+
+                this.submodelBuilder = cloneSubmodel(submodel);
+
+                submodelBuilder.submodelElements(new DefaultProperty.Builder()
+                                                .semanticID(new DefaultReference.Builder()
+                                                                .keys(new DefaultKey.Builder()
+                                                                                .type(KeyTypes.GLOBAL_REFERENCE)
+                                                                                .value("DUMMY")
+                                                                                .build())
+                                                                .type(ReferenceTypes.EXTERNAL_REFERENCE)
+                                                                .build())
+                                                .qualifiers(new DefaultQualifier.Builder()
+                                                        .value("0")
+                                                        .type("Cardinality")
+                                                        .valueType(DataTypeDefXSD.DOUBLE)
+                                                        .build())
+                                                .value("Dummy")
+                                                .valueType(DataTypeDefXSD.STRING)
+                                                .category("PARAMETER")
+                                                .description(Arrays.asList(
+                                                        new DefaultLangStringTextType.Builder().text("Das ist eine modellhafte Beschreibung.").language("de").build()
+                                                ))
+                                                .idShort(idShort)
+                                                .build());
+
+                submodels.add(submodelBuilder.build());
+
+                return this;
+        }
+
+        public AASModifier duplicateSubmodelElementCollection(Submodel submodel, String submodelElementCollectionIdShort, String newIdShort) {
+
+                submodels.removeIf(model -> model.getIdShort().equals(submodel.getIdShort()));
+                        
+                this.submodelBuilder = cloneSubmodel(submodel);
+
+                SubmodelElement elementCollection = submodel.getSubmodelElements().stream()
+                        .filter(submodelElement -> submodelElement.getIdShort().equals(submodelElementCollectionIdShort))
+                        .findFirst()
+                        .map(this::cloneElement)
+                        .orElse(null);
+                
+                elementCollection.setIdShort(newIdShort);
+                /* elementCollection.setSemanticID(new DefaultReference.Builder()
+                                                                .keys(new DefaultKey.Builder()
+                                                                                .type(KeyTypes.GLOBAL_REFERENCE)
+                                                                                .value("Test")
+                                                                                .build())
+                                                                .type(ReferenceTypes.EXTERNAL_REFERENCE)
+                                                                .build()); */
+
+                submodelBuilder.submodelElements(elementCollection);
+
+                submodels.add(submodelBuilder.build());
+
+                return this;
+        }
 
         private void addElements(Collection<SubmodelElement> elements) {
                 elements.forEach(element -> {
