@@ -38,7 +38,7 @@ public class DataRepositoryController {
 
     public void processData(double data, String fileName) {
         EnvironmentService envServ = currentDataRepository.read(fileName + (dataType == DataType.AASX ? ".aasx" : ".json"));
-        envServ.updateProperty("64280", "CarbonFootprint", SubmodelElementPropertyType.ZIPCODE, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT, SubmodelElementCollectionType.TCF_GOODS_TRANSPORT_ADDRESS_TAKEOVER);
+        //envServ.updateProperty("64280", "CarbonFootprint", SubmodelElementPropertyType.ZIPCODE, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT, SubmodelElementCollectionType.TCF_GOODS_TRANSPORT_ADDRESS_TAKEOVER);
         currentDataRepository.write(envServ, fileName + "_output" + (dataType == DataType.AASX ? ".aasx" : ".json"));
     }
 }

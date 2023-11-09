@@ -148,7 +148,7 @@ public class EnvironmentService implements Environment {
 
     public void updateMultilanguageProperty(String value, String submodelIdShort,
             SubmodelElementPropertyType propertyType,
-            SubmodelElementCollectionType... submodelElementCollections) {
+            String... submodelElementCollections) {
         System.out.println("Updating MultilanguageProperty " + propertyType.getIdShort() + " . . .");
         try {
             List<LangStringTextType> valueList = new ArrayList<>();
@@ -170,10 +170,10 @@ public class EnvironmentService implements Environment {
         }
         // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
         // Filter ist wie eine Abfrage
-    }
+            }
 
     public void updateProperty(String value, String submodelIdShort, SubmodelElementPropertyType propertyType,
-            SubmodelElementCollectionType... submodelElementCollections) {
+            String... submodelElementCollections) {
         System.out.println("Updating Property " + propertyType.getIdShort() + " . . .");
         try {
 
@@ -190,7 +190,7 @@ public class EnvironmentService implements Environment {
     }
 
     public void updateFile(String path, String submodelIdShort, SubmodelElementPropertyType propertyType,
-            SubmodelElementCollectionType... submodelElementCollections) {
+            String... submodelElementCollections) {
         System.out.println("Updating File " + propertyType.getIdShort() + " . . .");
         try {
 
@@ -207,7 +207,7 @@ public class EnvironmentService implements Environment {
     }
 
     public String getPropertyValue(String submodelIdShort, SubmodelElementPropertyType propertyType,
-            SubmodelElementCollectionType... submodelElementCollections) {
+            String... submodelElementCollections) {
 
         System.out.println("Reading Property " + propertyType.getIdShort() + " . . .");
         try {
@@ -232,17 +232,16 @@ public class EnvironmentService implements Environment {
     // frontend
     public String getPCFCO2() {
         return getPropertyValue("CarbonFootprint", SubmodelElementPropertyType.PCFCO2EQ,
-                SubmodelElementCollectionType.PRODUCT_CARBON_FOOTPRINT);
+                "ProductCarbonFootprint");
     }
 
     public String getTCFCO2() {
         return getPropertyValue("CarbonFootprint", SubmodelElementPropertyType.TCFCO2EQ,
-                SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT);
+                "TransportCarbonFootprint");
     }
-    //
 
     private Collection<SubmodelElement> getSubmodelElements(String submodelIdShort,
-            SubmodelElementCollectionType... submodelElementCollections) {
+            String... submodelElementCollections) {
 
         SubmodelElementCollection submodelElementCollection = (SubmodelElementCollection) getCertainSubmodelElementCollection(
                 submodelIdShort, submodelElementCollections);
@@ -254,10 +253,10 @@ public class EnvironmentService implements Environment {
     }
 
     private SubmodelElementCollection getCertainSubmodelElementCollection(String submodelIdShort,
-            SubmodelElementCollectionType... collections) {
+            String... collections) {
 
-        Queue<SubmodelElementCollectionType> collectionQueue = new LinkedList<>();
-        for (SubmodelElementCollectionType collection : collections)
+        Queue<String> collectionQueue = new LinkedList<>();
+        for (String collection : collections)
             collectionQueue.offer(collection);
 
         SubmodelElementCollection submodelElement = null;
@@ -270,7 +269,7 @@ public class EnvironmentService implements Environment {
             for (SubmodelElement element : elements) {
                 if (!(element instanceof SubmodelElementCollection))
                     continue;
-                if (isSubmodelElementCollection(collectionQueue, element)) {
+                if (isSubmodelElementCollectionString(collectionQueue, element)) {
                     submodelElement = (SubmodelElementCollection) element;
                     break;
                 }
@@ -311,16 +310,16 @@ public class EnvironmentService implements Environment {
         return false;
     }
 
-    private boolean isSubmodelElementCollection(Queue<SubmodelElementCollectionType> collectionQueue,
+    private boolean isSubmodelElementCollectionString(Queue<String> collectionQueue,
             SubmodelElement submodelElement) {
-
-        SubmodelElementCollectionType collectionType = collectionQueue.peek();
-        if (submodelElement.getIdShort().equals(collectionType.getIdShort())
+        if (submodelElement.getIdShort().equals(collectionQueue.peek())
                 && submodelElement instanceof SubmodelElementCollection) {
             collectionQueue.poll();
             return true;
         }
         return false;
     }
+    
+    
 
 }

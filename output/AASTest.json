@@ -8,6 +8,12 @@
     "submodels" : [ {
       "keys" : [ {
         "type" : "Submodel",
+        "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
+      } ],
+      "type" : "ExternalReference"
+    }, {
+      "keys" : [ {
+        "type" : "Submodel",
         "value" : "https://admin-shell.io/ZVEI/TechnicalData/Submodel/1/2"
       } ],
       "type" : "ExternalReference"
@@ -15,12 +21,6 @@
       "keys" : [ {
         "type" : "Submodel",
         "value" : "www.example.com/ids/sm/1225_9020_5022_1974"
-      } ],
-      "type" : "ExternalReference"
-    }, {
-      "keys" : [ {
-        "type" : "Submodel",
-        "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
       } ],
       "type" : "ExternalReference"
     } ],
@@ -5282,28 +5282,6 @@
       "description" : [ {
         "language" : "en",
         "text" : "Balance of greenhouse gas emissions along the entire life cycle of a product in a defined application and in relation to a defined unit of use"
-      } ]
-    }, {
-      "modelType" : "Property",
-      "value" : "Dummy",
-      "valueType" : "xs:string",
-      "qualifiers" : [ {
-        "type" : "Cardinality",
-        "value" : "0",
-        "valueType" : "xs:int"
-      } ],
-      "category" : "PARAMETER",
-      "idShort" : "Testproperty",
-      "semanticId" : {
-        "keys" : [ {
-          "type" : "GlobalReference",
-          "value" : "DUMMY"
-        } ],
-        "type" : "ExternalReference"
-      },
-      "description" : [ {
-        "language" : "de",
-        "text" : "Das ist eine modellhafte Beschreibung."
       } ]
     } ],
     "semanticId" : {
