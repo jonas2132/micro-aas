@@ -45,22 +45,21 @@ public class WebController {
         public String showForm(Model model) {
                 model.addAttribute("pageTitle", "AAS Configurator");
                 ObjectMapper objectMapper = new ObjectMapper();
-                List<String> numbers = new ArrayList<>();
-                numbers.add("eins");
-                numbers.add("zwei");
-                numbers.add("drei");
-                numbers.add("vier");
-                numbers.add("fünf");
+                // List<String> dataArray = Arrays.asList("value1", "value2", "value3");
+                List<String> environmentServicesIDs = new ArrayList<>();
+                for(EnvironmentService serv : environmentServices){
+                        environmentServicesIDs.add(serv.getAssetID());
+                }
 
-                String numbersJson;
+                String dataArrayJson;
                 try {
-                        numbersJson = objectMapper.writeValueAsString(numbers);
-                        model.addAttribute("numbers", numbersJson);
+                        dataArrayJson = objectMapper.writeValueAsString(environmentServicesIDs);
+                        model.addAttribute("dataArray", dataArrayJson);
                 } catch (JsonProcessingException e) {
                         // TODO Auto-generated catch block
-                        System.out.println("JsonError");
                         e.printStackTrace();
                 }
+                
 
                 return "aas_form";
         }

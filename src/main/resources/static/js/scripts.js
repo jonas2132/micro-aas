@@ -2,17 +2,16 @@
  * Adds a new accordion item to the AAS/Form page when the "addPCFitem" button is clicked.
  */
 $(document).ready(function () {
-    var PCFCounter = 1;
-    $("#addPCFitem").click(function () {
-        // Create a new accordion item
-        var environmentServicesJson = $("#environmentServicesJson").val();
-        // var environmentServices = JSON.parse(environmentServicesJson);
-        // Display the JSON data in the specified div
-        $("#environmentServicesJsonDisplay").text(JSON.stringify(environmentServicesJson, null, 2));
+  var PCFCounter = 1;
+  $("#addPCFitem").click(function () {
+    // Create a new accordion item
+    var dataContainer = document.getElementById("data-container");
+    var dataArray = JSON.parse(dataContainer.getAttribute("data-array"));
 
+    
 
-        PCFCounter++;
-        var newPCFItem = `
+    PCFCounter++;
+    var newPCFItem = `
         <div class="accordion-item">
                       <h2 class="accordion-header" id="headingPCF${PCFCounter}">
                         <button id="PCF-header-button" class="accordion-button collapsed" type="button"
@@ -126,9 +125,19 @@ $(document).ready(function () {
                     </div>
                     `;
 
-        // Append the new accordion item to the accordion container
-        $("#PCFAccordion").append(newPCFItem);
-    });
+    // Append the new accordion item to the accordion container
+    $("#PCFAccordion").append(newPCFItem);
+
+    if (dataArray) {
+      // Update the HTML using the array
+      var dataArrayList = document.getElementById("list-environmentServices");
+      dataArray.forEach(function (item) {
+        var listItem = document.createElement("option");
+        listItem.textContent = item;
+        dataArrayList.appendChild(listItem);
+      });
+    }
+  });
 });
 
 
@@ -136,11 +145,11 @@ $(document).ready(function () {
  * Adds a new accordion item to the AAS/Form page when the "addTCFitem" button is clicked.
  */
 $(document).ready(function () {
-    var TCFCounter = 1;
-    $("#addTCFitem").click(function () {
-        // Create a new accordion item
-        TCFCounter++;
-        var newTCFItem = `
+  var TCFCounter = 1;
+  $("#addTCFitem").click(function () {
+    // Create a new accordion item
+    TCFCounter++;
+    var newTCFItem = `
         <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTCF${TCFCounter}">
                         <button id="TCF-header-button${TCFCounter}" class="accordion-button collapsed" type="button"
@@ -209,9 +218,9 @@ $(document).ready(function () {
                     </div>
                     `;
 
-        // Append the new accordion item to the accordion container
-        $("#TCFAccordion").append(newTCFItem);
-    });
+    // Append the new accordion item to the accordion container
+    $("#TCFAccordion").append(newTCFItem);
+  });
 });
 
 
@@ -221,13 +230,13 @@ $(document).ready(function () {
  */
 $(document).ready(function () {
 
-    var assetIDshortInput = $(`#assetIDshort`);
-    var accordionButtonProductCarbonFootprint = $(`#PCF-header-button`);
+  var assetIDshortInput = $(`#assetIDshort`);
+  var accordionButtonProductCarbonFootprint = $(`#PCF-header-button`);
 
-    assetIDshortInput.on("input", function () {
-        var inputValue = assetIDshortInput.val();
-        accordionButtonProductCarbonFootprint.text(`Product Carbon Footprint- ${inputValue}`);
-    });
+  assetIDshortInput.on("input", function () {
+    var inputValue = assetIDshortInput.val();
+    accordionButtonProductCarbonFootprint.text(`Product Carbon Footprint- ${inputValue}`);
+  });
 });
 
 /**
@@ -239,8 +248,8 @@ $(document).ready(function () {
   var accordionButtonProductCarbonFootprint = $(`#TCF-header-button`);
 
   assetIDshortInput.on("input", function () {
-      var inputValue = assetIDshortInput.val();
-      accordionButtonProductCarbonFootprint.text(`Transport Carbon Footprint- ${inputValue}`);
+    var inputValue = assetIDshortInput.val();
+    accordionButtonProductCarbonFootprint.text(`Transport Carbon Footprint- ${inputValue}`);
   });
 });
 
@@ -248,7 +257,7 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
-  document.addEventListener('DOMContentLoaded', e =>{
+  document.addEventListener('DOMContentLoaded', e => {
     $('input-datalist').autocomplete()
   }, false);
 })

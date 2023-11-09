@@ -5,6 +5,8 @@
 <head th:replace="~{fragments/general :: head}"></head>
 
 <body>
+
+  <div id="data-container" th:attr="data-array=${dataArray}" style="display: none;"></div>
   <header th:replace="~{fragments/general :: header}"></header>
   <main class="container d-flex flex-column py-3">
     <div class="rounded-2 border shadow-sm bg-light flex-fill px-5 py-4 d-flex flex-column">
@@ -12,6 +14,7 @@
       Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and
       Carbon Footprint. Add all relevant
       informations and submit save.
+      <ul id="dataArrayList"></ul>
       <hr class="mb-4">
       <form id="submodel-form" class="needs-validation flex-fill d-flex flex-column" method="post"
         action="/aas/submission">
@@ -149,16 +152,6 @@
                       <div id="collapsePCF" class="accordion-collapse collapse" aria-labelledby="headingPCF"
                         data-bs-parent="#PCFAccordion">
                         <div class="accordion-body">
-                          <!--Submodel ID-->
-                          <div class="mb-3">
-                            <label for="SubmodelID">Submodel ID of the related Asset</label>
-                            <input name="SubmodelID" type="text" class="form-control" placeholder="SubmodelID"
-                              list="list-environmentServices" id="SubmodelID">
-                            <datalist id="list-environmentServices">
-                              <option th:each="environmentService : ${environmentServices}"
-                                th:text="${environmentService}"></option>
-                            </datalist>
-                          </div>
                           <!--Calculation Method-->
                           <div class="mb-3">
                             <label for="PCFCalculationMethod">Calculation Method</label>
