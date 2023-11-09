@@ -12,7 +12,6 @@
       Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and
       Carbon Footprint. Add all relevant
       informations and submit save.
-
       <hr class="mb-4">
       <form id="submodel-form" class="needs-validation flex-fill d-flex flex-column" method="post"
         action="/aas/submission">
@@ -20,8 +19,7 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="assetIDshort">Asset ID short</label>
-              <input name="assetIDshort" type="text" class="form-control" id="assetIDshort" placeholder="newAssetName"
-                value="" required="">
+              <input name="assetIDshort" type="text" class="form-control" id="assetIDshort" placeholder="newAssetName">
               <div class="invalid-feedback">
                 Valid short asset ID is required.
               </div>
@@ -29,7 +27,7 @@
             <div class="col-md-6 mb-3">
               <label for="assetID">Asset ID</label>
               <input name="assetID" type="text" class="form-control" id="assetID"
-                placeholder="https://example.company.com/newAssetName" value="" required="">
+                placeholder="https://example.company.com/newAssetName" required>
               <div class="invalid-feedback">
                 Valid asset ID is required.
               </div>
@@ -74,15 +72,15 @@
                   <div class="row">
                     <div class="col-6 mb-3">
                       <label for="YearOfConstruction">Year of Construction</label>
-                      <input name="YearOfConstruction" type="text" class="form-control" id="YearOfConstruction"
-                        placeholder="2023">
+                      <input name="YearOfConstruction" type="number" min="1000" max="3000" step="1" class="form-control"
+                        id="YearOfConstruction" placeholder="2023">
                       <div class="invalid-feedback">
                         The Year of Construction is missing.
                       </div>
                     </div>
                     <div class="col-6 mb-3">
                       <label for="DateOfManufacture">Date of Manufacture</label>
-                      <input name="DateOfManufacture" type="text" class="form-control" id="DateOfManufacture"
+                      <input name="DateOfManufacture" type="date" class="form-control" id="DateOfManufacture"
                         placeholder="2023-01-01">
                       <div class="invalid-feedback">
                         The Date of Manufacture is missing.
@@ -151,6 +149,16 @@
                       <div id="collapsePCF" class="accordion-collapse collapse" aria-labelledby="headingPCF"
                         data-bs-parent="#PCFAccordion">
                         <div class="accordion-body">
+                          <!--Submodel ID-->
+                          <div class="mb-3">
+                            <label for="SubmodelID">Submodel ID of the related Asset</label>
+                            <input name="SubmodelID" type="text" class="form-control" placeholder="SubmodelID"
+                              list="list-environmentServices" id="SubmodelID">
+                            <datalist id="list-environmentServices">
+                              <option th:each="environmentService : ${environmentServices}"
+                                th:text="${environmentService}"></option>
+                            </datalist>
+                          </div>
                           <!--Calculation Method-->
                           <div class="mb-3">
                             <label for="PCFCalculationMethod">Calculation Method</label>
@@ -235,7 +243,8 @@
                           <!--Description-->
                           <div class="md-3">
                             <label for="PCFDescription">Asset Description</label>
-                            <textarea class="form-control" id="PCFDescription" name="PCFDescription" rows="3"></textarea>
+                            <textarea class="form-control" id="PCFDescription" name="PCFDescription"
+                              rows="3"></textarea>
                           </div>
                         </div>
 
