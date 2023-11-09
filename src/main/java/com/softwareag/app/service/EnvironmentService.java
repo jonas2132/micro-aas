@@ -52,7 +52,6 @@ import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringTextType;
 
-import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
 
 public class EnvironmentService implements Environment {

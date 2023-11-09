@@ -79,7 +79,7 @@ public class AASXDataRepository implements DataRepository{
             Environment env = deserializer.read();
             
             EnvironmentService envService = new EnvironmentService(env);
-            envService.setFilelist(deserializer.getRelatedFiles());
+            //envService.setFilelist(deserializer.getRelatedFiles());
             return envService;
 
         } catch (FileNotFoundException e) {
