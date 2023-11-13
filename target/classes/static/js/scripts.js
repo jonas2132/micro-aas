@@ -25,12 +25,9 @@ $(document).ready(function () {
                         <div class="accordion-body">
                         <!--Submodel ID-->
                         <div class="mb-3">
-                          <label for="SubmodelID">Submodel ID of the related Asset</label>
-                          <input name="SubmodelID" type="text" class="form-control" placeholder="SubmodelID" list="list-environmentServices" id="SubmodelID">
+                          <label for="SubmodelID">ID of the related Asset</label>
+                          <input name="SubmodelID" type="text" class="form-control" placeholder="https://example.company.de/id/1234" list="list-environmentServices" id="SubmodelID">
                           <datalist id="list-environmentServices">
-                            <option>eins</option>
-                            <option>zwei</option>
-                            <option>drei</option>
                           </datalist>
                         </div>
                           <!--Calculation Method-->
@@ -129,12 +126,12 @@ $(document).ready(function () {
     $("#PCFAccordion").append(newPCFItem);
 
     if (dataArray) {
-      // Update the HTML using the array
-      var dataArrayList = document.getElementById("list-environmentServices");
+      // Update the HTML suggestions datalist
+      var assetSuggestionsList = document.getElementById("list-environmentServices");
       dataArray.forEach(function (item) {
         var listItem = document.createElement("option");
         listItem.textContent = item;
-        dataArrayList.appendChild(listItem);
+        assetSuggestionsList.appendChild(listItem);
       });
     }
   });

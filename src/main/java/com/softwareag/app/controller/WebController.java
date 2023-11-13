@@ -45,7 +45,6 @@ public class WebController {
         public String showForm(Model model) {
                 model.addAttribute("pageTitle", "AAS Configurator");
                 ObjectMapper objectMapper = new ObjectMapper();
-                // List<String> dataArray = Arrays.asList("value1", "value2", "value3");
                 List<String> environmentServicesIDs = new ArrayList<>();
                 for(EnvironmentService serv : environmentServices){
                         environmentServicesIDs.add(serv.getAssetID());
