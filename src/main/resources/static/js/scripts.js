@@ -2,11 +2,16 @@
  * Adds a new accordion item to the AAS/Form page when the "addPCFitem" button is clicked.
  */
 $(document).ready(function () {
-    var PCFCounter = 1;
-    $("#addPCFitem").click(function () {
-        // Create a new accordion item
-        PCFCounter++;
-        var newPCFItem = `
+  var PCFCounter = 1;
+  $("#addPCFitem").click(function () {
+    // Create a new accordion item
+    var dataContainer = document.getElementById("data-container");
+    var dataArray = JSON.parse(dataContainer.getAttribute("data-array"));
+
+    
+
+    PCFCounter++;
+    var newPCFItem = `
         <div class="accordion-item">
                       <h2 class="accordion-header" id="headingPCF${PCFCounter}">
                         <button id="PCF-header-button" class="accordion-button collapsed" type="button"
@@ -18,6 +23,13 @@ $(document).ready(function () {
                       <div id="collapsePCF${PCFCounter}" class="accordion-collapse collapse" aria-labelledby="headingPCF${PCFCounter}"
                         data-bs-parent="#PCFAccordion">
                         <div class="accordion-body">
+                        <!--Submodel ID-->
+                        <div class="mb-3">
+                          <label for="SubmodelID">ID of the related Asset</label>
+                          <input name="SubmodelID" type="text" class="form-control" placeholder="https://example.company.de/id/1234" list="list-environmentServices" id="SubmodelID">
+                          <datalist id="list-environmentServices">
+                          </datalist>
+                        </div>
                           <!--Calculation Method-->
                           <div class="mb-3">
                             <label for="PCFCalculationMethod">Calculation Method</label>
@@ -110,9 +122,19 @@ $(document).ready(function () {
                     </div>
                     `;
 
-        // Append the new accordion item to the accordion container
-        $("#PCFAccordion").append(newPCFItem);
-    });
+    // Append the new accordion item to the accordion container
+    $("#PCFAccordion").append(newPCFItem);
+
+    if (dataArray) {
+      // Update the HTML suggestions datalist
+      var assetSuggestionsList = document.getElementById("list-environmentServices");
+      dataArray.forEach(function (item) {
+        var listItem = document.createElement("option");
+        listItem.textContent = item;
+        assetSuggestionsList.appendChild(listItem);
+      });
+    }
+  });
 });
 
 
@@ -120,11 +142,11 @@ $(document).ready(function () {
  * Adds a new accordion item to the AAS/Form page when the "addTCFitem" button is clicked.
  */
 $(document).ready(function () {
-    var TCFCounter = 1;
-    $("#addTCFitem").click(function () {
-        // Create a new accordion item
-        TCFCounter++;
-        var newTCFItem = `
+  var TCFCounter = 1;
+  $("#addTCFitem").click(function () {
+    // Create a new accordion item
+    TCFCounter++;
+    var newTCFItem = `
         <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTCF${TCFCounter}">
                         <button id="TCF-header-button${TCFCounter}" class="accordion-button collapsed" type="button"
@@ -193,23 +215,48 @@ $(document).ready(function () {
                     </div>
                     `;
 
-        // Append the new accordion item to the accordion container
-        $("#TCFAccordion").append(newTCFItem);
-    });
+    // Append the new accordion item to the accordion container
+    $("#TCFAccordion").append(newTCFItem);
+  });
 });
+
+
+
+/**
+ * Adds the Asset ID to the Product Carbon Footprint accordion Button
+ */
+$(document).ready(function () {
+
+  var assetIDshortInput = $(`#assetIDshort`);
+  var accordionButtonProductCarbonFootprint = $(`#PCF-header-button`);
+
+  assetIDshortInput.on("input", function () {
+    var inputValue = assetIDshortInput.val();
+    accordionButtonProductCarbonFootprint.text(`Product Carbon Footprint- ${inputValue}`);
+  });
+});
+
+/**
+ * Adds the Asset ID to the Transport Carbon Footprint accordion Button
+ */
+$(document).ready(function () {
+
+  var assetIDshortInput = $(`#assetIDshort`);
+  var accordionButtonProductCarbonFootprint = $(`#TCF-header-button`);
+
+  assetIDshortInput.on("input", function () {
+    var inputValue = assetIDshortInput.val();
+    accordionButtonProductCarbonFootprint.text(`Transport Carbon Footprint- ${inputValue}`);
+  });
+});
+
+
 
 
 $(document).ready(function () {
-
-    var assetIDshortInput = $(`#assetIDshort`);
-    var accordionButtonCarbonFootprint = $(`#carbon-footprint-button`);
-
-    assetIDshortInput.on("input", function () {
-        var inputValue = assetIDshortInput.val();
-        accordionButtonCarbonFootprint.text(`Carbon Footprint- ${inputValue}`);
-    });
-
-
-});
+  document.addEventListener('DOMContentLoaded', e => {
+    $('input-datalist').autocomplete()
+  }, false);
+})
 
 

@@ -1,8 +1,13 @@
 package com.softwareag.app.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,13 +44,30 @@ public class WebController {
         @GetMapping("/aas/form")
         public String showForm(Model model) {
                 model.addAttribute("pageTitle", "AAS Configurator");
+                ObjectMapper objectMapper = new ObjectMapper();
+                List<String> environmentServicesIDs = new ArrayList<>();
+                for(EnvironmentService serv : environmentServices){
+                        environmentServicesIDs.add(serv.getAssetID());
+                }
+
+                String dataArrayJson;
+                try {
+                        dataArrayJson = objectMapper.writeValueAsString(environmentServicesIDs);
+                        model.addAttribute("dataArray", dataArrayJson);
+                } catch (JsonProcessingException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+                
+
                 return "aas_form";
         }
 
         @PostMapping("/aas/submission")
         public String submission(
                         // parameter Asset Administration Shell
-                        @RequestParam("assetIDshort") String[] assetIDshort, //includes actual AssetIDShort of AAS and CarbonFootprint Submodel assetIDshorts
+                        @RequestParam("assetIDshort") String[] assetIDshort, // includes actual AssetIDShort of AAS and
+                                                                             // CarbonFootprint Submodel assetIDshorts
                         @RequestParam("assetID") String assetID,
 
                         // parameter Nameplate
@@ -73,21 +95,22 @@ public class WebController {
                         @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
                         @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation) {
 
-                                EnvironmentService environmentService = currentDataRepository.read("FullAASTemplate.json");
-                                
-                                environmentService.updateAssetIDShort(assetIDshort[0]);
-                                environmentService.updateAssetID(assetID);
+                EnvironmentService environmentService = currentDataRepository.read("FullAASTemplate.json");
 
-                                 /* Nameplate */
-                                environmentService.updateProperty(URIOfTheProduct, "Nameplate", SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
-                                environmentService.updateMultilanguageProperty(ManufacturerName, "Nameplate",
-                                        SubmodelElementPropertyType.MANUFACTURER_NAME);
-                                environmentService.updateProperty(Double.toString(SerialNumber), "Nameplate",
-                                        SubmodelElementPropertyType.SERIAL_NUMBER);
-                                environmentService.updateProperty(YearOfConstruction, "Nameplate",
-                                        SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION);
-                                environmentService.updateProperty(DateOfManufacture, "Nameplate",
-                                        SubmodelElementPropertyType.DATE_OF_MANUFACTURE);
+                environmentService.updateAssetIDShort(assetIDshort[0]);
+                environmentService.updateAssetID(assetID);
+
+                /* Nameplate */
+                environmentService.updateProperty(URIOfTheProduct, "Nameplate",
+                                SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
+                environmentService.updateMultilanguageProperty(ManufacturerName, "Nameplate",
+                                SubmodelElementPropertyType.MANUFACTURER_NAME);
+                environmentService.updateProperty(Double.toString(SerialNumber), "Nameplate",
+                                SubmodelElementPropertyType.SERIAL_NUMBER);
+                environmentService.updateProperty(YearOfConstruction, "Nameplate",
+                                SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION);
+                environmentService.updateProperty(DateOfManufacture, "Nameplate",
+                                SubmodelElementPropertyType.DATE_OF_MANUFACTURE);
 
                                /* Technical Data */
                                 environmentService.updateProperty(ManufacturerOrderCode, "TechnicalData",
@@ -148,7 +171,8 @@ public class WebController {
         }
 
         @PostMapping("/aas/export")
-        public String exportAAS(@RequestParam("selectedItems") List<String> selectedItems, @RequestParam("exportFormat") String exportFormat) {
+        public String exportAAS(@RequestParam("selectedItems") List<String> selectedItems,
+                        @RequestParam("exportFormat") String exportFormat) {
                 System.out.println(selectedItems);
                 System.out.println(exportFormat);
 
