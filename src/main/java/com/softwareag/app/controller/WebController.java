@@ -82,7 +82,7 @@ public class WebController {
 
                         // Parameter Carbon Footprint
 
-                        @RequestParam("relatedAssetID") String[] relatedAssetID,
+                        @RequestParam("ReferableAssetID") String[] ReferableAssetID,
 
                         @RequestParam("PCFCalculationMethod") String[] PCFCalculationMethod,
                         @RequestParam("PCFCO2eq") double[] PCFCO2eq,
@@ -122,7 +122,7 @@ public class WebController {
 
                         if (i > 0) {
                                 submodelElementCollectionIdShort += "_"
-                                                + getAssetIdShortByAssetId(relatedAssetID[i - 1]);
+                                                + getAssetIdShortByAssetId(ReferableAssetID[i - 1]);
                                 environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
                                                 "ProductCarbonFootprint", submodelElementCollectionIdShort);
                         }
