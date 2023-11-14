@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -26,6 +27,7 @@ import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
 import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
+import com.softwareag.app.service.DownloadService;
 import com.softwareag.app.service.EnvironmentService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -139,7 +141,6 @@ public class WebController {
                                                 "ProductCarbonFootprint", submodelElementCollectionIdShort);
 
                         }
-                        
 
                         /* PRODUCT CARBON FOOTPRINT */
                         environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
@@ -154,7 +155,9 @@ public class WebController {
                         environmentService.updateProperty(PCFLiveCyclePhase[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
                                         submodelElementCollectionIdShort);
-                        environmentService.updateProperty(PCFDescription[i], "ProductCarbonFootprint", SubmodelElementPropertyType.PCF_DESCRIPTION, submodelElementCollectionIdShort);
+                                        System.out.println(PCFDescription[i]);
+                        environmentService.updateProperty(PCFDescription[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION, submodelElementCollectionIdShort);
 
                 }
 
@@ -225,41 +228,14 @@ public class WebController {
                         @RequestParam("exportFormat") String exportFormat,
                         HttpServletResponse response) {
 
-                response.setContentType("application/zip");
-                response.setHeader("Content-Disposition", "attachment; filename=AAS_files.zip");
+                List<EnvironmentService> selectedEnvironmentServices = environmentServices.stream()
+                                .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
+                                .collect(Collectors.toList());
 
-                try (ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream())) {
-                        for (EnvironmentService envServ : environmentServices) {
-                                if (selectedItems.contains(envServ.getAssetID())) {
-                                        String assetIDshort = envServ.getAssetIDShort();
-                                        String fileName = assetIDshort
-                                                        + (currenDataType == DataType.AASX ? ".aasx" : ".json");
-                                        currentDataRepository.write(envServ, fileName);
-
-                                        // Hier wird der Ordner "exported_data" im ZIP-Archiv angelegt
-                                        zipOut.putNextEntry(new ZipEntry("files/" + fileName));
-
-                                        File outputFile = new File(outputDir + "/" + fileName);
-
-                                        try (FileInputStream in = new FileInputStream(outputFile)) {
-                                                byte[] buffer = new byte[4096];
-                                                int length;
-                                                while ((length = in.read(buffer)) > 0) {
-                                                        zipOut.write(buffer, 0, length);
-                                                }
-                                        } catch (IOException e) {
-                                                e.printStackTrace();
-                                        }
-
-                                        outputFile.delete();
-                                        zipOut.closeEntry();
-                                }
-                        }
-
-                        zipOut.finish();
-                        zipOut.flush();
-                } catch (IOException e) {
-                        e.printStackTrace();
+                if(selectedEnvironmentServices.size() == 1) {
+                        DownloadService.downloadEnvironment(selectedEnvironmentServices.get(0), response, outputDir, App.dataRepositoryController);
+                }else if(selectedEnvironmentServices.size() > 1) {
+                        DownloadService.downloadEnvironments(selectedEnvironmentServices, response, outputDir, App.dataRepositoryController);
                 }
         }
 

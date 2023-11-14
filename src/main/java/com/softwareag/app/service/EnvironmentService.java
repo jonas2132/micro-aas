@@ -44,13 +44,18 @@ import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.eclipse.digitaltwin.aas4j.v3.model.File;
+import org.eclipse.digitaltwin.aas4j.v3.model.KeyTypes;
 import org.eclipse.digitaltwin.aas4j.v3.model.LangStringTextType;
 import org.eclipse.digitaltwin.aas4j.v3.model.MultiLanguageProperty;
 import org.eclipse.digitaltwin.aas4j.v3.model.Property;
+import org.eclipse.digitaltwin.aas4j.v3.model.ReferenceElement;
+import org.eclipse.digitaltwin.aas4j.v3.model.ReferenceTypes;
 import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultKey;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringTextType;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReference;
 
 import com.softwareag.app.data.SubmodelElementPropertyType;
 
@@ -183,6 +188,30 @@ public class EnvironmentService implements Environment {
                     .filter(element -> isProperty(element, propertyType))
                     .map(element -> (Property) element)
                     .forEach(property -> property.setValue(value));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void updateReferenceElement(String value, String submodelIdShort, SubmodelElementPropertyType propertyType,
+            String... submodelElementCollections) {
+        System.out.println("Updating ReferenceElement " + propertyType.getIdShort() + " . . .");
+        try {
+
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
+
+            subModelElements.stream()
+                    .filter(element -> isProperty(element, propertyType))
+                    .map(element -> (ReferenceElement) element)
+                    .forEach(property -> property.setValue(new DefaultReference.Builder()
+                                                                .keys(new DefaultKey.Builder()
+                                                                                .type(KeyTypes.SUBMODEL) //NOCH NICHT SICHER, OB SUBMODEL REFERENZIERT WIRD
+                                                                                .value(value)
+                                                                                .build())
+                                                                .type(ReferenceTypes.EXTERNAL_REFERENCE)
+                                                                .build()));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

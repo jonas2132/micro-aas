@@ -9,8 +9,8 @@ import com.softwareag.app.data.SubmodelElementPropertyType;
 import com.softwareag.app.service.EnvironmentService;
 
 public class DataRepositoryController {
-    private DataType dataType;
-    private DataRepository currentDataRepository;
+    private DataType dataType = null;
+    private DataRepository currentDataRepository = null;
 
     public DataRepositoryController(DataType dataType) {
         setDataRepository(dataType);

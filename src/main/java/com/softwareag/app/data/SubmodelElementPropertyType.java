@@ -8,7 +8,7 @@ public enum SubmodelElementPropertyType {
     PCF_REFERENCE_VALUE_FOR_CALCULATION("PCFReferenceValueForCalculation"),
     PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION("PCFQuantityOfMeasureForCalculation"),
     PCF_LIVE_CYCLE_PHASE("PCFLiveCyclePhase"),
-    PCF_DESCRIPTION("PCFDescription"),
+    PCF_ASSET_DESCRIPTION("PCFAssetDescription"),
 
     /* General */
     STREET("Street"),
