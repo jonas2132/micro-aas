@@ -1,5 +1,9 @@
 package com.softwareag.app.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,12 +25,17 @@ import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
 import com.softwareag.app.service.EnvironmentService;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class WebController {
 
         private DataRepository currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
         private DataType currenDataType = App.dataRepositoryController.getCurrentDataType();
         private List<EnvironmentService> environmentServices = new ArrayList<>();
+
+        private final String workingDir = System.getProperty("user.dir");
+        private final String outputDir = workingDir + "/output";
 
         @GetMapping("/welcome")
         public String welcomeView(Model model) {
@@ -173,30 +182,50 @@ public class WebController {
         }
 
         @PostMapping("/aas/export")
-        public String exportAAS(@RequestParam("selectedItems") List<String> selectedItems,
-                        @RequestParam("exportFormat") String exportFormat) {
-                System.out.println(selectedItems);
-                System.out.println(exportFormat);
+        public void exportAAS(@RequestParam("selectedItems") List<String> selectedItems,
+                        @RequestParam("exportFormat") String exportFormat,
+                        HttpServletResponse response) {
 
+                
                 environmentServices.stream()
                                 .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
                                 .forEach(envServ -> {
                                         String assetIDshort = envServ.getAssetIDShort();
-                                        currentDataRepository.write(envServ, assetIDshort
-                                                        + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
+                                        String fileName = assetIDshort
+                                                        + (currenDataType == DataType.AASX ? ".aasx" : ".json");
+                                        currentDataRepository.write(envServ, fileName);
+
+                                        File outputFile = new File(outputDir + "/" + fileName);
+
+                                        response.setContentType("application/json");
+
+                                        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+                                        try (FileInputStream in = new FileInputStream(outputFile);
+                                                        OutputStream out = response.getOutputStream()) {
+
+                                                byte[] buffer = new byte[4096];
+                                                int length;
+                                                while ((length = in.read(buffer)) > 0) {
+                                                        out.write(buffer, 0, length);
+                                                }
+                                                out.flush();
+                                        } catch (IOException e) {
+                                                e.printStackTrace();
+                                        }
+
+                                        outputFile.delete();
                                 });
-                return "redirect:/aas/overview";
         }
 
         private String getAssetIdShortByAssetId(String assetId) {
 
-                String assetIdShort = environmentServices.stream()
+                EnvironmentService relatedService = environmentServices.stream()
                                 .filter(envService -> envService.getAssetID().equals(assetId))
                                 .findFirst()
-                                .orElse(null)
-                                .getAssetIDShort();
+                                .orElse(null);
 
-                return assetIdShort != null ? assetIdShort : assetId;
+                return relatedService != null ? relatedService.getAssetIDShort() : assetId;
         }
 
 }

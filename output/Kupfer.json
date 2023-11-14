@@ -24,7 +24,7 @@
       } ],
       "type" : "ModelReference"
     } ],
-    "id" : "https://example.company.de/id/1234/Kupfer",
+    "id" : "https://test.id.com/Kupfer",
     "idShort" : "Kupfer"
   } ],
   "conceptDescriptions" : [ {
@@ -1085,8 +1085,16 @@
       } ],
       "idShort" : "ProductCarbonFootprint",
       "value" : [ {
+        "modelType" : "ReferenceElement",
+        "category" : "PARAMETER",
+        "idShort" : "PCFAssetReference",
+        "value" : {
+          "keys" : [ ],
+          "type" : "ExternalReference"
+        }
+      }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU221#001",
+        "value" : "0173-1#07-ABU223#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1108,7 +1116,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "222.0",
+        "value" : "23.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1152,7 +1160,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "22.0",
+        "value" : "23.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1368,6 +1376,11 @@
           "language" : "en",
           "text" : "Indicates the place of hand-over of the goods "
         } ]
+      }, {
+        "modelType" : "Property",
+        "valueType" : "xs:string",
+        "category" : "PARAMETER",
+        "idShort" : "PCFAssetDescription"
       } ],
       "semanticId" : {
         "keys" : [ {
@@ -1390,7 +1403,7 @@
       "idShort" : "TransportCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU221#001",
+        "value" : "0173-1#07-ABV505#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1412,7 +1425,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "22.0",
+        "value" : "23.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1456,7 +1469,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "22.0",
+        "value" : "333.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -2042,7 +2055,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "23232",
+        "value" : "32453535",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -2660,7 +2673,7 @@
     "idShort" : "Nameplate",
     "submodelElements" : [ {
       "modelType" : "Property",
-      "value" : "https://example.company.de/id/Kupfer",
+      "value" : "https://URITESTnameplate",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2696,7 +2709,7 @@
       },
       "value" : [ {
         "language" : "de",
-        "text" : "Example Company"
+        "text" : "Nameplate AG"
       } ],
       "description" : [ {
         "language" : "en",
@@ -3515,7 +3528,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "123123.0",
+      "value" : "2.3423424E7",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3536,7 +3549,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2001",
+      "value" : "2022",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3557,7 +3570,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2023-11-02",
+      "value" : "2012-12-12",
       "valueType" : "xs:date",
       "qualifiers" : [ {
         "type" : "Multiplicity",
