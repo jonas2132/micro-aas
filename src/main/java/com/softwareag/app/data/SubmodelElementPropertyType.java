@@ -2,12 +2,13 @@ package com.softwareag.app.data;
 
 public enum SubmodelElementPropertyType {
     /* ProductCarbonFootprint */
-    PCF_Asset_Reference("PCFAssetReference"),
+    PCF_ASSET_REFERENCE("PCFAssetReference"),
     PCF_CALCULATION_METHOD("PCFCalculationMethod"),
     PCFCO2EQ("PCFCO2eq"),
     PCF_REFERENCE_VALUE_FOR_CALCULATION("PCFReferenceValueForCalculation"),
     PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION("PCFQuantityOfMeasureForCalculation"),
     PCF_LIVE_CYCLE_PHASE("PCFLiveCyclePhase"),
+    PCF_DESCRIPTION("PCFDescription"),
 
     /* General */
     STREET("Street"),

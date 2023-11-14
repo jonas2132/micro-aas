@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.checkerframework.common.util.report.qual.ReportWrite;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -134,7 +135,9 @@ public class WebController {
                                                 + getAssetIdShortByAssetId(ReferableAssetID[i]);
                                 environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
                                                 "ProductCarbonFootprint", submodelElementCollectionIdShort);
+
                         }
+                        
 
                         /* PRODUCT CARBON FOOTPRINT */
                         environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
@@ -149,6 +152,7 @@ public class WebController {
                         environmentService.updateProperty(PCFLiveCyclePhase[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
                                         submodelElementCollectionIdShort);
+                        environmentService.updateProperty(PCFDescription[i], "ProductCarbonFootprint", SubmodelElementPropertyType.PCF_DESCRIPTION, submodelElementCollectionIdShort);
 
                 }
 
