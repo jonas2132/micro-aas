@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
@@ -181,41 +183,80 @@ public class WebController {
                 return "redirect:/aas/overview";
         }
 
+        // @PostMapping("/aas/export")
+        // public void exportAAS(@RequestParam("selectedItems") List<String>
+        // selectedItems,
+        // @RequestParam("exportFormat") String exportFormat,
+        // HttpServletResponse response) {
+
+        // environmentServices.stream()
+        // .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
+        // .forEach(envServ -> {
+        // String assetIDshort = envServ.getAssetIDShort();
+        // String fileName = assetIDshort
+        // + (currenDataType == DataType.AASX ? ".aasx" : ".json");
+        // currentDataRepository.write(envServ, fileName);
+
+        // File outputFile = new File(outputDir + "/" + fileName);
+
+        // try (FileInputStream in = new FileInputStream(outputFile);
+        // OutputStream out = response.getOutputStream()) {
+
+        // byte[] buffer = new byte[4096];
+        // int length;
+        // while ((length = in.read(buffer)) > 0) {
+        // out.write(buffer, 0, length);
+        // }
+        // out.flush();
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
+
+        // outputFile.delete();
+        // });
+        // }
+
         @PostMapping("/aas/export")
         public void exportAAS(@RequestParam("selectedItems") List<String> selectedItems,
                         @RequestParam("exportFormat") String exportFormat,
                         HttpServletResponse response) {
 
-                
-                environmentServices.stream()
-                                .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
-                                .forEach(envServ -> {
+                response.setContentType("application/zip");
+                response.setHeader("Content-Disposition", "attachment; filename=AAS_files.zip");
+
+                try (ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream())) {
+                        for (EnvironmentService envServ : environmentServices) {
+                                if (selectedItems.contains(envServ.getAssetID())) {
                                         String assetIDshort = envServ.getAssetIDShort();
                                         String fileName = assetIDshort
                                                         + (currenDataType == DataType.AASX ? ".aasx" : ".json");
                                         currentDataRepository.write(envServ, fileName);
 
+                                        // Hier wird der Ordner "exported_data" im ZIP-Archiv angelegt
+                                        zipOut.putNextEntry(new ZipEntry("files/" + fileName));
+
                                         File outputFile = new File(outputDir + "/" + fileName);
 
-                                        response.setContentType("application/json");
-
-                                        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-
-                                        try (FileInputStream in = new FileInputStream(outputFile);
-                                                        OutputStream out = response.getOutputStream()) {
-
+                                        try (FileInputStream in = new FileInputStream(outputFile)) {
                                                 byte[] buffer = new byte[4096];
                                                 int length;
                                                 while ((length = in.read(buffer)) > 0) {
-                                                        out.write(buffer, 0, length);
+                                                        zipOut.write(buffer, 0, length);
                                                 }
-                                                out.flush();
                                         } catch (IOException e) {
                                                 e.printStackTrace();
                                         }
 
                                         outputFile.delete();
-                                });
+                                        zipOut.closeEntry();
+                                }
+                        }
+
+                        zipOut.finish();
+                        zipOut.flush();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
         }
 
         private String getAssetIdShortByAssetId(String assetId) {
