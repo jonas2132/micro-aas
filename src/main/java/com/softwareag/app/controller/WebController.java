@@ -122,7 +122,7 @@ public class WebController {
 
                         if (i > 0) {
                                 submodelElementCollectionIdShort += "_"
-                                                + getAssetIdShortByAssetId(ReferableAssetID[i - 1]);
+                                                + getAssetIdShortByAssetId(ReferableAssetID[i]);
                                 environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
                                                 "ProductCarbonFootprint", submodelElementCollectionIdShort);
                         }
@@ -193,10 +193,10 @@ public class WebController {
                 String assetIdShort = environmentServices.stream()
                                 .filter(envService -> envService.getAssetID().equals(assetId))
                                 .findFirst()
-                                .orElse(null)
-                                .getAssetIDShort();
+                                .map(EnvironmentService::getAssetIDShort)
+                                .orElse("NoAssetID");
 
-                return assetIdShort != null ? assetIdShort : assetId;
+                return assetIdShort;
         }
 
 }

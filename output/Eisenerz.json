@@ -24,7 +24,7 @@
       } ],
       "type" : "ModelReference"
     } ],
-    "id" : "https://example.company.de/id/Eisenerz",
+    "id" : "https://example.company.de/id/1234/Eisenerz",
     "idShort" : "Eisenerz"
   } ],
   "conceptDescriptions" : [ {
@@ -1108,7 +1108,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "111.0",
+        "value" : "11.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1412,7 +1412,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "11.0",
+        "value" : "111.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -2042,7 +2042,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "243242",
+        "value" : "234234",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -2660,7 +2660,7 @@
     "idShort" : "Nameplate",
     "submodelElements" : [ {
       "modelType" : "Property",
-      "value" : "https://example.company.de/id/1234",
+      "value" : "https://example.company.de/id/1234/Eisenerz",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3515,7 +3515,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2342342.0",
+      "value" : "234234.0",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3536,7 +3536,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "1998",
+      "value" : "2010",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3557,7 +3557,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2011-09-14",
+      "value" : "2023-11-04",
       "valueType" : "xs:date",
       "qualifiers" : [ {
         "type" : "Multiplicity",
