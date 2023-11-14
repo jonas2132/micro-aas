@@ -46,7 +46,7 @@ public class WebController {
                 model.addAttribute("pageTitle", "AAS Configurator");
                 ObjectMapper objectMapper = new ObjectMapper();
                 List<String> environmentServicesIDs = new ArrayList<>();
-                for(EnvironmentService serv : environmentServices){
+                for (EnvironmentService serv : environmentServices) {
                         environmentServicesIDs.add(serv.getAssetID());
                 }
 
@@ -58,7 +58,6 @@ public class WebController {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                 }
-                
 
                 return "aas_form";
         }
@@ -66,8 +65,8 @@ public class WebController {
         @PostMapping("/aas/submission")
         public String submission(
                         // parameter Asset Administration Shell
-                        @RequestParam("assetIDshort") String[] assetIDshort, // includes actual AssetIDShort of AAS and
-                                                                             // CarbonFootprint Submodel assetIDshorts
+                        @RequestParam("assetIDshort") String assetIDshort, // includes actual AssetIDShort of AAS and
+                                                                           // CarbonFootprint Submodel assetIDshorts
                         @RequestParam("assetID") String assetID,
 
                         // parameter Nameplate
@@ -83,6 +82,8 @@ public class WebController {
 
                         // Parameter Carbon Footprint
 
+                        @RequestParam("relatedAssetID") String[] relatedAssetID,
+
                         @RequestParam("PCFCalculationMethod") String[] PCFCalculationMethod,
                         @RequestParam("PCFCO2eq") double[] PCFCO2eq,
                         @RequestParam("PCFQuantityOfMeasureForCalculation") double[] PCFQuantityOfMeasureForCalculation,
@@ -95,9 +96,9 @@ public class WebController {
                         @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
                         @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation) {
 
-                EnvironmentService environmentService = currentDataRepository.read("FullAASTemplate.json");
+                EnvironmentService environmentService = currentDataRepository.read("FullAASTemplate_custom.json");
 
-                environmentService.updateAssetIDShort(assetIDshort[0]);
+                environmentService.updateAssetIDShort(assetIDshort);
                 environmentService.updateAssetID(assetID);
 
                 /* Nameplate */
@@ -112,60 +113,61 @@ public class WebController {
                 environmentService.updateProperty(DateOfManufacture, "Nameplate",
                                 SubmodelElementPropertyType.DATE_OF_MANUFACTURE);
 
-                               /* Technical Data */
-                                environmentService.updateProperty(ManufacturerOrderCode, "TechnicalData",
-                                SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, "GeneralInformation"); 
+                /* Technical Data */
+                environmentService.updateProperty(ManufacturerOrderCode, "TechnicalData",
+                                SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, "GeneralInformation");
 
-                            
-                                for(int i = 0; i<PCFCalculationMethod.length; i++) {
-                                        String submodelElementCollectionIdShort = "ProductCarbonFootprint";
+                for (int i = 0; i < PCFCalculationMethod.length; i++) {
+                        String submodelElementCollectionIdShort = "ProductCarbonFootprint";
 
-                                        if(i>0) {
-                                                submodelElementCollectionIdShort += "_";
-                                                environmentService.duplicateSubmodelElementCollection("CarbonFootprint", "ProductCarbonFootprint", submodelElementCollectionIdShort);;
-                                        }
+                        if (i > 0) {
+                                submodelElementCollectionIdShort += "_"
+                                                + getAssetIdShortByAssetId(relatedAssetID[i - 1]);
+                                environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
+                                                "ProductCarbonFootprint", submodelElementCollectionIdShort);
+                        }
 
-                                       /* PRODUCT CARBON FOOTPRINT */
-                                        environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
+                        /* PRODUCT CARBON FOOTPRINT */
+                        environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
-                                        environmentService.updateProperty(Double.toString(PCFCO2eq[i]), "CarbonFootprint",
-                                                SubmodelElementPropertyType.PCFCO2EQ, submodelElementCollectionIdShort);
-                                        environmentService.updateProperty(Double.toString(PCFQuantityOfMeasureForCalculation[i]), "CarbonFootprint",
-                                                SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
-                                                submodelElementCollectionIdShort);
-                                        environmentService.updateProperty(PCFLiveCyclePhase[i], "CarbonFootprint",
-                                                SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
-                                                submodelElementCollectionIdShort);
+                        environmentService.updateProperty(Double.toString(PCFCO2eq[i]), "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCFCO2EQ, submodelElementCollectionIdShort);
+                        environmentService.updateProperty(Double.toString(PCFQuantityOfMeasureForCalculation[i]),
+                                        "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
+                                        submodelElementCollectionIdShort);
+                        environmentService.updateProperty(PCFLiveCyclePhase[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
+                                        submodelElementCollectionIdShort);
 
-                                }
+                }
 
-                                for(int i = 0; i<TCFCalculationMethod.length; i++) {
-                                        String submodelElementCollectionIdShort = "TransportCarbonFootprint";
+                for (int i = 0; i < TCFCalculationMethod.length; i++) {
+                        String submodelElementCollectionIdShort = "TransportCarbonFootprint";
 
-                                        if(i>0) {
-                                                submodelElementCollectionIdShort += "_";
-                                                environmentService.duplicateSubmodelElementCollection("CarbonFootprint", "TransportCarbonFootprint", submodelElementCollectionIdShort);;
-                                        }
-                                
-                                        /* TRANSPORT CARBON FOOTPRINT */
-                                        environmentService.updateProperty(TCFCalculationMethod[i], "CarbonFootprint",
-                                                SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
-                                                submodelElementCollectionIdShort);
-                                        environmentService.updateProperty(Double.toString(TCFCO2eq[i]), "CarbonFootprint",
-                                                SubmodelElementPropertyType.TCFCO2EQ, submodelElementCollectionIdShort);
-                                        environmentService.updateProperty(TCFReferenceValueForCalculation[i], "CarbonFootprint",
-                                                SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION,
-                                                submodelElementCollectionIdShort);
-                                        environmentService.updateProperty(Double.toString(TCFQuantityOfMeasureForCalculation[i]), "CarbonFootprint",
-                                                SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
-                                                submodelElementCollectionIdShort);
-                                }
+                        if (i > 0) {
+                                submodelElementCollectionIdShort += "_";
+                                environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
+                                                "TransportCarbonFootprint", submodelElementCollectionIdShort);
+                        }
 
-                                
-                                environmentServices.add(environmentService);
-                                
+                        /* TRANSPORT CARBON FOOTPRINT */
+                        environmentService.updateProperty(TCFCalculationMethod[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
+                                        submodelElementCollectionIdShort);
+                        environmentService.updateProperty(Double.toString(TCFCO2eq[i]), "CarbonFootprint",
+                                        SubmodelElementPropertyType.TCFCO2EQ, submodelElementCollectionIdShort);
+                        environmentService.updateProperty(TCFReferenceValueForCalculation[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION,
+                                        submodelElementCollectionIdShort);
+                        environmentService.updateProperty(Double.toString(TCFQuantityOfMeasureForCalculation[i]),
+                                        "CarbonFootprint",
+                                        SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
+                                        submodelElementCollectionIdShort);
+                }
 
+                environmentServices.add(environmentService);
 
                 return "redirect:/aas/overview";
         }
@@ -184,6 +186,17 @@ public class WebController {
                                                         + (currenDataType == DataType.AASX ? ".aasx" : ".json"));
                                 });
                 return "redirect:/aas/overview";
+        }
+
+        private String getAssetIdShortByAssetId(String assetId) {
+
+                String assetIdShort = environmentServices.stream()
+                                .filter(envService -> envService.getAssetID().equals(assetId))
+                                .findFirst()
+                                .orElse(null)
+                                .getAssetIDShort();
+
+                return assetIdShort != null ? assetIdShort : assetId;
         }
 
 }

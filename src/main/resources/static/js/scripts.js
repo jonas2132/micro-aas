@@ -25,8 +25,8 @@ $(document).ready(function () {
                         <div class="accordion-body">
                         <!--Submodel ID-->
                         <div class="mb-3">
-                          <label for="SubmodelID">ID of the related Asset</label>
-                          <input name="SubmodelID" type="text" class="form-control" placeholder="https://example.company.de/id/1234" list="list-environmentServices" id="SubmodelID">
+                          <label for="relatedAssetID">ID of the related Asset</label>
+                          <input name="relatedAssetID" type="text" class="form-control" placeholder="https://example.company.de/id/1234" list="list-environmentServices" id="relatedAssetID">
                           <datalist id="list-environmentServices">
                           </datalist>
                         </div>
