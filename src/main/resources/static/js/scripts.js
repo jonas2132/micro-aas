@@ -26,8 +26,8 @@ $(document).ready(function () {
                         <!--Referable Asset ID-->
                         <div class="mb-3">
                           <label for="ReferableAssetID">ID of the related Asset</label>
-                          <input name="ReferableAssetID" type="text" class="form-control" placeholder="https://example.company.de/id/1234" list="list-environmentServices" id="ReferableAssetID">
-                          <datalist id="list-environmentServices">
+                          <input name="ReferableAssetID" type="text" class="form-control" placeholder="https://example.company.de/id/1234" list="list-environmentServices${PCFCounter}" id="ReferableAssetID">
+                          <datalist id="list-environmentServices${PCFCounter}">
                           </datalist>
                         </div>
                           <!--Calculation Method-->
@@ -127,7 +127,7 @@ $(document).ready(function () {
 
     if (dataArray) {
       // Update the HTML suggestions datalist
-      var assetSuggestionsList = document.getElementById("list-environmentServices");
+      var assetSuggestionsList = document.getElementById(`list-environmentServices${PCFCounter}`);
       dataArray.forEach(function (item) {
         var listItem = document.createElement("option");
         listItem.textContent = item;
