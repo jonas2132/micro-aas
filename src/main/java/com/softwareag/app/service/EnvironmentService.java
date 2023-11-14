@@ -38,7 +38,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
@@ -124,14 +123,18 @@ public class EnvironmentService implements Environment {
         // "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0/"+newSubmodelIdShort);
     }
 
-    public void duplicateSubmodelElementCollection(String submodelIdShort, String submodelElementCollectionIdShort, String newIdShort) {
-        this.environment = new AASModifier(environment).duplicateSubmodelElementCollection(getSubmodelOfIdShort(submodelIdShort), submodelElementCollectionIdShort, newIdShort)
-            .build();
+    public void duplicateSubmodelElementCollection(String submodelIdShort, String submodelElementCollectionIdShort,
+            String newIdShort) {
+        this.environment = new AASModifier(environment)
+                .duplicateSubmodelElementCollection(getSubmodelOfIdShort(submodelIdShort),
+                        submodelElementCollectionIdShort, newIdShort)
+                .build();
     }
 
     public void addCustomProperty(String submodelIdShort, String popertyIdShort) {
-        this.environment = new AASModifier(environment).addCustomProperty(getSubmodelOfIdShort(submodelIdShort), popertyIdShort)
-            .build();
+        this.environment = new AASModifier(environment)
+                .addCustomProperty(getSubmodelOfIdShort(submodelIdShort), popertyIdShort)
+                .build();
     }
 
     public void updateAssetID(String value) {
@@ -174,7 +177,7 @@ public class EnvironmentService implements Environment {
         }
         // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
         // Filter ist wie eine Abfrage
-            }
+    }
 
     public void updateProperty(String value, String submodelIdShort, SubmodelElementPropertyType propertyType,
             String... submodelElementCollections) {
@@ -204,13 +207,16 @@ public class EnvironmentService implements Environment {
             subModelElements.stream()
                     .filter(element -> isProperty(element, propertyType))
                     .map(element -> (ReferenceElement) element)
-                    .forEach(property -> property.setValue(new DefaultReference.Builder()
-                                                                .keys(new DefaultKey.Builder()
-                                                                                .type(KeyTypes.SUBMODEL) //NOCH NICHT SICHER, OB SUBMODEL REFERENZIERT WIRD
-                                                                                .value(value)
-                                                                                .build())
-                                                                .type(ReferenceTypes.EXTERNAL_REFERENCE)
-                                                                .build()));
+                    .forEach(referenceElement -> referenceElement.setValue(new DefaultReference.Builder()
+                            .referredSemanticID(new DefaultReference.Builder()
+                                    .keys(new DefaultKey.Builder()
+                                            .type(KeyTypes.SUBMODEL) // NOCH NICHT SICHER, OB SUBMODEL REFERENZIERT WIRD
+                                            .value(value)
+                                            .build())
+                                    .type(ReferenceTypes.EXTERNAL_REFERENCE)
+                                    .build())
+                            .type(ReferenceTypes.EXTERNAL_REFERENCE)
+                            .build()));
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -347,7 +353,5 @@ public class EnvironmentService implements Environment {
         }
         return false;
     }
-    
-    
 
 }

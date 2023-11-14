@@ -144,7 +144,7 @@ public class WebController {
                         }
 
                         /* PRODUCT CARBON FOOTPRINT */
-                        environmentService.updateProperty(ReferableAssetID[i], "CarbonFootprint", SubmodelElementPropertyType.PCF_ASSET_REFERENCE, submodelElementCollectionIdShort);
+                        environmentService.updateReferenceElement(ReferableAssetID[i], "CarbonFootprint", SubmodelElementPropertyType.PCF_ASSET_REFERENCE, submodelElementCollectionIdShort);
                         environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
@@ -189,39 +189,6 @@ public class WebController {
 
                 return "redirect:/aas/overview";
         }
-
-        // @PostMapping("/aas/export")
-        // public void exportAAS(@RequestParam("selectedItems") List<String>
-        // selectedItems,
-        // @RequestParam("exportFormat") String exportFormat,
-        // HttpServletResponse response) {
-
-        // environmentServices.stream()
-        // .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
-        // .forEach(envServ -> {
-        // String assetIDshort = envServ.getAssetIDShort();
-        // String fileName = assetIDshort
-        // + (currenDataType == DataType.AASX ? ".aasx" : ".json");
-        // currentDataRepository.write(envServ, fileName);
-
-        // File outputFile = new File(outputDir + "/" + fileName);
-
-        // try (FileInputStream in = new FileInputStream(outputFile);
-        // OutputStream out = response.getOutputStream()) {
-
-        // byte[] buffer = new byte[4096];
-        // int length;
-        // while ((length = in.read(buffer)) > 0) {
-        // out.write(buffer, 0, length);
-        // }
-        // out.flush();
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
-
-        // outputFile.delete();
-        // });
-        // }
 
         @PostMapping("/aas/export")
         public void exportAAS(@RequestParam("selectedItems") List<String> selectedItems,
