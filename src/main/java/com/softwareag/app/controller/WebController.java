@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils.Null;
 import org.checkerframework.common.util.report.qual.ReportWrite;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
@@ -92,14 +93,14 @@ public class WebController {
 
                         // Parameter Carbon Footprint
 
-                        @RequestParam("ReferableAssetID") String[] ReferableAssetID,
+                        @RequestParam(value = "ReferableAssetID", defaultValue = " ") String[] ReferableAssetID,
 
                         @RequestParam("PCFCalculationMethod") String[] PCFCalculationMethod,
                         @RequestParam("PCFCO2eq") double[] PCFCO2eq,
                         @RequestParam("PCFQuantityOfMeasureForCalculation") double[] PCFQuantityOfMeasureForCalculation,
                         @RequestParam("PCFReferenceValueForCalculation") String[] PCFReferenceValueForCalculation,
                         @RequestParam("PCFLiveCyclePhase") String[] PCFLiveCyclePhase,
-                        @RequestParam("PCFDescription") String[] PCFDescription,
+                        @RequestParam(value = "PCFDescription", defaultValue = " ") String[] PCFDescription,
 
                         @RequestParam("TCFCalculationMethod") String[] TCFCalculationMethod,
                         @RequestParam("TCFCO2eq") double[] TCFCO2eq,
@@ -140,6 +141,7 @@ public class WebController {
                         
 
                         /* PRODUCT CARBON FOOTPRINT */
+                        environmentService.updateProperty(ReferableAssetID[i], "CarbonFootprint", SubmodelElementPropertyType.PCF_ASSET_REFERENCE, submodelElementCollectionIdShort);
                         environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
@@ -152,7 +154,7 @@ public class WebController {
                         environmentService.updateProperty(PCFLiveCyclePhase[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
                                         submodelElementCollectionIdShort);
-                        environmentService.updateProperty(PCFDescription[i], "ProductCarbonFootprint", SubmodelElementPropertyType.PCF_DESCRIPTION, submodelElementCollectionIdShort);
+                        environmentService.updateProperty(PCFDescription[i], "CarbonFootprint", SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION, submodelElementCollectionIdShort);
 
                 }
 
