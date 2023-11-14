@@ -47,6 +47,7 @@ public class WebController {
                 ObjectMapper objectMapper = new ObjectMapper();
                 List<String> environmentServicesIDs = new ArrayList<>();
                 for (EnvironmentService serv : environmentServices) {
+                for (EnvironmentService serv : environmentServices) {
                         environmentServicesIDs.add(serv.getAssetID());
                 }
 
@@ -119,6 +120,8 @@ public class WebController {
 
                 for (int i = 0; i < PCFCalculationMethod.length; i++) {
                         String submodelElementCollectionIdShort = "ProductCarbonFootprint";
+                for (int i = 0; i < PCFCalculationMethod.length; i++) {
+                        String submodelElementCollectionIdShort = "ProductCarbonFootprint";
 
                         if (i > 0) {
                                 submodelElementCollectionIdShort += "_"
@@ -143,6 +146,8 @@ public class WebController {
 
                 }
 
+                for (int i = 0; i < TCFCalculationMethod.length; i++) {
+                        String submodelElementCollectionIdShort = "TransportCarbonFootprint";
                 for (int i = 0; i < TCFCalculationMethod.length; i++) {
                         String submodelElementCollectionIdShort = "TransportCarbonFootprint";
 

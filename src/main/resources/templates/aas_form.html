@@ -152,6 +152,15 @@
                       <div id="collapsePCF" class="accordion-collapse collapse" aria-labelledby="headingPCF"
                         data-bs-parent="#PCFAccordion">
                         <div class="accordion-body">
+                          <!--Referable Asset ID-->
+                          <div class="mb-3 d-none" >
+                            <label for="ReferableAssetID">ID of the related Asset</label>
+                            <input name="ReferableAssetID" type="text" class="form-control"
+                              placeholder="https://example.company.de/id/1234" list="list-environmentServices"
+                              id="ReferableAssetID">
+                            <datalist id="list-environmentServices">
+                            </datalist>
+                          </div>
                           <!--Calculation Method-->
                           <div class="mb-3">
                             <label for="PCFCalculationMethod">Calculation Method</label>

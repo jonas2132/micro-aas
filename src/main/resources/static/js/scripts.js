@@ -23,10 +23,15 @@ $(document).ready(function () {
                       <div id="collapsePCF${PCFCounter}" class="accordion-collapse collapse" aria-labelledby="headingPCF${PCFCounter}"
                         data-bs-parent="#PCFAccordion">
                         <div class="accordion-body">
-                        <!--Submodel ID-->
+                        <!--Referable Asset ID-->
                         <div class="mb-3">
+<<<<<<< HEAD
                           <label for="relatedAssetID">ID of the related Asset</label>
                           <input name="relatedAssetID" type="text" class="form-control" placeholder="https://example.company.de/id/1234" list="list-environmentServices" id="relatedAssetID">
+=======
+                          <label for="ReferableAssetID">ID of the related Asset</label>
+                          <input name="ReferableAssetID" type="text" class="form-control" placeholder="https://example.company.de/id/1234" list="list-environmentServices" id="ReferableAssetID">
+>>>>>>> e96d23511d11ff6eb462f874a9155a3fe8fafe3c
                           <datalist id="list-environmentServices">
                           </datalist>
                         </div>
