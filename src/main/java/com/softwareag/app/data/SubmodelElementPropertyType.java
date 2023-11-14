@@ -2,6 +2,7 @@ package com.softwareag.app.data;
 
 public enum SubmodelElementPropertyType {
     /* ProductCarbonFootprint */
+    PCF_Asset_Reference("PCFAssetReference"),
     PCF_CALCULATION_METHOD("PCFCalculationMethod"),
     PCFCO2EQ("PCFCO2eq"),
     PCF_REFERENCE_VALUE_FOR_CALCULATION("PCFReferenceValueForCalculation"),
