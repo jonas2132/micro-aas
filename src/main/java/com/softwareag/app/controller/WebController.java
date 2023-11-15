@@ -1,19 +1,11 @@
 package com.softwareag.app.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import org.apache.commons.lang3.ObjectUtils.Null;
-import org.checkerframework.common.util.report.qual.ReportWrite;
-import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.softwareag.app.App;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
-import com.softwareag.app.data.SubmodelElementCollectionType;
 import com.softwareag.app.data.SubmodelElementPropertyType;
 import com.softwareag.app.service.DownloadService;
 import com.softwareag.app.service.EnvironmentService;
+import com.softwareag.app.utils.Constants;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -39,9 +31,6 @@ public class WebController {
         private DataRepository currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
         private DataType currenDataType = App.dataRepositoryController.getCurrentDataType();
         private List<EnvironmentService> environmentServices = new ArrayList<>();
-
-        private final String workingDir = System.getProperty("user.dir");
-        private final String outputDir = workingDir + "/output";
 
         @GetMapping("/welcome")
         public String welcomeView(Model model) {
@@ -116,7 +105,7 @@ public class WebController {
                 environmentService.updateAssetIDShort(assetIDshort);
                 environmentService.updateAssetID(assetID);
 
-                /* Nameplate */
+                /* NAMEPLATE */
                 environmentService.updateProperty(URIOfTheProduct, "Nameplate",
                                 SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
                 environmentService.updateMultilanguageProperty(ManufacturerName, "Nameplate",
@@ -128,10 +117,11 @@ public class WebController {
                 environmentService.updateProperty(DateOfManufacture, "Nameplate",
                                 SubmodelElementPropertyType.DATE_OF_MANUFACTURE);
 
-                /* Technical Data */
+                /* TECHNICAL DATA */
                 environmentService.updateProperty(ManufacturerOrderCode, "TechnicalData",
                                 SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, "GeneralInformation");
 
+                /* PRODUCT CARBON FOOTPRINT */
                 for (int i = 0; i < PCFCalculationMethod.length; i++) {
                         String submodelElementCollectionIdShort = "ProductCarbonFootprint";
 
@@ -143,8 +133,9 @@ public class WebController {
 
                         }
 
-                        /* PRODUCT CARBON FOOTPRINT */
-                        environmentService.updateReferenceElement(ReferableAssetID[i], "CarbonFootprint", SubmodelElementPropertyType.PCF_ASSET_REFERENCE, submodelElementCollectionIdShort);
+                        environmentService.updateReferenceElement(ReferableAssetID[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE,
+                                        submodelElementCollectionIdShort);
                         environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
@@ -157,20 +148,23 @@ public class WebController {
                         environmentService.updateProperty(PCFLiveCyclePhase[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
                                         submodelElementCollectionIdShort);
-                        environmentService.updateProperty(PCFDescription[i], "CarbonFootprint", SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION, submodelElementCollectionIdShort);
+                        environmentService.updateProperty(PCFDescription[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION,
+                                        submodelElementCollectionIdShort);
 
                 }
 
+                /* TRANSPORT CARBON FOOTPRINT */
                 for (int i = 0; i < TCFCalculationMethod.length; i++) {
                         String submodelElementCollectionIdShort = "TransportCarbonFootprint";
 
                         if (i > 0) {
-                                submodelElementCollectionIdShort += "_";
+                                submodelElementCollectionIdShort += "_"
+                                                + getAssetIdShortByAssetId(ReferableAssetID[i]);
                                 environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
                                                 "TransportCarbonFootprint", submodelElementCollectionIdShort);
                         }
 
-                        /* TRANSPORT CARBON FOOTPRINT */
                         environmentService.updateProperty(TCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
@@ -199,11 +193,44 @@ public class WebController {
                                 .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
                                 .collect(Collectors.toList());
 
-                if(selectedEnvironmentServices.size() == 1) {
-                        DownloadService.downloadEnvironment(selectedEnvironmentServices.get(0), response, outputDir, App.dataRepositoryController);
-                }else if(selectedEnvironmentServices.size() > 1) {
-                        DownloadService.downloadEnvironments(selectedEnvironmentServices, response, outputDir, App.dataRepositoryController);
+                if (selectedEnvironmentServices.size() == 1) {
+                        DownloadService.downloadEnvironment(selectedEnvironmentServices.get(0), Constants.OUTPUT_DIRECTORY,
+                                        App.dataRepositoryController, response);
+                } else if (selectedEnvironmentServices.size() > 1) {
+                        DownloadService.downloadEnvironments(selectedEnvironmentServices, Constants.OUTPUT_DIRECTORY,
+                                        App.dataRepositoryController, response);
                 }
+        }
+
+        // @GetMapping("/aas/download")
+        // public void downloadAAS(@RequestParam("id") String id,
+        //                 @RequestParam("format") String format,
+        //                 HttpServletResponse response) {
+
+        //         // Überprüfen Sie hier die ID und das Format auf Gültigkeit, falls erforderlich
+
+        //         String fileName = id + (format.equals("json") ? ".json" : ".aasx");
+        //         String filePath = outputDir + "/" + fileName;
+
+        //         response.setContentType("application/octet-stream");
+        //         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+        //         try (FileInputStream in = new FileInputStream(filePath);
+        //                         OutputStream out = response.getOutputStream()) {
+
+        //                 byte[] buffer = new byte[4096];
+        //                 int length;
+        //                 while ((length = in.read(buffer)) > 0) {
+        //                         out.write(buffer, 0, length);
+        //                 }
+        //                 out.flush();
+        //         } catch (IOException e) {
+        //                 e.printStackTrace();
+        //         }
+        // }
+
+        private void exportEnvironment(EnvironmentService environmentService) {
+                
         }
 
         private String getAssetIdShortByAssetId(String assetId) {

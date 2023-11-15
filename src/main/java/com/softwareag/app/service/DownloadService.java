@@ -9,15 +9,14 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import com.softwareag.app.controller.DataRepositoryController;
-import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
 
 import jakarta.servlet.http.HttpServletResponse;
 
 public class DownloadService {
 
-    public static void downloadEnvironment(EnvironmentService environmentService, HttpServletResponse response,
-            String outputDirectory, DataRepositoryController dataRepositoryController) {
+    public static void downloadEnvironment(EnvironmentService environmentService,
+            String directory, DataRepositoryController dataRepositoryController, HttpServletResponse response) {
 
         String assetIDshort = environmentService.getAssetIDShort();
         String fileName = assetIDshort
@@ -28,7 +27,7 @@ public class DownloadService {
 
         dataRepositoryController.getCurrenDataRepository().write(environmentService, fileName);
 
-        File outputFile = new File(outputDirectory + "/" + fileName);
+        File outputFile = new File(directory + "/" + fileName);
 
         try (FileInputStream in = new FileInputStream(outputFile);
                 OutputStream out = response.getOutputStream()) {
@@ -47,8 +46,8 @@ public class DownloadService {
 
     }
 
-    public static void downloadEnvironments(List<EnvironmentService> environmentServices, HttpServletResponse response,
-            String outputDirectory, DataRepositoryController dataRepositoryController) {
+    public static void downloadEnvironments(List<EnvironmentService> environmentServices,
+            String directory, DataRepositoryController dataRepositoryController, HttpServletResponse response) {
 
         response.setContentType("application/zip");
         response.setHeader("Content-Disposition", "attachment; filename=AAS_files.zip");
@@ -65,7 +64,7 @@ public class DownloadService {
                 try {
                     zipOut.putNextEntry(new ZipEntry("files/" + fileName));
 
-                    File outputFile = new File(outputDirectory + "/" + fileName);
+                    File outputFile = new File(directory + "/" + fileName);
 
                     try (FileInputStream in = new FileInputStream(outputFile)) {
                         byte[] buffer = new byte[4096];
@@ -94,8 +93,28 @@ public class DownloadService {
 
     }
 
-    public static void downloadFile(List<EnvironmentService> environmentServices, HttpServletResponse response,
-            String outputDirectory, DataRepositoryController dataRepositoryController) {
+    public static void downloadFile(String directory, String fileName,
+            DataType datatype, HttpServletResponse response) {
+
+        response.setContentType("application/" + datatype.getFormatString());
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+        File outputFile = new File(directory + "/" + fileName);
+
+        try (FileInputStream in = new FileInputStream(outputFile);
+                OutputStream out = response.getOutputStream()) {
+
+            byte[] buffer = new byte[4096];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        outputFile.delete();
 
     }
 

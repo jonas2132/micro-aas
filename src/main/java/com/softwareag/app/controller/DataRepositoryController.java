@@ -4,8 +4,6 @@ import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
 import com.softwareag.app.data.JsonDataRepository;
-import com.softwareag.app.data.SubmodelElementCollectionType;
-import com.softwareag.app.data.SubmodelElementPropertyType;
 import com.softwareag.app.service.EnvironmentService;
 
 public class DataRepositoryController {

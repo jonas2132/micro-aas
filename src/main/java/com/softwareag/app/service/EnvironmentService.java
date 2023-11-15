@@ -205,16 +205,13 @@ public class EnvironmentService implements Environment {
                     submodelElementCollections);
 
             subModelElements.stream()
-                    .filter(element -> isProperty(element, propertyType))
+                    .filter(element -> isReferenceElement(element, propertyType))
                     .map(element -> (ReferenceElement) element)
                     .forEach(referenceElement -> referenceElement.setValue(new DefaultReference.Builder()
-                            .referredSemanticID(new DefaultReference.Builder()
-                                    .keys(new DefaultKey.Builder()
-                                            .type(KeyTypes.SUBMODEL) // NOCH NICHT SICHER, OB SUBMODEL REFERENZIERT WIRD
+                            .keys(new DefaultKey.Builder()
+                                            .type(KeyTypes.SUBMODEL) //Not sure yet, if Submodel is used as reference!
                                             .value(value)
                                             .build())
-                                    .type(ReferenceTypes.EXTERNAL_REFERENCE)
-                                    .build())
                             .type(ReferenceTypes.EXTERNAL_REFERENCE)
                             .build()));
 
@@ -329,6 +326,12 @@ public class EnvironmentService implements Environment {
     private boolean isProperty(SubmodelElement submodelElement,
             SubmodelElementPropertyType submodelElementPropertyType) {
         return submodelElement instanceof Property
+                && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
+    }
+
+    private boolean isReferenceElement(SubmodelElement submodelElement,
+            SubmodelElementPropertyType submodelElementPropertyType) {
+        return submodelElement instanceof ReferenceElement
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
 

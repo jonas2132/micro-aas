@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.softwareag.app.controller.DataRepositoryController;
 import com.softwareag.app.data.DataType;
-import com.softwareag.app.data.SubmodelElementPropertyType;
 import com.softwareag.app.service.EnvironmentService;
 
 
