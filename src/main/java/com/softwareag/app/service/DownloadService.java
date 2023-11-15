@@ -97,9 +97,9 @@ public class DownloadService {
             DataType datatype, HttpServletResponse response) {
 
         response.setContentType("application/" + datatype.getFormatString());
-        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName + "." + datatype.getFormatString());
 
-        File outputFile = new File(directory + "/" + fileName);
+        File outputFile = new File(directory + "/" + fileName + "." +datatype.getFormatString());
 
         try (FileInputStream in = new FileInputStream(outputFile);
                 OutputStream out = response.getOutputStream()) {
@@ -114,7 +114,7 @@ public class DownloadService {
             e.printStackTrace();
         }
 
-        outputFile.delete();
+        //outputFile.delete();
 
     }
 

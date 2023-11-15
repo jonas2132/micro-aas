@@ -60,8 +60,8 @@ public class JsonDataRepository implements DataRepository{
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public EnvironmentService read(String inputFilename) {
-        File inputFile = new File(Constants.RESOURCE_DIRECTORY + "/" + inputFilename);
+    public EnvironmentService read(String path) {
+        File inputFile = new File(path);
         System.out.println("Reading from file: " + inputFile);
 
         try {
@@ -88,7 +88,10 @@ public class JsonDataRepository implements DataRepository{
      * @param env The Environment object containing the data to be written.
      */
     public void write(EnvironmentService env, String outputFilename) {
-        File outputFile = new File(Constants.OUTPUT_DIRECTORY + "/" + outputFilename);
+        File folder = new File(Constants.OUTPUT_DIRECTORY + "/" + env.getAssetIDShort());
+        if(!folder.exists())
+            folder.mkdir();
+        File outputFile = new File(Constants.OUTPUT_DIRECTORY + "/" + env.getAssetIDShort() + "/" + outputFilename);
         System.out.println("Writing to the file: " + outputFile);
 
         try {

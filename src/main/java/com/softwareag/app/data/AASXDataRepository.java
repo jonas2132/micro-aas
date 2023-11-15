@@ -64,8 +64,8 @@ public class AASXDataRepository implements DataRepository{
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public  EnvironmentService read(String inputFilename) {
-        File inputFile = new File(Constants.RESOURCE_DIRECTORY + "/" + inputFilename);
+    public EnvironmentService read(String path) {
+        File inputFile = new File(path);
         System.out.println("Reading from file: " + inputFile);
 
         try {
@@ -102,7 +102,10 @@ public class AASXDataRepository implements DataRepository{
      * @param env The Environment object containing the data to be written.
      */
     public void write(EnvironmentService env, String outputFilename) {
-        File outputFile = new File(Constants.OUTPUT_DIRECTORY + "/" + outputFilename);
+        File folder = new File(Constants.OUTPUT_DIRECTORY + "/" + env.getAssetIDShort());
+        if(!folder.exists())
+            folder.mkdir();
+        File outputFile = new File(Constants.OUTPUT_DIRECTORY + "/" + env.getAssetIDShort() + "/" + outputFilename);
 
         try{
         // Example of adding additional files to the AASX, if needed:
@@ -122,6 +125,9 @@ public class AASXDataRepository implements DataRepository{
             System.err.println("Failed to write on the output file.");
             e.printStackTrace(); // Printing the stack trace
         }
-        }catch(Exception ex) { ex.printStackTrace(); }
+        }catch(Exception ex) { 
+            //muss noch behoben werden
+            //ex.printStackTrace(); 
+        }
     }
 }
