@@ -65,13 +65,12 @@ public class WebController {
                 if (!file.isEmpty()) {
                         try {
 
-                                String resourceDir = System.getProperty("user.dir") + "/src/main/resources/";
                                 String originalFilename = file.getOriginalFilename();
-                                String filePath = resourceDir + originalFilename;
+                                String filePath = Constants.RESOURCE_DIRECTORY + "/" + originalFilename;
                                 File dest = new File(filePath);
                                 file.transferTo(dest);
 
-                                EnvironmentService environmentService = currentDataRepository.read(originalFilename);
+                                EnvironmentService environmentService = jsonReaderRepository.read(originalFilename);
                                 environmentServices.add(environmentService);
                                 return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
                         } catch (Exception e) {
@@ -256,31 +255,35 @@ public class WebController {
         }
 
         @GetMapping("/aas/download")
-        public void downloadAAS(@RequestParam("id") String id,
+        public ResponseEntity<String> downloadAAS(@RequestParam("id") String id,
                         @RequestParam("format") String exportFormat,
                         HttpServletResponse response) {
-
+                try {
                 EnvironmentService foundEnvironmentService = environmentServices.stream()
                                 .filter(environmentService -> environmentService.getAssetID().equals(id))
                                 .findFirst()
                                 .orElse(null);
 
                 if (foundEnvironmentService == null) {
-                        sendAlert("Ungültige AssetID!", response);
-                        return;
+                        sendAlert("Invalid AssetID!", response);
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid AssetID!");
                 }
 
                 DataType exportDataType = getDataTypeByString(exportFormat);
 
                 if (exportDataType == null) {
-                        sendAlert("Ungültiger Datentyp!", response);
-                        return;
+                        sendAlert("Invalid Datatype!", response);
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Datatype!");
                 }
 
                 DownloadService.downloadFile(
                                 Constants.OUTPUT_DIRECTORY + "/" + foundEnvironmentService.getAssetIDShort(),
                                 foundEnvironmentService.getAssetIDShort(), exportDataType, response);
 
+                return ResponseEntity.status(HttpStatus.OK).body("Download successful!");
+                }catch(Exception ex) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Downlaod Error!");
+                }       
         }
 
         private void importEnvironments() {
