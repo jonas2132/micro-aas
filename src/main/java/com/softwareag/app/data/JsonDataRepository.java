@@ -48,13 +48,10 @@ import org.eclipse.digitaltwin.aas4j.v3.dataformat.json.JsonSerializer;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
 import com.softwareag.app.service.EnvironmentService;
+import com.softwareag.app.utils.Constants;
 
 public class JsonDataRepository implements DataRepository{
 
-    // Static variables for file paths
-    private final String workingDir = System.getProperty("user.dir");
-    private final String resourceDir = workingDir + "/src/main/resources";
-    private final String outputDir = workingDir + "/output";
     //private final String inputFileName = "CarbonFootprint_v.03.json";
     //private final String outputFileName = "CarbonFootprint_Output_v.03.json";
 
@@ -63,8 +60,8 @@ public class JsonDataRepository implements DataRepository{
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public EnvironmentService read(String inputFilename) {
-        File inputFile = new File(resourceDir + "/" + inputFilename);
+    public EnvironmentService read(String path) {
+        File inputFile = new File(path);
         System.out.println("Reading from file: " + inputFile);
 
         try {
@@ -91,7 +88,10 @@ public class JsonDataRepository implements DataRepository{
      * @param env The Environment object containing the data to be written.
      */
     public void write(EnvironmentService env, String outputFilename) {
-        File outputFile = new File(outputDir + "/" + outputFilename);
+        File folder = new File(Constants.OUTPUT_DIRECTORY + "/" + env.getAssetIDShort());
+        if(!folder.exists())
+            folder.mkdir();
+        File outputFile = new File(Constants.OUTPUT_DIRECTORY + "/" + env.getAssetIDShort() + "/" + outputFilename);
         System.out.println("Writing to the file: " + outputFile);
 
         try {

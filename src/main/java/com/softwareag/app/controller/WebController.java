@@ -4,15 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import org.apache.commons.lang3.ObjectUtils.Null;
-import org.checkerframework.common.util.report.qual.ReportWrite;
-import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,27 +25,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.softwareag.app.App;
+import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
-import com.softwareag.app.data.SubmodelElementCollectionType;
+import com.softwareag.app.data.JsonDataRepository;
 import com.softwareag.app.data.SubmodelElementPropertyType;
+import com.softwareag.app.service.DownloadService;
 import com.softwareag.app.service.EnvironmentService;
+import com.softwareag.app.utils.Constants;
 
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class WebController {
 
-        private DataRepository currentDataRepository = App.dataRepositoryController.getCurrenDataRepository();
-        private DataType currenDataType = App.dataRepositoryController.getCurrentDataType();
+        private DataRepository jsonReaderRepository = new JsonDataRepository();
         private List<EnvironmentService> environmentServices = new ArrayList<>();
-
-        private final String workingDir = System.getProperty("user.dir");
-        private final String outputDir = workingDir + "/output";
+        private boolean existingFilesLoaded = false;
 
         @GetMapping("/welcome")
         public String welcomeView(Model model) {
                 model.addAttribute("pageTitle", "AAS Builder");
+                if (!existingFilesLoaded)
+                        importEnvironments();
                 return "welcome"; // This corresponds to a view named "view.html" in your templates folder
         }
 
@@ -55,6 +55,8 @@ public class WebController {
         public String showOverview(Model model) {
                 model.addAttribute("pageTitle", "AAS Overview");
                 model.addAttribute("environmentServices", environmentServices);
+                if (!existingFilesLoaded)
+                        importEnvironments();
                 return "overview";
         }
 
@@ -136,12 +138,13 @@ public class WebController {
                         @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
                         @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation) {
 
-                EnvironmentService environmentService = currentDataRepository.read("FullAASTemplate_custom.json");
+                EnvironmentService environmentService = jsonReaderRepository
+                                .read(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json");
 
                 environmentService.updateAssetIDShort(assetIDshort);
                 environmentService.updateAssetID(assetID);
 
-                /* Nameplate */
+                /* NAMEPLATE */
                 environmentService.updateProperty(URIOfTheProduct, "Nameplate",
                                 SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
                 environmentService.updateMultilanguageProperty(ManufacturerName, "Nameplate",
@@ -153,10 +156,11 @@ public class WebController {
                 environmentService.updateProperty(DateOfManufacture, "Nameplate",
                                 SubmodelElementPropertyType.DATE_OF_MANUFACTURE);
 
-                /* Technical Data */
+                /* TECHNICAL DATA */
                 environmentService.updateProperty(ManufacturerOrderCode, "TechnicalData",
                                 SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, "GeneralInformation");
 
+                /* PRODUCT CARBON FOOTPRINT */
                 for (int i = 0; i < PCFCalculationMethod.length; i++) {
                         String submodelElementCollectionIdShort = "ProductCarbonFootprint";
 
@@ -168,8 +172,7 @@ public class WebController {
 
                         }
 
-                        /* PRODUCT CARBON FOOTPRINT */
-                        environmentService.updateProperty(ReferableAssetID[i], "CarbonFootprint",
+                        environmentService.updateReferenceElement(ReferableAssetID[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_ASSET_REFERENCE,
                                         submodelElementCollectionIdShort);
                         environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
@@ -190,16 +193,17 @@ public class WebController {
 
                 }
 
+                /* TRANSPORT CARBON FOOTPRINT */
                 for (int i = 0; i < TCFCalculationMethod.length; i++) {
                         String submodelElementCollectionIdShort = "TransportCarbonFootprint";
 
                         if (i > 0) {
-                                submodelElementCollectionIdShort += "_";
+                                submodelElementCollectionIdShort += "_"
+                                                + getAssetIdShortByAssetId(ReferableAssetID[i]);
                                 environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
                                                 "TransportCarbonFootprint", submodelElementCollectionIdShort);
                         }
 
-                        /* TRANSPORT CARBON FOOTPRINT */
                         environmentService.updateProperty(TCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
@@ -215,84 +219,118 @@ public class WebController {
                 }
 
                 environmentServices.add(environmentService);
+                exportEnvironment(environmentService);
 
                 return "redirect:/aas/overview";
         }
-
-        // @PostMapping("/aas/export")
-        // public void exportAAS(@RequestParam("selectedItems") List<String>
-        // selectedItems,
-        // @RequestParam("exportFormat") String exportFormat,
-        // HttpServletResponse response) {
-
-        // environmentServices.stream()
-        // .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
-        // .forEach(envServ -> {
-        // String assetIDshort = envServ.getAssetIDShort();
-        // String fileName = assetIDshort
-        // + (currenDataType == DataType.AASX ? ".aasx" : ".json");
-        // currentDataRepository.write(envServ, fileName);
-
-        // File outputFile = new File(outputDir + "/" + fileName);
-
-        // try (FileInputStream in = new FileInputStream(outputFile);
-        // OutputStream out = response.getOutputStream()) {
-
-        // byte[] buffer = new byte[4096];
-        // int length;
-        // while ((length = in.read(buffer)) > 0) {
-        // out.write(buffer, 0, length);
-        // }
-        // out.flush();
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
-
-        // outputFile.delete();
-        // });
-        // }
 
         @PostMapping("/aas/export")
         public void exportAAS(@RequestParam("selectedItems") List<String> selectedItems,
                         @RequestParam("exportFormat") String exportFormat,
                         HttpServletResponse response) {
 
-                response.setContentType("application/zip");
-                response.setHeader("Content-Disposition", "attachment; filename=AAS_files.zip");
+                List<EnvironmentService> selectedEnvironmentServices = environmentServices.stream()
+                                .filter(envServ -> selectedItems.contains(envServ.getAssetID()))
+                                .collect(Collectors.toList());
 
-                try (ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream())) {
-                        for (EnvironmentService envServ : environmentServices) {
-                                if (selectedItems.contains(envServ.getAssetID())) {
-                                        String assetIDshort = envServ.getAssetIDShort();
-                                        String fileName = assetIDshort
-                                                        + (currenDataType == DataType.AASX ? ".aasx" : ".json");
-                                        currentDataRepository.write(envServ, fileName);
+                DataType exportDataType = getDataTypeByString(exportFormat);
 
-                                        // Hier wird der Ordner "exported_data" im ZIP-Archiv angelegt
-                                        zipOut.putNextEntry(new ZipEntry("files/" + fileName));
+                if (selectedEnvironmentServices.size() == 1) {
 
-                                        File outputFile = new File(outputDir + "/" + fileName);
+                        DownloadService.downloadFile(
+                                        Constants.OUTPUT_DIRECTORY + "/" + selectedEnvironmentServices.get(0).getAssetIDShort(),
+                                        selectedEnvironmentServices.get(0).getAssetIDShort(), exportDataType, response);
 
-                                        try (FileInputStream in = new FileInputStream(outputFile)) {
-                                                byte[] buffer = new byte[4096];
-                                                int length;
-                                                while ((length = in.read(buffer)) > 0) {
-                                                        zipOut.write(buffer, 0, length);
-                                                }
-                                        } catch (IOException e) {
-                                                e.printStackTrace();
-                                        }
+                } else if (selectedEnvironmentServices.size() > 1) {
 
-                                        outputFile.delete();
-                                        zipOut.closeEntry();
-                                }
-                        }
+                        List<String> fileNames = selectedEnvironmentServices.stream()
+                                                        .map(EnvironmentService::getAssetIDShort)
+                                                        .collect(Collectors.toList());
 
-                        zipOut.finish();
-                        zipOut.flush();
-                } catch (IOException e) {
-                        e.printStackTrace();
+                        DownloadService.downloadFiles(
+                                                Constants.OUTPUT_DIRECTORY,
+                                                fileNames, exportDataType, response);
+
                 }
+
+        }
+
+        @GetMapping("/aas/download")
+        public void downloadAAS(@RequestParam("id") String id,
+                        @RequestParam("format") String exportFormat,
+                        HttpServletResponse response) {
+
+                EnvironmentService foundEnvironmentService = environmentServices.stream()
+                                .filter(environmentService -> environmentService.getAssetID().equals(id))
+                                .findFirst()
+                                .orElse(null);
+
+                if (foundEnvironmentService == null) {
+                        sendAlert("Ungültige AssetID!", response);
+                        return;
+                }
+
+                DataType exportDataType = getDataTypeByString(exportFormat);
+
+                if (exportDataType == null) {
+                        sendAlert("Ungültiger Datentyp!", response);
+                        return;
+                }
+
+                DownloadService.downloadFile(
+                                Constants.OUTPUT_DIRECTORY + "/" + foundEnvironmentService.getAssetIDShort(),
+                                foundEnvironmentService.getAssetIDShort(), exportDataType, response);
+
+        }
+
+        private void importEnvironments() {
+
+                String directoryPath = Constants.OUTPUT_DIRECTORY;
+
+                try {
+
+                        List<Path> jsonFiles = Files.walk(Paths.get(directoryPath), 2)
+                                        .filter(path -> path.toString().endsWith(".json"))
+                                        .collect(Collectors.toList());
+
+                        jsonFiles.stream()
+                                        .map(Path::toString)
+                                        .forEach(filename -> {
+                                                environmentServices.add(jsonReaderRepository.read(filename));
+                                        });
+
+                } catch (IOException ex) {
+                        ex.printStackTrace();
+                }
+
+                existingFilesLoaded = true;
+        }
+
+        private void exportEnvironment(EnvironmentService environmentService) {
+                DataRepository dataRepository = new AASXDataRepository();
+                DataType dataType = DataType.AASX;
+
+                for (int i = 0; i < 2; i++) {
+
+                        String assetIDshort = environmentService.getAssetIDShort();
+                        String fileName = assetIDshort
+                                        + (dataType == DataType.AASX ? ".aasx" : ".json");
+
+                        dataRepository.write(environmentService, fileName);
+
+                        dataType = DataType.JSON;
+                        dataRepository = new JsonDataRepository();
+
+                }
+        }
+
+        private DataType getDataTypeByString(String format) {
+                if (format.equals("json")) {
+                        return DataType.JSON;
+                } else if (format.equals("aasx")) {
+                        return DataType.AASX;
+                }
+                return null;
         }
 
         private String getAssetIdShortByAssetId(String assetId) {
@@ -303,6 +341,18 @@ public class WebController {
                                 .orElse(null);
 
                 return relatedService != null ? relatedService.getAssetIDShort() : assetId;
+        }
+
+        private void sendAlert(String message, HttpServletResponse response) {
+
+                String script = "<script>alert('" + message + "');</script>";
+                response.setContentType("text/html");
+                try {
+                        response.getWriter().println(script);
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+
         }
 
 }

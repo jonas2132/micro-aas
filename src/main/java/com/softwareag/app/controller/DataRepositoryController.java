@@ -4,13 +4,12 @@ import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
 import com.softwareag.app.data.JsonDataRepository;
-import com.softwareag.app.data.SubmodelElementCollectionType;
-import com.softwareag.app.data.SubmodelElementPropertyType;
 import com.softwareag.app.service.EnvironmentService;
+import com.softwareag.app.utils.Constants;
 
 public class DataRepositoryController {
-    private DataType dataType;
-    private DataRepository currentDataRepository;
+    private DataType dataType = null;
+    private DataRepository currentDataRepository = null;
 
     public DataRepositoryController(DataType dataType) {
         setDataRepository(dataType);
@@ -37,7 +36,7 @@ public class DataRepositoryController {
     }
 
     public void processData(double data, String fileName) {
-        EnvironmentService envServ = currentDataRepository.read(fileName + (dataType == DataType.AASX ? ".aasx" : ".json"));
+        EnvironmentService envServ = currentDataRepository.read(Constants.RESOURCE_DIRECTORY + "/" + fileName + (dataType == DataType.AASX ? ".aasx" : ".json"));
         //envServ.updateProperty("64280", "CarbonFootprint", SubmodelElementPropertyType.ZIPCODE, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT, SubmodelElementCollectionType.TCF_GOODS_TRANSPORT_ADDRESS_TAKEOVER);
         currentDataRepository.write(envServ, fileName + "_output" + (dataType == DataType.AASX ? ".aasx" : ".json"));
     }

@@ -38,19 +38,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 import org.eclipse.digitaltwin.aas4j.v3.model.File;
+import org.eclipse.digitaltwin.aas4j.v3.model.KeyTypes;
 import org.eclipse.digitaltwin.aas4j.v3.model.LangStringTextType;
 import org.eclipse.digitaltwin.aas4j.v3.model.MultiLanguageProperty;
 import org.eclipse.digitaltwin.aas4j.v3.model.Property;
+import org.eclipse.digitaltwin.aas4j.v3.model.ReferenceElement;
+import org.eclipse.digitaltwin.aas4j.v3.model.ReferenceTypes;
 import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
 import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultKey;
 import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringTextType;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultReference;
 
 import com.softwareag.app.data.SubmodelElementPropertyType;
 
@@ -119,14 +123,18 @@ public class EnvironmentService implements Environment {
         // "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0/"+newSubmodelIdShort);
     }
 
-    public void duplicateSubmodelElementCollection(String submodelIdShort, String submodelElementCollectionIdShort, String newIdShort) {
-        this.environment = new AASModifier(environment).duplicateSubmodelElementCollection(getSubmodelOfIdShort(submodelIdShort), submodelElementCollectionIdShort, newIdShort)
-            .build();
+    public void duplicateSubmodelElementCollection(String submodelIdShort, String submodelElementCollectionIdShort,
+            String newIdShort) {
+        this.environment = new AASModifier(environment)
+                .duplicateSubmodelElementCollection(getSubmodelOfIdShort(submodelIdShort),
+                        submodelElementCollectionIdShort, newIdShort)
+                .build();
     }
 
     public void addCustomProperty(String submodelIdShort, String popertyIdShort) {
-        this.environment = new AASModifier(environment).addCustomProperty(getSubmodelOfIdShort(submodelIdShort), popertyIdShort)
-            .build();
+        this.environment = new AASModifier(environment)
+                .addCustomProperty(getSubmodelOfIdShort(submodelIdShort), popertyIdShort)
+                .build();
     }
 
     public void updateAssetID(String value) {
@@ -169,7 +177,7 @@ public class EnvironmentService implements Environment {
         }
         // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
         // Filter ist wie eine Abfrage
-            }
+    }
 
     public void updateProperty(String value, String submodelIdShort, SubmodelElementPropertyType propertyType,
             String... submodelElementCollections) {
@@ -183,6 +191,30 @@ public class EnvironmentService implements Environment {
                     .filter(element -> isProperty(element, propertyType))
                     .map(element -> (Property) element)
                     .forEach(property -> property.setValue(value));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void updateReferenceElement(String value, String submodelIdShort, SubmodelElementPropertyType propertyType,
+            String... submodelElementCollections) {
+        System.out.println("Updating ReferenceElement " + propertyType.getIdShort() + " . . .");
+        try {
+
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
+
+            subModelElements.stream()
+                    .filter(element -> isReferenceElement(element, propertyType))
+                    .map(element -> (ReferenceElement) element)
+                    .forEach(referenceElement -> referenceElement.setValue(new DefaultReference.Builder()
+                            .keys(new DefaultKey.Builder()
+                                            .type(KeyTypes.SUBMODEL) //Not sure yet, if Submodel is used as reference!
+                                            .value(value)
+                                            .build())
+                            .type(ReferenceTypes.EXTERNAL_REFERENCE)
+                            .build()));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -297,6 +329,12 @@ public class EnvironmentService implements Environment {
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
 
+    private boolean isReferenceElement(SubmodelElement submodelElement,
+            SubmodelElementPropertyType submodelElementPropertyType) {
+        return submodelElement instanceof ReferenceElement
+                && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
+    }
+
     private boolean isFile(SubmodelElement submodelElement,
             SubmodelElementPropertyType submodelElementPropertyType) {
         return submodelElement instanceof File
@@ -318,7 +356,5 @@ public class EnvironmentService implements Environment {
         }
         return false;
     }
-    
-    
 
 }
