@@ -97,9 +97,10 @@ public class DownloadService {
             DataType datatype, HttpServletResponse response) {
 
         response.setContentType("application/" + datatype.getFormatString());
-        response.setHeader("Content-Disposition", "attachment; filename=" + fileName + "." + datatype.getFormatString());
+        response.setHeader("Content-Disposition",
+                "attachment; filename=" + fileName + "." + datatype.getFormatString());
 
-        File outputFile = new File(directory + "/" + fileName + "." +datatype.getFormatString());
+        File outputFile = new File(directory + "/" + fileName + "." + datatype.getFormatString());
 
         try (FileInputStream in = new FileInputStream(outputFile);
                 OutputStream out = response.getOutputStream()) {
@@ -114,7 +115,49 @@ public class DownloadService {
             e.printStackTrace();
         }
 
-        //outputFile.delete();
+        // outputFile.delete();
+
+    }
+
+    public static void downloadFiles(String directory, List<String> fileNames,
+            DataType datatype, HttpServletResponse response) {
+
+        response.setContentType("application/zip");
+        response.setHeader("Content-Disposition", "attachment; filename=AAS_files.zip");
+
+        try {
+            ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream());
+            fileNames.forEach(fileName -> {
+
+                String assetIDshort = fileName;
+
+                try {
+                    zipOut.putNextEntry(new ZipEntry("files/" + fileName + "." + datatype.getFormatString()));
+
+                    File outputFile = new File(directory + "/" + fileName + "/" + fileName + "." + datatype.getFormatString());
+
+                    try (FileInputStream in = new FileInputStream(outputFile)) {
+                        byte[] buffer = new byte[4096];
+                        int length;
+                        while ((length = in.read(buffer)) > 0) {
+                            zipOut.write(buffer, 0, length);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    zipOut.closeEntry();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            });
+
+            zipOut.finish();
+            zipOut.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

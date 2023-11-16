@@ -42,7 +42,7 @@ public class WebController {
         @GetMapping("/welcome")
         public String welcomeView(Model model) {
                 model.addAttribute("pageTitle", "AAS Builder");
-                if(!existingFilesLoaded)
+                if (!existingFilesLoaded)
                         importEnvironments();
                 return "welcome"; // This corresponds to a view named "view.html" in your templates folder
         }
@@ -51,7 +51,7 @@ public class WebController {
         public String showOverview(Model model) {
                 model.addAttribute("pageTitle", "AAS Overview");
                 model.addAttribute("environmentServices", environmentServices);
-                if(!existingFilesLoaded)
+                if (!existingFilesLoaded)
                         importEnvironments();
                 return "overview";
         }
@@ -111,7 +111,8 @@ public class WebController {
                         @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
                         @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation) {
 
-                EnvironmentService environmentService = jsonReaderRepository.read(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json");
+                EnvironmentService environmentService = jsonReaderRepository
+                                .read(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json");
 
                 environmentService.updateAssetIDShort(assetIDshort);
                 environmentService.updateAssetID(assetID);
@@ -207,11 +208,23 @@ public class WebController {
 
                 DataType exportDataType = getDataTypeByString(exportFormat);
 
-                selectedEnvironmentServices.forEach(environmentService -> {
+                if (selectedEnvironmentServices.size() == 1) {
+
                         DownloadService.downloadFile(
-                                        Constants.OUTPUT_DIRECTORY + "/" + environmentService.getAssetIDShort(),
-                                        environmentService.getAssetIDShort(), exportDataType, response);
-                });
+                                        Constants.OUTPUT_DIRECTORY + "/" + selectedEnvironmentServices.get(0).getAssetIDShort(),
+                                        selectedEnvironmentServices.get(0).getAssetIDShort(), exportDataType, response);
+
+                } else if (selectedEnvironmentServices.size() > 1) {
+
+                        List<String> fileNames = selectedEnvironmentServices.stream()
+                                                        .map(EnvironmentService::getAssetIDShort)
+                                                        .collect(Collectors.toList());
+
+                        DownloadService.downloadFiles(
+                                                Constants.OUTPUT_DIRECTORY,
+                                                fileNames, exportDataType, response);
+
+                }
 
         }
 
@@ -240,7 +253,7 @@ public class WebController {
                 DownloadService.downloadFile(
                                 Constants.OUTPUT_DIRECTORY + "/" + foundEnvironmentService.getAssetIDShort(),
                                 foundEnvironmentService.getAssetIDShort(), exportDataType, response);
-                
+
         }
 
         private void importEnvironments() {
