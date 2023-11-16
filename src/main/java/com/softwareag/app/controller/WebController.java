@@ -16,11 +16,15 @@ import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.softwareag.app.App;
 import com.softwareag.app.data.DataRepository;
@@ -52,6 +56,29 @@ public class WebController {
                 model.addAttribute("pageTitle", "AAS Overview");
                 model.addAttribute("environmentServices", environmentServices);
                 return "overview";
+        }
+
+        @PostMapping("/aas/overview/import")
+        public ResponseEntity<String> importAAS(Model model, @RequestParam("file") MultipartFile file) {
+                if (!file.isEmpty()) {
+                        try {
+
+                                String resourceDir = System.getProperty("user.dir") + "/src/main/resources/";
+                                String originalFilename = file.getOriginalFilename();
+                                String filePath = resourceDir + originalFilename;
+                                File dest = new File(filePath);
+                                file.transferTo(dest);
+
+                                EnvironmentService environmentService = currentDataRepository.read(originalFilename);
+                                environmentServices.add(environmentService);
+                                return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
+                        } catch (Exception e) {
+                                // Handle exceptions if any
+                                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+                        }
+                } else {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No file provided");
+                }
         }
 
         @GetMapping("/aas/form")
@@ -140,10 +167,11 @@ public class WebController {
                                                 "ProductCarbonFootprint", submodelElementCollectionIdShort);
 
                         }
-                        
 
                         /* PRODUCT CARBON FOOTPRINT */
-                        environmentService.updateProperty(ReferableAssetID[i], "CarbonFootprint", SubmodelElementPropertyType.PCF_ASSET_REFERENCE, submodelElementCollectionIdShort);
+                        environmentService.updateProperty(ReferableAssetID[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE,
+                                        submodelElementCollectionIdShort);
                         environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
@@ -156,7 +184,9 @@ public class WebController {
                         environmentService.updateProperty(PCFLiveCyclePhase[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
                                         submodelElementCollectionIdShort);
-                        environmentService.updateProperty(PCFDescription[i], "CarbonFootprint", SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION, submodelElementCollectionIdShort);
+                        environmentService.updateProperty(PCFDescription[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION,
+                                        submodelElementCollectionIdShort);
 
                 }
 

@@ -8,7 +8,7 @@ $(document).ready(function () {
     var dataContainer = document.getElementById("data-container");
     var dataArray = JSON.parse(dataContainer.getAttribute("data-array"));
 
-    
+
 
     PCFCounter++;
     var newPCFItem = `
@@ -253,10 +253,52 @@ $(document).ready(function () {
 
 
 
-$(document).ready(function () {
+/* $(document).ready(function () {
   document.addEventListener('DOMContentLoaded', e => {
     $('input-datalist').autocomplete()
   }, false);
-})
+}) */
+
+// Import button on the overview view gets a file picking window
+$(document).ready(function () {
+  document.getElementById('importButton').addEventListener('click', function () {
+    document.getElementById('aasFileInput').click();
+  });
+
+  const el = document.getElementById('aasFileInput');
+  if (button) {
+    el.addEventListener('change', function (e) {
+      const selectedFile = e.target.files[0];
+      console.log('Selected file:', selectedFile.name);
+      
+      // Create FormData object
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      // Make a POST request using fetch
+      fetch('/aas/overview/import', {
+        method: 'POST',
+        body: formData,
+        // You might need to set headers depending on your backend requirements
+        // headers: {
+        //   'Content-Type': 'multipart/form-data',
+        // },
+      })
+      .then(response => {
+        if (response.ok) {
+          // If the response is successful, reload the overview page
+          window.location.href = '/aas/overview';
+        } else {
+          // Handle error cases
+          console.log('Failed to upload file');
+        }
+      })
+      .catch(error => {
+        // Handle network errors or exceptions
+        console.error('Error:', error);
+      });
+    });
+  }
+});
 
 

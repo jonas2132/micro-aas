@@ -12,6 +12,9 @@ main {
     flex: 1;
 }
 
+
+
+/* Custom Add button to add more SMCs*/
 .custom-add-button {
     --custom-btn-color: #212529; /* Text color */
     --custom-btn-bg: transparent; /* Background color */
@@ -68,4 +71,10 @@ main {
     background-size: 100%;
     background-repeat: no-repeat;
     color: #ffffff; /* Text color on gradient button */
+}
+
+
+/*Styles for the Import Button on the Overview view*/
+.import-button{
+    margin-right: 20px;
 }
