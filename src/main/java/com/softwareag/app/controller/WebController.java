@@ -47,7 +47,7 @@ public class WebController {
         public String welcomeView(Model model) {
                 model.addAttribute("pageTitle", "AAS Builder");
                 if (!existingFilesLoaded)
-                        importEnvironments();
+                        loadEnvironments();
                 return "welcome"; // This corresponds to a view named "view.html" in your templates folder
         }
 
@@ -56,7 +56,7 @@ public class WebController {
                 model.addAttribute("pageTitle", "AAS Overview");
                 model.addAttribute("environmentServices", environmentServices);
                 if (!existingFilesLoaded)
-                        importEnvironments();
+                        loadEnvironments();
                 return "overview";
         }
 
@@ -70,7 +70,7 @@ public class WebController {
                                 File dest = new File(filePath);
                                 file.transferTo(dest);
 
-                                EnvironmentService environmentService = jsonReaderRepository.read(originalFilename);
+                                EnvironmentService environmentService = jsonReaderRepository.read(new File(originalFilename));
                                 environmentServices.add(environmentService);
                                 return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
                         } catch (Exception e) {
@@ -138,7 +138,7 @@ public class WebController {
                         @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation) {
 
                 EnvironmentService environmentService = jsonReaderRepository
-                                .read(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json");
+                                .read(new File(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json"));
 
                 environmentService.updateAssetIDShort(assetIDshort);
                 environmentService.updateAssetID(assetID);
@@ -286,7 +286,7 @@ public class WebController {
                 }       
         }
 
-        private void importEnvironments() {
+        private void loadEnvironments() {
 
                 String directoryPath = Constants.OUTPUT_DIRECTORY;
 
@@ -299,7 +299,7 @@ public class WebController {
                         jsonFiles.stream()
                                         .map(Path::toString)
                                         .forEach(filename -> {
-                                                environmentServices.add(jsonReaderRepository.read(filename));
+                                                environmentServices.add(jsonReaderRepository.read(new File(filename)));
                                         });
 
                 } catch (IOException ex) {

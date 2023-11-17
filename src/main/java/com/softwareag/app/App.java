@@ -1,5 +1,7 @@
 package com.softwareag.app;
 
+import java.io.File;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -18,7 +20,7 @@ public class App {
         
         dataRepositoryController = new DataRepositoryController(DataType.JSON);
 
-        EnvironmentService environmentService = dataRepositoryController.getCurrenDataRepository().read(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate.json");
+        EnvironmentService environmentService = dataRepositoryController.getCurrenDataRepository().read(new File(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate.json"));
         //environmentService.duplicateSubmodel("CarbonFootprint", "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0/CarbonFootprint_Test", "CarbonFootprint_Test");
         environmentService.duplicateSubmodelElementCollection("CarbonFootprint", "ProductCarbonFootprint", "ProductCarbonFootprint_Test");
         //environmentService.addCustomProperty("CarbonFootprint", "Testproperty");
