@@ -1,5 +1,7 @@
 package com.softwareag.app.controller;
 
+import java.io.File;
+
 import com.softwareag.app.data.AASXDataRepository;
 import com.softwareag.app.data.DataRepository;
 import com.softwareag.app.data.DataType;
@@ -36,7 +38,7 @@ public class DataRepositoryController {
     }
 
     public void processData(double data, String fileName) {
-        EnvironmentService envServ = currentDataRepository.read(Constants.RESOURCE_DIRECTORY + "/" + fileName + (dataType == DataType.AASX ? ".aasx" : ".json"));
+        EnvironmentService envServ = currentDataRepository.read(new File(Constants.RESOURCE_DIRECTORY + "/" + fileName + (dataType == DataType.AASX ? ".aasx" : ".json")));
         //envServ.updateProperty("64280", "CarbonFootprint", SubmodelElementPropertyType.ZIPCODE, SubmodelElementCollectionType.TRANSPORT_CARBON_FOOTPRINT, SubmodelElementCollectionType.TCF_GOODS_TRANSPORT_ADDRESS_TAKEOVER);
         currentDataRepository.write(envServ, fileName + "_output" + (dataType == DataType.AASX ? ".aasx" : ".json"));
     }

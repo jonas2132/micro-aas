@@ -60,8 +60,7 @@ public class JsonDataRepository implements DataRepository{
      *
      * @return The Environment object containing the read data, or null if an error occurs.
      */
-    public EnvironmentService read(String path) {
-        File inputFile = new File(path);
+    public EnvironmentService read(File inputFile) {
         System.out.println("Reading from file: " + inputFile);
 
         try {
