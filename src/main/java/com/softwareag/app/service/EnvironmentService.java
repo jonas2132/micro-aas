@@ -115,6 +115,10 @@ public class EnvironmentService implements Environment {
      * 
      * 
      */
+    public EnvironmentService clone() {
+        return new EnvironmentService(new AASModifier(environment).build());
+    }
+
     public void duplicateSubmodel(String submodelIdShort, String newSubmodelId, String newSubmodelIdShort) {
         this.environment = new AASModifier(this.environment)
                 .duplicateSubmodel(getSubmodelOfIdShort(submodelIdShort), newSubmodelId, newSubmodelIdShort).build();
@@ -300,7 +304,7 @@ public class EnvironmentService implements Environment {
             for (SubmodelElement element : elements) {
                 if (!(element instanceof SubmodelElementCollection))
                     continue;
-                if (isSubmodelElementCollectionString(collectionQueue, element)) {
+                if (isNextSubmodelElementCollection(collectionQueue, element)) {
                     submodelElement = (SubmodelElementCollection) element;
                     break;
                 }
@@ -347,7 +351,7 @@ public class EnvironmentService implements Environment {
         return false;
     }
 
-    private boolean isSubmodelElementCollectionString(Queue<String> collectionQueue,
+    private boolean isNextSubmodelElementCollection(Queue<String> collectionQueue,
             SubmodelElement submodelElement) {
         if (submodelElement.getIdShort().equals(collectionQueue.peek())
                 && submodelElement instanceof SubmodelElementCollection) {
