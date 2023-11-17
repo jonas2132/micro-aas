@@ -35,7 +35,6 @@
  */
 package com.softwareag.app.data;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,26 +42,30 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.DeserializationException;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.SerializationException;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.AASXDeserializer;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.AASXSerializer;
+import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
+import org.eclipse.digitaltwin.aas4j.v3.dataformat.xml.serialization.AssetAdministrationShellEnvironmentSerializer;
 import org.eclipse.digitaltwin.aas4j.v3.model.Environment;
-
 
 import com.softwareag.app.service.EnvironmentService;
 import com.softwareag.app.utils.Constants;
 
-public class AASXDataRepository implements DataRepository{
-
+public class AASXDataRepository implements DataRepository {
 
     /**
      * Read digital twin environment data from an AASX file.
      *
-     * @return The Environment object containing the read data, or null if an error occurs.
+     * @return The Environment object containing the read data, or null if an error
+     *         occurs.
      */
     public EnvironmentService read(File inputFile) {
         System.out.println("Reading from file: " + inputFile);
@@ -71,9 +74,9 @@ public class AASXDataRepository implements DataRepository{
             InputStream in = new FileInputStream(inputFile);
             AASXDeserializer deserializer = new AASXDeserializer(in);
             Environment env = deserializer.read();
-            
+
             EnvironmentService envService = new EnvironmentService(env);
-            //envService.setFilelist(deserializer.getRelatedFiles());
+            // envService.setFilelist(deserializer.getRelatedFiles());
             return envService;
 
         } catch (FileNotFoundException e) {
@@ -102,31 +105,26 @@ public class AASXDataRepository implements DataRepository{
      */
     public void write(EnvironmentService env, String outputFilename) {
         File folder = new File(Constants.OUTPUT_DIRECTORY + "/" + env.getAssetIDShort());
-        if(!folder.exists())
+        if (!folder.exists())
             folder.mkdir();
         File outputFile = new File(Constants.OUTPUT_DIRECTORY + "/" + env.getAssetIDShort() + "/" + outputFilename);
 
-        try{
-        // Example of adding additional files to the AASX, if needed:
-        // byte[] operationManualContent = { 0, 1, 2, 3, 4 };
-        // InMemoryFile file = new InMemoryFile(operationManualContent, "Draft_PCF_Submodel.pdf");
-        // fileList.add(file);
+        try {
+            // List<InMemoryFile> fileList = new ArrayList<>();
+            // byte[] fileContent = Files.readAllBytes(Path.of(Constants.OUTPUT_DIRECTORY + "/Stahl/Stahl.aasx"));
+            // fileList.add(new InMemoryFile(fileContent, Constants.OUTPUT_DIRECTORY + "/Stahl/Stahl.aasx"));
 
-        //byte[] fileContent = Files.readAllBytes(Path.of(resourceDir + "/test.txt"));
-        //fileList.add(0, new InMemoryFile(fileContent, resourceDir + "/test.txt"));
-
-        try (OutputStream fileOutputStream = new FileOutputStream(outputFile)) {
-            AASXSerializer serializer = new AASXSerializer();
-            serializer.write(env.getEnvironmentInstance(), env.getFileList(), fileOutputStream);
-            System.out.println("Successfully wrote on output file (" + outputFilename +")");
-        } catch (SerializationException | IOException e) {
-            // Handle the exceptions here
-            System.err.println("Failed to write on the output file.");
-            e.printStackTrace(); // Printing the stack trace
-        }
-        }catch(Exception ex) { 
-            //muss noch behoben werden
-            //ex.printStackTrace(); 
+            try (OutputStream fileOutputStream = new FileOutputStream(outputFile)) {
+                AASXSerializer serializer = new AASXSerializer();
+                serializer.write(env.getEnvironmentInstance(), env.getFileList(), fileOutputStream);
+                System.out.println("Successfully wrote on output file (" + outputFilename + ")");
+            } catch (SerializationException | IOException e) {
+                // Handle the exceptions here
+                System.err.println("Failed to write on the output file.");
+                e.printStackTrace(); // Printing the stack trace
+            }
+        } catch (Exception ex) {
+            //ex.printStackTrace();
         }
     }
 }
