@@ -66,11 +66,11 @@ public class WebController {
                         try {
 
                                 String originalFilename = file.getOriginalFilename();
-                                String filePath = Constants.RESOURCE_DIRECTORY + "/" + originalFilename;
+                                String filePath = Constants.OUTPUT_DIRECTORY + "/" + originalFilename;
                                 File dest = new File(filePath);
                                 file.transferTo(dest);
 
-                                EnvironmentService environmentService = jsonReaderRepository.read(originalFilename);
+                                EnvironmentService environmentService = jsonReaderRepository.read(filePath);
                                 environmentServices.add(environmentService);
                                 return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
                         } catch (Exception e) {
@@ -122,20 +122,43 @@ public class WebController {
                         // @RequestParam("ProductImage") File ProductImage,
 
                         // Parameter Carbon Footprint
-
+                        // Parameter Product Carbon Footprint
                         @RequestParam(value = "ReferableAssetID", defaultValue = " ") String[] ReferableAssetID,
-
                         @RequestParam("PCFCalculationMethod") String[] PCFCalculationMethod,
                         @RequestParam("PCFCO2eq") double[] PCFCO2eq,
                         @RequestParam("PCFQuantityOfMeasureForCalculation") double[] PCFQuantityOfMeasureForCalculation,
                         @RequestParam("PCFReferenceValueForCalculation") String[] PCFReferenceValueForCalculation,
                         @RequestParam("PCFLiveCyclePhase") String[] PCFLiveCyclePhase,
                         @RequestParam(value = "PCFDescription", defaultValue = " ") String[] PCFDescription,
+                        //@RequestParam("ExplanatoryStatement") File[] ExplanatoryStatement,
+                        @RequestParam("PCFHandoverStreet") String[] PCFHandoverStreet,
+                        @RequestParam("PCFHandoverNumber") String[] PCFHandoverNumber,
+                        @RequestParam("PCFHandoverCity") String[] PCFHandoverCity,
+                        @RequestParam("PCFHandoverZIP") String[] PCFHandoverZIP,
+                        @RequestParam("PCFHandoverCountry") String[] PCFHandoverCountry,
+                        @RequestParam("PCFHandoverLatitude") String[] PCFHandoverLatitude,
+                        @RequestParam("PCFHandoverStreet") String[] PCFHandoverLongitude,
 
+                        // Parameter Transport Carbon Footprint
                         @RequestParam("TCFCalculationMethod") String[] TCFCalculationMethod,
                         @RequestParam("TCFCO2eq") double[] TCFCO2eq,
                         @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
-                        @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation) {
+                        @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation,
+                        @RequestParam("TCFProcessesForGreenhouseGasEmissionInATransportService") String[] TCFProcessesForGreenhouseGasEmissionInATransportService,
+                        @RequestParam("TCFTakeoverStreet") String[] TCFTakeoverStreet,
+                        @RequestParam("TCFTakeoverNumber") String[] TCFTakeoverNumber,
+                        @RequestParam("TCFTakeoverCity") String[] TCFTakeoverCity,
+                        @RequestParam("TCFTakeoverZIP") String[] TCFTakeoverZIP,
+                        @RequestParam("TCFTakeoverCountry") String[] TCFTakeoverCountry,
+                        @RequestParam("TCFTakeoverLatitude") String[] TCFTakeoverLatitude,
+                        @RequestParam("TCFTakeoverLongitude") String[] TCFTakeoverLongitude,
+                        @RequestParam("TCFHandoverStreet") String[] TCFHandoverStreet,
+                        @RequestParam("TCFHandoverNumber") String[] TCFHandoverNumber,
+                        @RequestParam("TCFHandoverCity") String[] TCFHandoverCity,
+                        @RequestParam("TCFHandoverZIP") String[] TCFHandoverZIP,
+                        @RequestParam("TCFHandoverCountry") String[] TCFHandoverCountry,
+                        @RequestParam("TCFHandoverLatitude") String[] TCFHandoverLatitude,
+                        @RequestParam("TCFHandoverLongitude") String[] TCFHandoverLongitude) {
 
                 EnvironmentService environmentService = jsonReaderRepository
                                 .read(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json");
@@ -189,7 +212,13 @@ public class WebController {
                         environmentService.updateProperty(PCFDescription[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION,
                                         submodelElementCollectionIdShort);
-
+                        environmentService.updateProperty(PCFHandoverStreet[i], "CarbonFootprint", SubmodelElementPropertyType.STREET, submodelElementCollectionIdShort, "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(PCFHandoverNumber[i], "CarbonFootprint", SubmodelElementPropertyType.HOUSENUMBER, submodelElementCollectionIdShort, "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(PCFHandoverCity[i], "CarbonFootprint", SubmodelElementPropertyType.CITYTOWN, submodelElementCollectionIdShort, "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(PCFHandoverZIP[i], "CarbonFootprint", SubmodelElementPropertyType.ZIPCODE, submodelElementCollectionIdShort, "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(PCFHandoverCountry[i], "CarbonFootprint", SubmodelElementPropertyType.COUNTRY, submodelElementCollectionIdShort, "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(TCFTakeoverLatitude[i], "CarbonFootprint", SubmodelElementPropertyType.LATITUDE, submodelElementCollectionIdShort, "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(TCFTakeoverLongitude[i], "CarbonFootprint", SubmodelElementPropertyType.LONGITUDE, submodelElementCollectionIdShort, "PCFGoodsAddressHandover");
                 }
 
                 /* TRANSPORT CARBON FOOTPRINT */
@@ -215,6 +244,22 @@ public class WebController {
                                         "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
                                         submodelElementCollectionIdShort);
+                        environmentService.updateProperty(TCFTakeoverStreet[i], "CarbonFootprint", SubmodelElementPropertyType.STREET, submodelElementCollectionIdShort, "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverNumber[i], "CarbonFootprint", SubmodelElementPropertyType.HOUSENUMBER, submodelElementCollectionIdShort, "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverCity[i], "CarbonFootprint", SubmodelElementPropertyType.CITYTOWN, submodelElementCollectionIdShort, "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverZIP[i], "CarbonFootprint", SubmodelElementPropertyType.ZIPCODE, submodelElementCollectionIdShort, "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverCountry[i], "CarbonFootprint", SubmodelElementPropertyType.COUNTRY, submodelElementCollectionIdShort, "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverLatitude[i], "CarbonFootprint", SubmodelElementPropertyType.LATITUDE, submodelElementCollectionIdShort, "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverLongitude[i], "CarbonFootprint", SubmodelElementPropertyType.LONGITUDE, submodelElementCollectionIdShort, "TCFGoodsTransportAddressTakeover");
+
+                        environmentService.updateProperty(TCFHandoverStreet[i], "CarbonFootprint", SubmodelElementPropertyType.STREET, submodelElementCollectionIdShort, "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverNumber[i], "CarbonFootprint", SubmodelElementPropertyType.HOUSENUMBER, submodelElementCollectionIdShort, "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverCity[i], "CarbonFootprint", SubmodelElementPropertyType.CITYTOWN, submodelElementCollectionIdShort, "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverZIP[i], "CarbonFootprint", SubmodelElementPropertyType.ZIPCODE, submodelElementCollectionIdShort, "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverCountry[i], "CarbonFootprint", SubmodelElementPropertyType.COUNTRY, submodelElementCollectionIdShort, "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverLatitude[i], "CarbonFootprint", SubmodelElementPropertyType.LATITUDE, submodelElementCollectionIdShort, "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverLongitude[i], "CarbonFootprint", SubmodelElementPropertyType.LONGITUDE, submodelElementCollectionIdShort, "TCFGoodsTransportAddressHandover");
+
                 }
 
                 environmentServices.add(environmentService);

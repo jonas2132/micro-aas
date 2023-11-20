@@ -24,8 +24,8 @@
       } ],
       "type" : "ExternalReference"
     } ],
-    "id" : "software.ag.com/demo/aas/template/1234",
-    "idShort" : "FullAASTemplate"
+    "id" : "https://example.company.de/id/1234/Stahl",
+    "idShort" : "Stahl"
   } ],
   "conceptDescriptions" : [ {
     "modelType" : "ConceptDescription",
@@ -1239,7 +1239,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "2323",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1857,7 +1857,7 @@
     "idShort" : "Nameplate",
     "submodelElements" : [ {
       "modelType" : "Property",
-      "value" : "https://www.domain-abc.com/Model-Nr-1234/Serial-Nr-5678",
+      "value" : "https://example.company.de/id/Stahl",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -1893,7 +1893,7 @@
       },
       "value" : [ {
         "language" : "de",
-        "text" : "Muster AG"
+        "text" : "Example Company"
       } ],
       "description" : [ {
         "language" : "en",
@@ -2712,7 +2712,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "12345678",
+      "value" : "3423.0",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2733,7 +2733,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2022",
+      "value" : "2010",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2754,7 +2754,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2022-01-01",
+      "value" : "2010-10-10",
       "valueType" : "xs:date",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -4206,8 +4206,16 @@
       } ],
       "idShort" : "ProductCarbonFootprint",
       "value" : [ {
+        "modelType" : "ReferenceElement",
+        "category" : "PARAMETER",
+        "idShort" : "PCFAssetReference",
+        "value" : {
+          "keys" : [ ],
+          "type" : "ExternalReference"
+        }
+      }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "0173-1#07-ABU223#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -4229,7 +4237,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "25",
+        "value" : "222.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -4273,7 +4281,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "22.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -4295,7 +4303,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "0173-1#07-ABU210#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -4489,6 +4497,11 @@
           "language" : "en",
           "text" : "Indicates the place of hand-over of the goods "
         } ]
+      }, {
+        "modelType" : "Property",
+        "valueType" : "xs:string",
+        "category" : "PARAMETER",
+        "idShort" : "PCFAssetDescription"
       } ],
       "semanticId" : {
         "keys" : [ {
@@ -4511,7 +4524,7 @@
       "idShort" : "TransportCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "0173-1#07-ABU221#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -4533,7 +4546,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "30",
+        "value" : "222.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -4555,7 +4568,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "0173-1#07-ABZ598#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -4577,7 +4590,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "22.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -4986,10 +4999,18 @@
         "value" : "ZeroToMany",
         "valueType" : "xs:string"
       } ],
-      "idShort" : "ProductCarbonFootprint_Test",
+      "idShort" : "ProductCarbonFootprint_Eisenerz",
       "value" : [ {
+        "modelType" : "ReferenceElement",
+        "category" : "PARAMETER",
+        "idShort" : "PCFAssetReference",
+        "value" : {
+          "keys" : [ ],
+          "type" : "ExternalReference"
+        }
+      }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "0173-1#07-ABU221#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -5011,7 +5032,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "25",
+        "value" : "333.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -5055,7 +5076,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "33.0",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -5077,7 +5098,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "",
+        "value" : "0173-1#07-ABU208#001",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -5271,6 +5292,11 @@
           "language" : "en",
           "text" : "Indicates the place of hand-over of the goods "
         } ]
+      }, {
+        "modelType" : "Property",
+        "valueType" : "xs:string",
+        "category" : "PARAMETER",
+        "idShort" : "PCFAssetDescription"
       } ],
       "semanticId" : {
         "keys" : [ {
