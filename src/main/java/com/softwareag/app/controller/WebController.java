@@ -109,29 +109,15 @@ public class WebController {
                 return "aas_form";
         }
 
-        @GetMapping("/aas/edit/{ID}")
-        public String showEditForm(@PathVariable String ID, Model model) {
-                System.out.println("Clicked Asset ID: " + ID);
+        @GetMapping("/aas/delete/{ID}")
+        public String deleteAAS(@PathVariable String ID, Model model) {
+                System.out.println("Clicked Asset ID to delete: " + ID);
                 model.addAttribute("pageTitle", "AAS Configurator");
-                ObjectMapper objectMapper = new ObjectMapper();
-                List<String> environmentServicesIDs = new ArrayList<>();
-                model.addAttribute("environmentServices", environmentServices);
-                model.addAttribute("editMode", true);
-                for (EnvironmentService serv : environmentServices) {
-                        environmentServicesIDs.add(serv.getAssetID());
-                }
-
-                String dataArrayJson;
-                try {
-                        dataArrayJson = objectMapper.writeValueAsString(environmentServicesIDs);
-                        model.addAttribute("dataArray", dataArrayJson);
-
-                } catch (JsonProcessingException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                }
-
-                return "aas_form";
+                System.out.println(environmentServices);
+                environmentServices.removeIf(envServ -> envServ.getAssetIDShort().equals(ID));
+                System.out.println("After delete: ");
+                System.out.println(environmentServices);
+                return "redirect:/aas/overview";
         }
 
         @GetMapping("/get-environment-services")

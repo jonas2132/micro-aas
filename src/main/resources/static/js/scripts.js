@@ -301,7 +301,7 @@ $(document).ready(function () {
 // Edit button on the Overview View
 $(document).ready(function(){
   // Use querySelectorAll to get all edit buttons
-  var editButtons = document.querySelectorAll(".editButton");
+  var editButtons = document.querySelectorAll(".deleteButton");
 
   function buttonClickAction(event){
     // Retrieve AssetID from the clicked button's data-attribute
@@ -309,14 +309,14 @@ $(document).ready(function(){
     console.log('Clicked AssetID JS:', assetID);
 
     // Send the AssetID to the backend using fetch
-    fetch(`/aas/edit/${assetID}`, {
+    fetch(`/aas/delete/${assetID}`, {
       method: 'GET'
     })
     .then(response => {
       if (response.ok) {
         // If the response is successful, handle as needed
         // For example, redirect to the edit page or do further processing
-        window.location.href = '/aas/edit/${assetID}';
+        window.location.href = `/aas/delete/${assetID}`;
       } else {
         // Handle error cases
         console.log('Failed to retrieve AssetID');
@@ -336,27 +336,4 @@ $(document).ready(function(){
 
 
 
-//Fill out the values of the aasForm View if the edit mode is true
-$(document).ready(function(){
-  var editMode = document.getElementById('editMode-container').getAttribute('editMode');
-  console.log("Edit Mode: " + editMode);
-
-  fetch("/get-environment-services")
-  .then(response => {
-    if(!response.ok) {
-      throw new Error("Network repsonse was not ok");
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log("Environment Services: " , data);
-    //var assetIDShortValue = data.environmentServices[0];
-    console.log('Asset ID Short Value:', typeof data);
-    // assetIDInput.value = assetIDShortValue;
-  })
-  .catch(error => {
-    console.error("There was a problem with the fetch operation:", error);
-  })
-
-});
 
