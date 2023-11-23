@@ -20,8 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.softwareag.app.App;
@@ -66,16 +68,17 @@ public class WebController {
                         try {
 
                                 String originalFilename = file.getOriginalFilename();
-                                String filePath = Constants.RESOURCE_DIRECTORY + "/" + originalFilename;
+                                String filePath = Constants.OUTPUT_DIRECTORY + "/" + originalFilename;
                                 File dest = new File(filePath);
                                 file.transferTo(dest);
 
-                                EnvironmentService environmentService = jsonReaderRepository.read(originalFilename);
+                                EnvironmentService environmentService = jsonReaderRepository.read(filePath);
                                 environmentServices.add(environmentService);
                                 return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
                         } catch (Exception e) {
                                 // Handle exceptions if any
-                                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
+                                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                                .body("Failed to upload file");
                         }
                 } else {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No file provided");
@@ -87,6 +90,8 @@ public class WebController {
                 model.addAttribute("pageTitle", "AAS Configurator");
                 ObjectMapper objectMapper = new ObjectMapper();
                 List<String> environmentServicesIDs = new ArrayList<>();
+                model.addAttribute("environmentServices", environmentServices);
+                model.addAttribute("editMode", false);
                 for (EnvironmentService serv : environmentServices) {
                         environmentServicesIDs.add(serv.getAssetID());
                 }
@@ -95,12 +100,35 @@ public class WebController {
                 try {
                         dataArrayJson = objectMapper.writeValueAsString(environmentServicesIDs);
                         model.addAttribute("dataArray", dataArrayJson);
+
                 } catch (JsonProcessingException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                 }
 
                 return "aas_form";
+        }
+
+        @GetMapping("/aas/delete/{ID}")
+        public String deleteAAS(@PathVariable String ID, Model model) {
+                System.out.println("Clicked Asset ID to delete: " + ID);
+                model.addAttribute("pageTitle", "AAS Configurator");
+                System.out.println(environmentServices);
+                environmentServices.removeIf(envServ -> envServ.getAssetIDShort().equals(ID));
+                System.out.println("After delete: ");
+                System.out.println(environmentServices);
+                return "redirect:/aas/overview";
+        }
+
+        @GetMapping("/get-environment-services")
+        @ResponseBody
+        public ResponseEntity<?> getEnvironmentServices() {
+                try {
+                        return ResponseEntity.ok(environmentServices);
+                } catch (Exception e) {
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                        .body("Error occurred: " + e.getMessage());
+                }
         }
 
         @PostMapping("/aas/submission")
@@ -122,20 +150,43 @@ public class WebController {
                         // @RequestParam("ProductImage") File ProductImage,
 
                         // Parameter Carbon Footprint
-
+                        // Parameter Product Carbon Footprint
                         @RequestParam(value = "ReferableAssetID", defaultValue = " ") String[] ReferableAssetID,
-
                         @RequestParam("PCFCalculationMethod") String[] PCFCalculationMethod,
                         @RequestParam("PCFCO2eq") double[] PCFCO2eq,
                         @RequestParam("PCFQuantityOfMeasureForCalculation") double[] PCFQuantityOfMeasureForCalculation,
                         @RequestParam("PCFReferenceValueForCalculation") String[] PCFReferenceValueForCalculation,
                         @RequestParam("PCFLiveCyclePhase") String[] PCFLiveCyclePhase,
                         @RequestParam(value = "PCFDescription", defaultValue = " ") String[] PCFDescription,
+                        // @RequestParam("ExplanatoryStatement") File[] ExplanatoryStatement,
+                        @RequestParam("PCFHandoverStreet") String[] PCFHandoverStreet,
+                        @RequestParam("PCFHandoverNumber") String[] PCFHandoverNumber,
+                        @RequestParam("PCFHandoverCity") String[] PCFHandoverCity,
+                        @RequestParam("PCFHandoverZIP") String[] PCFHandoverZIP,
+                        @RequestParam("PCFHandoverCountry") String[] PCFHandoverCountry,
+                        @RequestParam("PCFHandoverLatitude") String[] PCFHandoverLatitude,
+                        @RequestParam("PCFHandoverStreet") String[] PCFHandoverLongitude,
 
+                        // Parameter Transport Carbon Footprint
                         @RequestParam("TCFCalculationMethod") String[] TCFCalculationMethod,
                         @RequestParam("TCFCO2eq") double[] TCFCO2eq,
                         @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
-                        @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation) {
+                        @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation,
+                        @RequestParam("TCFProcessesForGreenhouseGasEmissionInATransportService") String[] TCFProcessesForGreenhouseGasEmissionInATransportService,
+                        @RequestParam("TCFTakeoverStreet") String[] TCFTakeoverStreet,
+                        @RequestParam("TCFTakeoverNumber") String[] TCFTakeoverNumber,
+                        @RequestParam("TCFTakeoverCity") String[] TCFTakeoverCity,
+                        @RequestParam("TCFTakeoverZIP") String[] TCFTakeoverZIP,
+                        @RequestParam("TCFTakeoverCountry") String[] TCFTakeoverCountry,
+                        @RequestParam("TCFTakeoverLatitude") String[] TCFTakeoverLatitude,
+                        @RequestParam("TCFTakeoverLongitude") String[] TCFTakeoverLongitude,
+                        @RequestParam("TCFHandoverStreet") String[] TCFHandoverStreet,
+                        @RequestParam("TCFHandoverNumber") String[] TCFHandoverNumber,
+                        @RequestParam("TCFHandoverCity") String[] TCFHandoverCity,
+                        @RequestParam("TCFHandoverZIP") String[] TCFHandoverZIP,
+                        @RequestParam("TCFHandoverCountry") String[] TCFHandoverCountry,
+                        @RequestParam("TCFHandoverLatitude") String[] TCFHandoverLatitude,
+                        @RequestParam("TCFHandoverLongitude") String[] TCFHandoverLongitude) {
 
                 EnvironmentService environmentService = jsonReaderRepository
                                 .read(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json");
@@ -189,7 +240,27 @@ public class WebController {
                         environmentService.updateProperty(PCFDescription[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION,
                                         submodelElementCollectionIdShort);
-
+                        environmentService.updateProperty(PCFHandoverStreet[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.STREET, submodelElementCollectionIdShort,
+                                        "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(PCFHandoverNumber[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.HOUSENUMBER, submodelElementCollectionIdShort,
+                                        "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(PCFHandoverCity[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.CITYTOWN, submodelElementCollectionIdShort,
+                                        "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(PCFHandoverZIP[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.ZIPCODE, submodelElementCollectionIdShort,
+                                        "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(PCFHandoverCountry[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.COUNTRY, submodelElementCollectionIdShort,
+                                        "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(TCFTakeoverLatitude[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.LATITUDE, submodelElementCollectionIdShort,
+                                        "PCFGoodsAddressHandover");
+                        environmentService.updateProperty(TCFTakeoverLongitude[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.LONGITUDE, submodelElementCollectionIdShort,
+                                        "PCFGoodsAddressHandover");
                 }
 
                 /* TRANSPORT CARBON FOOTPRINT */
@@ -215,6 +286,50 @@ public class WebController {
                                         "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
                                         submodelElementCollectionIdShort);
+                        environmentService.updateProperty(TCFTakeoverStreet[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.STREET, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverNumber[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.HOUSENUMBER, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverCity[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.CITYTOWN, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverZIP[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.ZIPCODE, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverCountry[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.COUNTRY, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverLatitude[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.LATITUDE, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressTakeover");
+                        environmentService.updateProperty(TCFTakeoverLongitude[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.LONGITUDE, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressTakeover");
+
+                        environmentService.updateProperty(TCFHandoverStreet[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.STREET, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverNumber[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.HOUSENUMBER, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverCity[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.CITYTOWN, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverZIP[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.ZIPCODE, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverCountry[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.COUNTRY, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverLatitude[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.LATITUDE, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressHandover");
+                        environmentService.updateProperty(TCFHandoverLongitude[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.LONGITUDE, submodelElementCollectionIdShort,
+                                        "TCFGoodsTransportAddressHandover");
+
                 }
 
                 environmentServices.add(environmentService);
@@ -237,18 +352,19 @@ public class WebController {
                 if (selectedEnvironmentServices.size() == 1) {
 
                         DownloadService.downloadFile(
-                                        Constants.OUTPUT_DIRECTORY + "/" + selectedEnvironmentServices.get(0).getAssetIDShort(),
+                                        Constants.OUTPUT_DIRECTORY + "/"
+                                                        + selectedEnvironmentServices.get(0).getAssetIDShort(),
                                         selectedEnvironmentServices.get(0).getAssetIDShort(), exportDataType, response);
 
                 } else if (selectedEnvironmentServices.size() > 1) {
 
                         List<String> fileNames = selectedEnvironmentServices.stream()
-                                                        .map(EnvironmentService::getAssetIDShort)
-                                                        .collect(Collectors.toList());
+                                        .map(EnvironmentService::getAssetIDShort)
+                                        .collect(Collectors.toList());
 
                         DownloadService.downloadFiles(
-                                                Constants.OUTPUT_DIRECTORY,
-                                                fileNames, exportDataType, response);
+                                        Constants.OUTPUT_DIRECTORY,
+                                        fileNames, exportDataType, response);
 
                 }
 
@@ -259,31 +375,31 @@ public class WebController {
                         @RequestParam("format") String exportFormat,
                         HttpServletResponse response) {
                 try {
-                EnvironmentService foundEnvironmentService = environmentServices.stream()
-                                .filter(environmentService -> environmentService.getAssetID().equals(id))
-                                .findFirst()
-                                .orElse(null);
+                        EnvironmentService foundEnvironmentService = environmentServices.stream()
+                                        .filter(environmentService -> environmentService.getAssetID().equals(id))
+                                        .findFirst()
+                                        .orElse(null);
 
-                if (foundEnvironmentService == null) {
-                        sendAlert("Invalid AssetID!", response);
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid AssetID!");
-                }
+                        if (foundEnvironmentService == null) {
+                                sendAlert("Invalid AssetID!", response);
+                                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid AssetID!");
+                        }
 
-                DataType exportDataType = getDataTypeByString(exportFormat);
+                        DataType exportDataType = getDataTypeByString(exportFormat);
 
-                if (exportDataType == null) {
-                        sendAlert("Invalid Datatype!", response);
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Datatype!");
-                }
+                        if (exportDataType == null) {
+                                sendAlert("Invalid Datatype!", response);
+                                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Datatype!");
+                        }
 
-                DownloadService.downloadFile(
-                                Constants.OUTPUT_DIRECTORY + "/" + foundEnvironmentService.getAssetIDShort(),
-                                foundEnvironmentService.getAssetIDShort(), exportDataType, response);
+                        DownloadService.downloadFile(
+                                        Constants.OUTPUT_DIRECTORY + "/" + foundEnvironmentService.getAssetIDShort(),
+                                        foundEnvironmentService.getAssetIDShort(), exportDataType, response);
 
-                return ResponseEntity.status(HttpStatus.OK).body("Download successful!");
-                }catch(Exception ex) {
+                        return ResponseEntity.status(HttpStatus.OK).body("Download successful!");
+                } catch (Exception ex) {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Downlaod Error!");
-                }       
+                }
         }
 
         private void importEnvironments() {
