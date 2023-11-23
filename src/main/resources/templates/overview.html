@@ -29,46 +29,54 @@
       </div>
 
       <form action="/aas/export" method="post" class="d-flex flex-column flex-fill">
-          <!--Table body-->
+        <!--Table body-->
 
-          <div class="flex-fill">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Select</th>
-                  <th scope="col">ID</th>
-                  <th scope="col">ID-short</th>
-                  <th scope="col">PCF CO2eq</th>
-                  <th scope="col">PCF CO2eq</th>
-                  <th scope="col">Life Cycle Phase</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Iterate through the list of EnvironmentService objects and display them in rows -->
-                <tr th:each="envService : ${environmentServices}">
-                  <td>
-                    <input type="checkbox" name="selectedItems" th:value="${envService.getAssetID()}">
-                  </td>
-                  <td th:text="${envService.getAssetID()}">Asset ID</td>
-                  <td th:text="${envService.getAssetIDShort()}">Asset ID Short</td>
-                  <td th:text="${envService.getPCFCO2()}">placeholder</td>
-                  <td th:text="${envService.getTCFCO2()}">placeholder</td>
-                  <td>placeholder</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="flex-fill">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Select</th>
+                <th scope="col">ID</th>
+                <th scope="col">ID-short</th>
+                <th scope="col">PCF CO2eq</th>
+                <th scope="col">PCF CO2eq</th>
+                <th scope="col">Life Cycle Phase</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Iterate through the list of EnvironmentService objects and display them in rows -->
+              <tr th:each="envService : ${environmentServices}">
+                <td>
+                  <input type="checkbox" name="selectedItems" th:value="${envService.getAssetID()}">
+                </td>
+                <td th:text="${envService.getAssetID()}">Asset ID</td>
+                <td th:text="${envService.getAssetIDShort()}">Asset ID Short</td>
+                <td th:text="${envService.getPCFCO2()}">placeholder</td>
+                <td th:text="${envService.getTCFCO2()}">placeholder</td>
+                <td>placeholder</td>
+                <td>
+                  <button type="button" class="btn editButton" id="editButton" th:data-assetid="${envService.getAssetIDShort()}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0d6efd" class="bi bi-pen" viewBox="0 0 16 16">
+                      <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--Table Export Button-->
+        <div class="row mt-2 mx-0">
+          <button type="submit" class="col-10 btn btn-primary" id="exportButton">Export the AAS as ...</button>
+          <div class="col-2 px-1">
+            <select class="form-select" id="exportFormat" name="exportFormat">
+              <option value="json">JSON</option>
+              <option value="aasx">AASX</option>
+            </select>
           </div>
-          <!--Table Export Button-->
-          <div class="row mt-2 mx-0">
-            <button type="submit" class="col-10 btn btn-primary" id="exportButton">Export the AAS as ...</button>
-            <div class="col-2 px-1">
-              <select class="form-select" id="exportFormat" name="exportFormat">
-                <option value="json">JSON</option>
-                <option value="aasx">AASX</option>
-              </select>
-            </div>
 
-          </div>
+        </div>
       </form>
 
     </div>
