@@ -253,11 +253,7 @@ $(document).ready(function () {
 
 
 
-/* $(document).ready(function () {
-  document.addEventListener('DOMContentLoaded', e => {
-    $('input-datalist').autocomplete()
-  }, false);
-}) */
+
 
 // Import button on the overview view gets a file picking window
 $(document).ready(function () {
@@ -300,5 +296,44 @@ $(document).ready(function () {
     });
   }
 });
+
+
+// Edit button on the Overview View
+$(document).ready(function(){
+  // Use querySelectorAll to get all edit buttons
+  var editButtons = document.querySelectorAll(".deleteButton");
+
+  function buttonClickAction(event){
+    // Retrieve AssetID from the clicked button's data-attribute
+    var assetID = event.currentTarget.getAttribute('data-assetid');
+    console.log('Clicked AssetID JS:', assetID);
+
+    // Send the AssetID to the backend using fetch
+    fetch(`/aas/delete/${assetID}`, {
+      method: 'GET'
+    })
+    .then(response => {
+      if (response.ok) {
+        // If the response is successful, handle as needed
+        // For example, redirect to the edit page or do further processing
+        window.location.href = `/aas/delete/${assetID}`;
+      } else {
+        // Handle error cases
+        console.log('Failed to retrieve AssetID');
+      }
+    })
+    .catch(error => {
+      // Handle network errors or exceptions
+      console.error('Error:', error);
+    });
+  }
+
+  // Attach click event listener to each edit button
+  editButtons.forEach(button => {
+    button.addEventListener("click", buttonClickAction);
+  });
+});
+
+
 
 
