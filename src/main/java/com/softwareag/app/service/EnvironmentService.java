@@ -38,6 +38,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.apache.commons.lang3.ObjectUtils.Null;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
 import org.eclipse.digitaltwin.aas4j.v3.model.AssetAdministrationShell;
 import org.eclipse.digitaltwin.aas4j.v3.model.ConceptDescription;
@@ -183,6 +184,26 @@ public class EnvironmentService implements Environment {
         // Filter ist wie eine Abfrage
     }
 
+    public List<LangStringTextType> getMultilanguageProperty(String submodelIdShort,
+            SubmodelElementPropertyType propertyType,
+            String... submodelElementCollections) {
+        System.out.println("Reading MultilanguageProperty " + propertyType.getIdShort() + " . . .");
+        try {
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
+
+            return subModelElements.stream()
+                    .filter(element -> isMultilanguageProperty(element, propertyType))
+                    .map(element -> ((MultiLanguageProperty) element).getValue())
+                    .findFirst().orElse(null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
+        // Filter ist wie eine Abfrage
+    }
+
     public void updateProperty(String value, String submodelIdShort, SubmodelElementPropertyType propertyType,
             String... submodelElementCollections) {
         System.out.println("Updating Property " + propertyType.getIdShort() + " . . .");
@@ -287,7 +308,7 @@ public class EnvironmentService implements Environment {
 
     }
 
-    private SubmodelElementCollection getCertainSubmodelElementCollection(String submodelIdShort,
+    public SubmodelElementCollection getCertainSubmodelElementCollection(String submodelIdShort,
             String... collections) {
 
         Queue<String> collectionQueue = new LinkedList<>();
@@ -314,32 +335,34 @@ public class EnvironmentService implements Environment {
 
     }
 
-    private Submodel getSubmodelOfIdShort(String submodelIdShort) {
+
+    public Submodel getSubmodelOfIdShort(String submodelIdShort) {
         return getSubmodels().stream()
                 .filter(submodel -> isSubmodelTypeOf(submodel, submodelIdShort))
                 .findFirst()
                 .orElse(null);
     }
 
-    private boolean isMultilanguageProperty(SubmodelElement submodelElement,
+    public boolean isMultilanguageProperty(SubmodelElement submodelElement,
             SubmodelElementPropertyType submodelElementPropertyType) {
         return submodelElement instanceof MultiLanguageProperty
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
+    
 
-    private boolean isProperty(SubmodelElement submodelElement,
+    public boolean isProperty(SubmodelElement submodelElement,
             SubmodelElementPropertyType submodelElementPropertyType) {
         return submodelElement instanceof Property
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
 
-    private boolean isReferenceElement(SubmodelElement submodelElement,
+    public boolean isReferenceElement(SubmodelElement submodelElement,
             SubmodelElementPropertyType submodelElementPropertyType) {
         return submodelElement instanceof ReferenceElement
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
 
-    private boolean isFile(SubmodelElement submodelElement,
+    public boolean isFile(SubmodelElement submodelElement,
             SubmodelElementPropertyType submodelElementPropertyType) {
         return submodelElement instanceof File
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());

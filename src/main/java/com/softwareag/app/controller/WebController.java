@@ -10,11 +10,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.eclipse.digitaltwin.aas4j.v3.model.LangStringTextType;
+import org.eclipse.digitaltwin.aas4j.v3.model.Submodel;
+import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElement;
+import org.eclipse.digitaltwin.aas4j.v3.model.SubmodelElementCollection;
+import org.eclipse.digitaltwin.aas4j.v3.model.impl.DefaultLangStringTextType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -35,6 +41,8 @@ import com.softwareag.app.data.SubmodelElementPropertyType;
 import com.softwareag.app.service.DownloadService;
 import com.softwareag.app.service.EnvironmentService;
 import com.softwareag.app.utils.Constants;
+import com.softwareag.app.service.EnvironmentService.*;
+import org.eclipse.digitaltwin.aas4j.v3.model.*;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -72,7 +80,8 @@ public class WebController {
                                 File dest = new File(filePath);
                                 file.transferTo(dest);
 
-                                EnvironmentService environmentService = jsonReaderRepository.read(new File(originalFilename));
+                                EnvironmentService environmentService = jsonReaderRepository
+                                                .read(new File(originalFilename));
                                 environmentServices.add(environmentService);
                                 return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
                         } catch (Exception e) {
@@ -111,20 +120,80 @@ public class WebController {
 
         @GetMapping("/aas/edit/{ID}")
         public String showEditForm(@PathVariable String ID, Model model) {
-                System.out.println("Clicked Asset ID: " + ID);
-                model.addAttribute("pageTitle", "AAS Configurator");
+
                 ObjectMapper objectMapper = new ObjectMapper();
-                List<String> environmentServicesIDs = new ArrayList<>();
-                model.addAttribute("environmentServices", environmentServices);
-                model.addAttribute("editMode", true);
-                for (EnvironmentService serv : environmentServices) {
-                        environmentServicesIDs.add(serv.getAssetID());
+                List<String> prefillValues = new ArrayList<>();
+                List<String> prefillValuesPCF = new ArrayList<>();
+                List<String> prefillValuesTCF = new ArrayList<>();
+
+                EnvironmentService envServiceToEdit = environmentServices.stream()
+                                .filter(service -> service.getAssetIDShort().equals(ID))
+                                .findFirst().get();
+
+                prefillValues.add(envServiceToEdit.getAssetIDShort());
+                prefillValues.add(envServiceToEdit.getAssetID());
+                prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
+                                SubmodelElementPropertyType.URI_OF_THE_PRODUCT));
+                prefillValues.add(envServiceToEdit
+                                .getMultilanguageProperty("Nameplate", SubmodelElementPropertyType.MANUFACTURER_NAME)
+                                .get(0).getText());
+                prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
+                                SubmodelElementPropertyType.SERIAL_NUMBER));
+                prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
+                                SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION));
+                prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
+                                SubmodelElementPropertyType.DATE_OF_MANUFACTURE));
+                prefillValues.add(envServiceToEdit.getPropertyValue("TechnicalData",
+                                SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, "GeneralInformation"));
+
+                Submodel certainSubmodel = envServiceToEdit.getSubmodelOfIdShort("CarbonFootprint");
+
+                for (SubmodelElementCollection smcPCF : certainSubmodel.getSubmodelElements().stream()
+                                .filter(element -> element instanceof SubmodelElementCollection)
+                                .map(element -> (SubmodelElementCollection) element)
+                                .filter(element -> element.getIdShort().startsWith("ProductCarbonFootprint"))
+                                .collect(Collectors.toList())) {
+                        String smcPCFID = smcPCF.getIdShort();
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE,smcPCFID));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_CALCULATION_METHOD,smcPCFID));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.PCFCO2EQ,smcPCFID));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,smcPCFID));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_REFERENCE_VALUE_FOR_CALCULATION,smcPCFID));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,smcPCFID));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION,smcPCFID));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.STREET,smcPCFID, "PCFGoodsAddressHandover"));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.HOUSENUMBER,smcPCFID, "PCFGoodsAddressHandover"));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.CITYTOWN,smcPCFID, "PCFGoodsAddressHandover"));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.ZIPCODE,smcPCFID, "PCFGoodsAddressHandover"));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.COUNTRY,smcPCFID, "PCFGoodsAddressHandover"));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.LATITUDE,smcPCFID, "PCFGoodsAddressHandover"));
+                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.LONGITUDE,smcPCFID, "PCFGoodsAddressHandover"));
+                                
+
                 }
 
-                String dataArrayJson;
                 try {
-                        dataArrayJson = objectMapper.writeValueAsString(environmentServicesIDs);
-                        model.addAttribute("dataArray", dataArrayJson);
+                        model.addAttribute("pageTitle", "AAS Configurator");
+                        model.addAttribute("environmentServices", environmentServices);
+                        model.addAttribute("editMode", true);
+                        String prefillValuesJSON = objectMapper.writeValueAsString(prefillValues);
+                        String prefillValuesPCFJSON = objectMapper.writeValueAsString(prefillValuesPCF);
+                        model.addAttribute("prefillValues", prefillValuesJSON);
+                        model.addAttribute("prefillValuesPCF", prefillValuesPCFJSON);
 
                 } catch (JsonProcessingException e) {
                         // TODO Auto-generated catch block
@@ -132,17 +201,6 @@ public class WebController {
                 }
 
                 return "aas_form";
-        }
-
-        @GetMapping("/get-environment-services")
-        @ResponseBody
-        public ResponseEntity<?> getEnvironmentServices() {
-                try {
-                        return ResponseEntity.ok(environmentServices);
-                } catch (Exception e) {
-                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                        .body("Error occurred: " + e.getMessage());
-                }
         }
 
         @PostMapping("/aas/submission")
@@ -269,10 +327,10 @@ public class WebController {
                         environmentService.updateProperty(PCFHandoverCountry[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.COUNTRY, submodelElementCollectionIdShort,
                                         "PCFGoodsAddressHandover");
-                        environmentService.updateProperty(TCFTakeoverLatitude[i], "CarbonFootprint",
+                        environmentService.updateProperty(PCFHandoverLatitude[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.LATITUDE, submodelElementCollectionIdShort,
                                         "PCFGoodsAddressHandover");
-                        environmentService.updateProperty(TCFTakeoverLongitude[i], "CarbonFootprint",
+                        environmentService.updateProperty(PCFHandoverLongitude[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.LONGITUDE, submodelElementCollectionIdShort,
                                         "PCFGoodsAddressHandover");
                 }
@@ -283,7 +341,7 @@ public class WebController {
 
                         if (i > 0) {
                                 submodelElementCollectionIdShort += "_"
-                                                + getAssetIdShortByAssetId(ReferableAssetID[i]);
+                                                + (i++);
                                 environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
                                                 "TransportCarbonFootprint", submodelElementCollectionIdShort);
                         }

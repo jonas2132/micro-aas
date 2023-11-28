@@ -25,7 +25,7 @@
       "type" : "ExternalReference"
     } ],
     "id" : "https://example.company.de/id/1234/Stahl",
-    "idShort" : "Stahl"
+    "idShort" : "Stahl3"
   } ],
   "conceptDescriptions" : [ {
     "modelType" : "ConceptDescription",
@@ -4756,7 +4756,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "333",
+          "value" : "33",
           "valueType" : "xs:double",
           "qualifiers" : [ {
             "type" : "Cardinality",
