@@ -17,10 +17,10 @@ public class App {
 
     public static void main(String[] args) {
 
-        dataRepositoryController = new DataRepositoryController(DataType.JSON);
+        // dataRepositoryController = new DataRepositoryController(DataType.JSON);
 
-        EnvironmentService environmentService = dataRepositoryController.getCurrenDataRepository()
-                .read(new File(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate.json"));
+      //  EnvironmentService environmentService = dataRepositoryController.getCurrenDataRepository()
+          //      .read(new File(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate.json"));
 
         // environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
         // "ProductCarbonFootprint", "ProductCarbonFootprint_Test");
