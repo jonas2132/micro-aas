@@ -85,9 +85,9 @@ $(document).ready(function () {
           </div>
 
         </div>
-        <!--Live Cycle Phase-->
+        <!--Life Cycle Phase-->
         <div class="mb-3">
-          <label for="PCFLiveCyclePhase">Live Cycle Phase of the Product</label>
+          <label for="PCFLiveCyclePhase">Life Cycle Phase of the Product</label>
           <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase"
             required="">
             <option value="">Choose...</option>
@@ -430,20 +430,20 @@ $(document).ready(function () {
     fetch(`/aas/delete/${assetID}`, {
       method: 'GET'
     })
-    .then(response => {
-      if (response.ok) {
-        // If the response is successful, handle as needed
-        // For example, redirect to the edit page or do further processing
-        window.location.href = `/aas/delete/${assetID}`;
-      } else {
-        // Handle error cases
-        console.log('Failed to retrieve AssetID');
-      }
-    })
-    .catch(error => {
-      // Handle network errors or exceptions
-      console.error('Error:', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          // If the response is successful, handle as needed
+          // For example, redirect to the edit page or do further processing
+          window.location.href = `/aas/delete/${assetID}`;
+        } else {
+          // Handle error cases
+          console.log('Failed to retrieve AssetID');
+        }
+      })
+      .catch(error => {
+        // Handle network errors or exceptions
+        console.error('Error:', error);
+      });
   }
 
   // Attach click event listener to each edit button
@@ -497,6 +497,7 @@ $(document).ready(function () {
  */
 function populateFields(fieldIds, values) {
   fieldIds.forEach(function (fieldId, index) {
+    console.log('Values to populate: ' + values);
     var inputElement = document.getElementById(fieldId);
     if (inputElement && values[index]) {
       inputElement.value = values[index] || '';
@@ -680,9 +681,9 @@ $(document).ready(function () {
             </div>
 
           </div>
-          <!--Live Cycle Phase-->
+          <!--Life Cycle Phase-->
           <div class="mb-3">
-            <label for="PCFLiveCyclePhase">Live Cycle Phase of the Product</label>
+            <label for="PCFLiveCyclePhase">Life Cycle Phase of the Product</label>
             <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase${i + 1}"
               required="">
               <option value="">Choose...</option>
@@ -940,4 +941,20 @@ $(document).ready(function () {
     }
   }
 });
+
+
+
+
+/**
+ * Model activation for the deletion confirmation 
+ */
+$(document).ready(function () {
+  const myModal = document.getElementById('myModal')
+  const myInput = document.getElementById('myInput')
+
+  myModal.addEventListener('shown.bs.modal', () => {
+    myInput.focus()
+  })
+});
+
 
