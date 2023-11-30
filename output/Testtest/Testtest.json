@@ -10,22 +10,22 @@
         "type" : "Submodel",
         "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
       } ],
-      "type" : "ModelReference"
+      "type" : "ExternalReference"
     }, {
       "keys" : [ {
         "type" : "Submodel",
         "value" : "https://admin-shell.io/ZVEI/TechnicalData/Submodel/1/2"
       } ],
-      "type" : "ModelReference"
+      "type" : "ExternalReference"
     }, {
       "keys" : [ {
         "type" : "Submodel",
         "value" : "www.example.com/ids/sm/1225_9020_5022_1974"
       } ],
-      "type" : "ModelReference"
+      "type" : "ExternalReference"
     } ],
-    "id" : "https://test.id.com/Tester",
-    "idShort" : "Testtest"
+    "id" : "software.ag.com/demo/aas/template/1234",
+    "idShort" : "FullAASTemplate"
   } ],
   "conceptDescriptions" : [ {
     "modelType" : "ConceptDescription",
@@ -1074,826 +1074,6 @@
   "submodels" : [ {
     "modelType" : "Submodel",
     "kind" : "Instance",
-    "id" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0",
-    "idShort" : "CarbonFootprint",
-    "submodelElements" : [ {
-      "modelType" : "SubmodelElementCollection",
-      "qualifiers" : [ {
-        "type" : "Cardinality",
-        "value" : "ZeroToMany",
-        "valueType" : "xs:string"
-      } ],
-      "idShort" : "ProductCarbonFootprint",
-      "value" : [ {
-        "modelType" : "ReferenceElement",
-        "category" : "PARAMETER",
-        "idShort" : "PCFAssetReference",
-        "value" : {
-          "keys" : [ {
-            "type" : "Submodel",
-            "value" : "https://test.id.com/1234"
-          } ],
-          "type" : "ExternalReference"
-        }
-      }, {
-        "modelType" : "Property",
-        "value" : "0173-1#07-ABU223#001",
-        "valueType" : "xs:string",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "OneToMany",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "PCFCalculationMethod",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG854#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Standard, method for determining the greenhouse gas emissions of a product"
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "123.0",
-        "valueType" : "xs:double",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "PCFCO2eq",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG855#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Sum of all greenhouse gas emissions of a product according to the quantification requirements of the standard"
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "",
-        "valueType" : "xs:string",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "PCFReferenceValueForCalculation",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG856#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Quantity unit of the product to which the PCF information on the CO2 footprint refers"
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "123.0",
-        "valueType" : "xs:double",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "PCFQuantityOfMeasureForCalculation",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG857#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Quantity of the product to which the PCF information on the CO2 footprint refers"
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "0173-1#07-ABU213#001",
-        "valueType" : "xs:string",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "OneToMany",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "PCFLiveCyclePhase",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG858#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Life cycle stages of the product according to the quantification requirements of the standard to which the PCF carbon footprint statement refers"
-        } ]
-      }, {
-        "modelType" : "SubmodelElementCollection",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "idShort" : "PCFGoodsAddressHandover",
-        "value" : [ {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Street",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH956#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Street indication of the place of transfer of goods"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "HouseNumber",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH957#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Number for identification or differentiation of individual houses of a street"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "ZipCode",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH958#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Zip code of the goods transfer address"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "CityTown",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH959#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Indication of the city or town of the transfer of goods"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Country",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-AAO259#005"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Country where the product is transmitted"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:double",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Latitude",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH960#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:double",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Longitude",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH961#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
-          } ]
-        } ],
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABI497#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Indicates the place of hand-over of the goods "
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "as",
-        "valueType" : "xs:string",
-        "category" : "PARAMETER",
-        "idShort" : "PCFAssetDescription"
-      } ],
-      "semanticId" : {
-        "keys" : [ {
-          "type" : "GlobalReference",
-          "value" : "https://admin-shell.io/idta/CarbonFootprint/ProductCarbonFootprint/1/0"
-        } ],
-        "type" : "ExternalReference"
-      },
-      "description" : [ {
-        "language" : "en",
-        "text" : "Balance of greenhouse gas emissions along the entire life cycle of a product in a defined application and in relation to a defined unit of use"
-      } ]
-    }, {
-      "modelType" : "SubmodelElementCollection",
-      "qualifiers" : [ {
-        "type" : "Cardinality",
-        "value" : "ZeroToMany",
-        "valueType" : "xs:string"
-      } ],
-      "idShort" : "TransportCarbonFootprint",
-      "value" : [ {
-        "modelType" : "Property",
-        "value" : "0173-1#07-ABU223#001",
-        "valueType" : "xs:string",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "TCFCalculationMethod",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG859#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Standard, method for determining the greenhouse gas emissions for the transport of a product"
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "12.0",
-        "valueType" : "xs:double",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "TCFCO2eq",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG860#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Sum of all greenhouse gas emissions from vehicle operation"
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "0173-1#07-ABZ601#001",
-        "valueType" : "xs:string",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "TCFReferenceValueForCalculation",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG861#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Amount of product to which the TCF carbon footprint statement relates"
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "1222.0",
-        "valueType" : "xs:double",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "TCFQuantityOfMeasureForCalculation",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG862#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Quantity of the product to which the TCF information on the CO2 footprint refers"
-        } ]
-      }, {
-        "modelType" : "Property",
-        "value" : "",
-        "valueType" : "xs:string",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "category" : "PARAMETER",
-        "idShort" : "TCFProcessesForGreenhouseGasEmissionInATransportService",
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABG863#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Processes in a transport service to determine the sum of all direct or indirect greenhouse gas emissions from fuel supply and vehicle operation"
-        } ]
-      }, {
-        "modelType" : "SubmodelElementCollection",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "idShort" : "TCFGoodsTransportAddressTakeover",
-        "value" : [ {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Street",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH956#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Street indication of the place of transfer of goods"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "HouseNumber",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH957#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Number for identification or differentiation of individual houses of a street"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "ZipCode",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH958#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Zip code of the goods transfer address"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "CityTown",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH959#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Indication of the city or town of the transfer of goods"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Country",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-AAO259#005"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Country where the product is transmitted"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:double",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Latitude",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH960#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:double",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Longitude",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH961#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
-          } ]
-        } ],
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABI499#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Indication of the place of receipt of goods "
-        } ]
-      }, {
-        "modelType" : "SubmodelElementCollection",
-        "qualifiers" : [ {
-          "type" : "Cardinality",
-          "value" : "One",
-          "valueType" : "xs:string"
-        } ],
-        "idShort" : "TCFGoodsTransportAddressHandover",
-        "value" : [ {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Street",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH956#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Street indication of the place of transfer of goods"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "HouseNumber",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH957#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Number for identification or differentiation of individual houses of a street"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "ZipCode",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH958#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Zip code of the goods transfer address"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "CityTown",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH959#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Indication of the city or town of the transfer of goods"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:string",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Country",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-AAO259#005"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Country where the product is transmitted"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:double",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Latitude",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH960#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
-          } ]
-        }, {
-          "modelType" : "Property",
-          "value" : "",
-          "valueType" : "xs:double",
-          "qualifiers" : [ {
-            "type" : "Cardinality",
-            "value" : "ZeroToOne",
-            "valueType" : "xs:string"
-          } ],
-          "category" : "PARAMETER",
-          "idShort" : "Longitude",
-          "semanticId" : {
-            "keys" : [ {
-              "type" : "GlobalReference",
-              "value" : "0173-1#02-ABH961#001"
-            } ],
-            "type" : "ExternalReference"
-          },
-          "description" : [ {
-            "language" : "en",
-            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
-          } ]
-        } ],
-        "semanticId" : {
-          "keys" : [ {
-            "type" : "GlobalReference",
-            "value" : "0173-1#02-ABI498#001"
-          } ],
-          "type" : "ExternalReference"
-        },
-        "description" : [ {
-          "language" : "en",
-          "text" : "Indicates the hand-over address of the goods transport "
-        } ]
-      } ],
-      "semanticId" : {
-        "keys" : [ {
-          "type" : "GlobalReference",
-          "value" : "https://admin-shell.io/idta/CarbonFootprint/TransportCarbonFootprint/1/0"
-        } ],
-        "type" : "ExternalReference"
-      },
-      "description" : [ {
-        "language" : "en",
-        "text" : "Balance of greenhouse gas emissions generated by a transport service of a product"
-      } ]
-    } ],
-    "semanticId" : {
-      "keys" : [ {
-        "type" : "GlobalReference",
-        "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
-      } ],
-      "type" : "ExternalReference"
-    },
-    "description" : [ {
-      "language" : "en",
-      "text" : "The Submodel provides the means to access the Carbon Footprint of the asset."
-    } ]
-  }, {
-    "modelType" : "Submodel",
-    "kind" : "Instance",
-    "administration" : {
-      "revision" : "2",
-      "version" : "1"
-    },
     "id" : "https://admin-shell.io/ZVEI/TechnicalData/Submodel/1/2",
     "idShort" : "TechnicalData",
     "submodelElements" : [ {
@@ -1954,7 +1134,7 @@
       }, {
         "modelType" : "File",
         "contentType" : "image/png",
-        "value" : "file:///",
+        "value" : "",
         "qualifiers" : [ {
           "type" : "Cardinality",
           "value" : "ZeroToOne",
@@ -2059,7 +1239,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "23423424",
+        "value" : "",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -2100,7 +1280,7 @@
       }, {
         "modelType" : "File",
         "contentType" : "image/png",
-        "value" : "file:///",
+        "value" : "",
         "qualifiers" : [ {
           "type" : "Cardinality",
           "value" : "ZeroToMany",
@@ -2677,7 +1857,7 @@
     "idShort" : "Nameplate",
     "submodelElements" : [ {
       "modelType" : "Property",
-      "value" : "https://URITESTnameplate",
+      "value" : "https://www.domain-abc.com/Model-Nr-1234/Serial-Nr-5678",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2713,7 +1893,7 @@
       },
       "value" : [ {
         "language" : "de",
-        "text" : "Nameplate AG"
+        "text" : "Muster AG"
       } ],
       "description" : [ {
         "language" : "en",
@@ -3532,7 +2712,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2.3423424E7",
+      "value" : "12345678",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3574,7 +2754,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "1221-12-12",
+      "value" : "2022-01-01",
       "valueType" : "xs:date",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3686,7 +2866,7 @@
     }, {
       "modelType" : "File",
       "contentType" : "",
-      "value" : "file:///",
+      "value" : "",
       "qualifiers" : [ {
         "type" : "Multiplicity",
         "value" : "ZeroToOne",
@@ -3798,7 +2978,7 @@
         }, {
           "modelType" : "File",
           "contentType" : "",
-          "value" : "file:///aasx/Nameplate/marking_ce.png ",
+          "value" : "/aasx/Nameplate/marking_ce.png ",
           "qualifiers" : [ {
             "type" : "Multiplicity",
             "value" : "One",
@@ -5011,6 +4191,1109 @@
     "description" : [ {
       "language" : "en",
       "text" : "Contains the nameplate information attached to the product"
+    } ]
+  }, {
+    "modelType" : "Submodel",
+    "kind" : "Instance",
+    "id" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0",
+    "idShort" : "CarbonFootprint",
+    "submodelElements" : [ {
+      "modelType" : "SubmodelElementCollection",
+      "qualifiers" : [ {
+        "type" : "Cardinality",
+        "value" : "ZeroToMany",
+        "valueType" : "xs:string"
+      } ],
+      "idShort" : "ProductCarbonFootprint",
+      "value" : [ {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "OneToMany",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFCalculationMethod",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG854#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Standard, method for determining the greenhouse gas emissions of a product"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "25",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFCO2eq",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG855#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Sum of all greenhouse gas emissions of a product according to the quantification requirements of the standard"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFReferenceValueForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG856#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Quantity unit of the product to which the PCF information on the CO2 footprint refers"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFQuantityOfMeasureForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG857#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Quantity of the product to which the PCF information on the CO2 footprint refers"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "OneToMany",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFLiveCyclePhase",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG858#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Life cycle stages of the product according to the quantification requirements of the standard to which the PCF carbon footprint statement refers"
+        } ]
+      }, {
+        "modelType" : "SubmodelElementCollection",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "idShort" : "PCFGoodsAddressHandover",
+        "value" : [ {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Street",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH956#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Street indication of the place of transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "HouseNumber",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH957#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Number for identification or differentiation of individual houses of a street"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "ZipCode",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH958#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Zip code of the goods transfer address"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "CityTown",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH959#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Indication of the city or town of the transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Country",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-AAO259#005"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Country where the product is transmitted"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Latitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH960#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Longitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH961#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+          } ]
+        } ],
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABI497#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Indicates the place of hand-over of the goods "
+        } ]
+      } ],
+      "semanticId" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/idta/CarbonFootprint/ProductCarbonFootprint/1/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "description" : [ {
+        "language" : "en",
+        "text" : "Balance of greenhouse gas emissions along the entire life cycle of a product in a defined application and in relation to a defined unit of use"
+      } ]
+    }, {
+      "modelType" : "SubmodelElementCollection",
+      "qualifiers" : [ {
+        "type" : "Cardinality",
+        "value" : "ZeroToMany",
+        "valueType" : "xs:string"
+      } ],
+      "idShort" : "TransportCarbonFootprint",
+      "value" : [ {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFCalculationMethod",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG859#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Standard, method for determining the greenhouse gas emissions for the transport of a product"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "30",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFCO2eq",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG860#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Sum of all greenhouse gas emissions from vehicle operation"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFReferenceValueForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG861#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Amount of product to which the TCF carbon footprint statement relates"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFQuantityOfMeasureForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG862#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Quantity of the product to which the TCF information on the CO2 footprint refers"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "TCFProcessesForGreenhouseGasEmissionInATransportService",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG863#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Processes in a transport service to determine the sum of all direct or indirect greenhouse gas emissions from fuel supply and vehicle operation"
+        } ]
+      }, {
+        "modelType" : "SubmodelElementCollection",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "idShort" : "TCFGoodsTransportAddressTakeover",
+        "value" : [ {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Street",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH956#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Street indication of the place of transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "HouseNumber",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH957#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Number for identification or differentiation of individual houses of a street"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "ZipCode",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH958#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Zip code of the goods transfer address"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "CityTown",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH959#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Indication of the city or town of the transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Country",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-AAO259#005"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Country where the product is transmitted"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Latitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH960#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Longitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH961#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+          } ]
+        } ],
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABI499#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Indication of the place of receipt of goods "
+        } ]
+      }, {
+        "modelType" : "SubmodelElementCollection",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "idShort" : "TCFGoodsTransportAddressHandover",
+        "value" : [ {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Street",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH956#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Street indication of the place of transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "HouseNumber",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH957#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Number for identification or differentiation of individual houses of a street"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "ZipCode",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH958#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Zip code of the goods transfer address"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "CityTown",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH959#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Indication of the city or town of the transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Country",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-AAO259#005"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Country where the product is transmitted"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Latitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH960#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Longitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH961#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+          } ]
+        } ],
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABI498#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Indicates the hand-over address of the goods transport "
+        } ]
+      } ],
+      "semanticId" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/idta/CarbonFootprint/TransportCarbonFootprint/1/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "description" : [ {
+        "language" : "en",
+        "text" : "Balance of greenhouse gas emissions generated by a transport service of a product"
+      } ]
+    }, {
+      "modelType" : "SubmodelElementCollection",
+      "qualifiers" : [ {
+        "type" : "Cardinality",
+        "value" : "ZeroToMany",
+        "valueType" : "xs:string"
+      } ],
+      "idShort" : "ProductCarbonFootprint_Test",
+      "value" : [ {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "OneToMany",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFCalculationMethod",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG854#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Standard, method for determining the greenhouse gas emissions of a product"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "25",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFCO2eq",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG855#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Sum of all greenhouse gas emissions of a product according to the quantification requirements of the standard"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFReferenceValueForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG856#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Quantity unit of the product to which the PCF information on the CO2 footprint refers"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:double",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFQuantityOfMeasureForCalculation",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG857#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Quantity of the product to which the PCF information on the CO2 footprint refers"
+        } ]
+      }, {
+        "modelType" : "Property",
+        "value" : "",
+        "valueType" : "xs:string",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "OneToMany",
+          "valueType" : "xs:string"
+        } ],
+        "category" : "PARAMETER",
+        "idShort" : "PCFLiveCyclePhase",
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABG858#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Life cycle stages of the product according to the quantification requirements of the standard to which the PCF carbon footprint statement refers"
+        } ]
+      }, {
+        "modelType" : "SubmodelElementCollection",
+        "qualifiers" : [ {
+          "type" : "Cardinality",
+          "value" : "One",
+          "valueType" : "xs:string"
+        } ],
+        "idShort" : "PCFGoodsAddressHandover",
+        "value" : [ {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Street",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH956#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Street indication of the place of transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "HouseNumber",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH957#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Number for identification or differentiation of individual houses of a street"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "ZipCode",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH958#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Zip code of the goods transfer address"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "CityTown",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH959#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Indication of the city or town of the transfer of goods"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:string",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Country",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-AAO259#005"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Country where the product is transmitted"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Latitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH960#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Latitude (B), also called geodetic latitude or latitude (Latin latitudo, English latitude, international abbreviation Lat. or LAT), is the northerly or southerly distance of a point on the earth's surface from the equator, given in angular measure in the unit of measurement degrees"
+          } ]
+        }, {
+          "modelType" : "Property",
+          "value" : "",
+          "valueType" : "xs:double",
+          "qualifiers" : [ {
+            "type" : "Cardinality",
+            "value" : "ZeroToOne",
+            "valueType" : "xs:string"
+          } ],
+          "category" : "PARAMETER",
+          "idShort" : "Longitude",
+          "semanticId" : {
+            "keys" : [ {
+              "type" : "GlobalReference",
+              "value" : "0173-1#02-ABH961#001"
+            } ],
+            "type" : "ExternalReference"
+          },
+          "description" : [ {
+            "language" : "en",
+            "text" : "Geographic longitude, also called longitude (Latin longitudo, English longitude, international abbreviation long or LON), describes one of the two coordinates of a location on the earth's surface, namely its position east or west of a defined (arbitrarily determined) north-south line, the prime meridian"
+          } ]
+        } ],
+        "semanticId" : {
+          "keys" : [ {
+            "type" : "GlobalReference",
+            "value" : "0173-1#02-ABI497#001"
+          } ],
+          "type" : "ExternalReference"
+        },
+        "description" : [ {
+          "language" : "en",
+          "text" : "Indicates the place of hand-over of the goods "
+        } ]
+      } ],
+      "semanticId" : {
+        "keys" : [ {
+          "type" : "GlobalReference",
+          "value" : "https://admin-shell.io/idta/CarbonFootprint/ProductCarbonFootprint/1/0"
+        } ],
+        "type" : "ExternalReference"
+      },
+      "description" : [ {
+        "language" : "en",
+        "text" : "Balance of greenhouse gas emissions along the entire life cycle of a product in a defined application and in relation to a defined unit of use"
+      } ]
+    } ],
+    "semanticId" : {
+      "keys" : [ {
+        "type" : "GlobalReference",
+        "value" : "https://admin-shell.io/idta/CarbonFootprint/CarbonFootprint/1/0"
+      } ],
+      "type" : "ExternalReference"
+    },
+    "description" : [ {
+      "language" : "en",
+      "text" : "The Submodel provides the means to access the Carbon Footprint of the asset."
     } ]
   } ]
 }

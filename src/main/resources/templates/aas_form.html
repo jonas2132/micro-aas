@@ -5,16 +5,25 @@
 <head th:replace="~{fragments/general :: head}"></head>
 
 <body>
-
+  <!--Container to hold data which was send by the backend to access it with the js code-->
   <div id="data-container" th:attr="data-array=${dataArray}" style="display: none;"></div>
+  <div id="environmentServices-container" th:attr="environmentServices=${environmentServices}" style="display: none;">
+  </div>
+  <div id="editMode-container" th:attr="editMode=${editMode}" style="display: none;"></div>
+  <div id="prefillValues-container" th:attr="prefillValues=${prefillValues}" style="display: none;"></div>
+  <div id="prefillValuesPCF-container" th:attr="prefillValuesPCF=${prefillValuesPCF}" style="display: none;"></div>
+  <div id="prefillValuesTCF-container" th:attr="prefillValuesTCF=${prefillValuesTCF}" style="display: none;"></div>
+
+
   <header th:replace="~{fragments/general :: header}"></header>
   <main class="container d-flex flex-column py-3">
     <div class="rounded-2 border shadow-sm bg-light flex-fill px-5 py-4 d-flex flex-column">
-      <h4 class="mb-3">AAS Configurator</h4>
-      Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and
-      Carbon Footprint. Add all relevant
-      informations and submit by clicking the save button.
-      <ul id="dataArrayList"></ul>
+      <div id="formHeadline">
+        <h4 class="mb-3">AAS Configurator</h4>
+        Here you can configure a new AAS and specify all the datails for the submodels Nameplate, Technical Data and
+        Carbon Footprint. Add all relevant
+        informations and submit by clicking the save button.
+      </div>
       <hr class="mb-4">
       <form id="submodel-form" class="needs-validation flex-fill d-flex flex-column" method="post"
         action="/aas/submission">
@@ -155,8 +164,9 @@
                           <!--Referable Asset ID-->
                           <div class="mb-3">
                             <label for="ReferableAssetID">ID of the related Asset</label>
-                            <input name="ReferableAssetID" type="text" class="form-control" list="list-environmentServices"
-                              id="ReferableAssetID" placeholder="https://example.company.de/id/1234">
+                            <input name="ReferableAssetID" type="text" class="form-control"
+                              list="list-environmentServices" id="ReferableAssetID"
+                              placeholder="https://example.company.de/id/1234">
                             <datalist id="list-environmentServices">
                             </datalist>
                           </div>
@@ -242,11 +252,57 @@
                             </div>
                           </div>
                           <!--Description-->
-                          <div class="md-3">
+                          <div class="mb-3">
                             <label for="PCFDescription">Asset Description</label>
-                            <textarea class="form-control" id="PCFDescription" name="PCFDescription"
-                              rows="3" value=""></textarea>
+                            <textarea class="form-control" id="PCFDescription" name="PCFDescription" rows="3"
+                              value=""></textarea>
                           </div>
+                          <!--Explanatory Statement-->
+                          <div class="mb-3">
+                            <label class="form-label" for="ExplanatoryStatement">Explanatory Statement</label>
+                            <input type="file" class="form-control" id="ExplanatoryStatement"
+                              name="ExplanatoryStatement" />
+                          </div>
+                          <!--Handover Address-->
+                          <label for="HandoverAddress" class="from-lable">Handover Adress</label>
+                          <div id="HandoverAddress">
+                            <div class="mb-2 row">
+                              <div class="col-10">
+                                <input name="PCFHandoverStreet" type="text" class="form-control" id="PCFHandoverStreet"
+                                  placeholder="Street">
+                              </div>
+                              <div class="col-2">
+                                <input name="PCFHandoverNumber" type="text" class="form-control" id="PCFHandoverNumber"
+                                  placeholder="Number">
+                              </div>
+                            </div>
+                            <div class="mb-2 row">
+                              <div class="col-6">
+                                <input name="PCFHandoverCity" type="text" class="form-control" id="PCFHandoverCity"
+                                  placeholder="City">
+                              </div>
+                              <div class="col-3">
+                                <input name="PCFHandoverZIP" type="number" class="form-control" id="PCFHandoverZIP"
+                                  placeholder="ZIP">
+                              </div>
+                              <div class="col-3">
+                                <input name="PCFHandoverCountry" type="text" class="form-control"
+                                  id="PCFHandoverCountry" placeholder="Country">
+                              </div>
+                            </div>
+                            <div class="mb-2 row">
+                              <div class="col-6">
+                                <input name="PCFHandoverLatitude" type="text" class="form-control"
+                                  id="PCFHandoverLatitude" placeholder="Latitude">
+                              </div>
+                              <div class="col-6">
+                                <input name="PCFHandoverLongitude" type="text" class="form-control"
+                                  id="PCFHandoverLongitude" placeholder="Longitude">
+                              </div>
+                            </div>
+                          </div>
+
+
                         </div>
 
                       </div>
@@ -324,6 +380,99 @@
                               </div>
                             </div>
                           </div>
+                          <!--Process for Greenhouse Gase Emission-->
+                          <div class="mb-3">
+                            <label for="TCFProcessesForGreenhouseGasEmissionInATransportService">Process for Greenhouse
+                              Gase Emission</label>
+                            <select name="TCFProcessesForGreenhouseGasEmissionInATransportService"
+                              class="form-select d-block w-100"
+                              id="TCFProcessesForGreenhouseGasEmissionInATransportService">
+                              <option value="">Choose...</option>
+                              <option value="0173-1#07-ABU216#001">WTT - Well-to-Tank</option>
+                              <option value="0173-1#07-ABU215#001">TTW - Tank-to-Wheel</option>
+                              <option value="0173-1#07-ABU217#001">WTW - Well-to-Wheel</option>
+                            </select>
+                            <div class="invalid-feedback">
+                              Please enter a Process for Greenhouse Gase Emission.
+                            </div>
+                          </div>
+                          <!--TCF Takeover Address-->
+                          <label for="TCFTakeoverAddress" class="from-lable">Handover Adress</label>
+                          <div id="TCFTakeoverAddress">
+                            <div class="mb-2 row">
+                              <div class="col-10">
+                                <input name="TCFTakeoverStreet" type="text" class="form-control" id="TCFTakeoverStreet"
+                                  placeholder="Street">
+                              </div>
+                              <div class="col-2">
+                                <input name="TCFTakeoverNumber" type="text" class="form-control" id="TCFTakeoverNumber"
+                                  placeholder="Number">
+                              </div>
+                            </div>
+                            <div class="mb-2 row">
+                              <div class="col-6">
+                                <input name="TCFTakeoverCity" type="text" class="form-control" id="TCFTakeoverCity"
+                                  placeholder="City">
+                              </div>
+                              <div class="col-3">
+                                <input name="TCFTakeoverZIP" type="number" class="form-control" id="TCFTakeoverZIP"
+                                  placeholder="ZIP">
+                              </div>
+                              <div class="col-3">
+                                <input name="TCFTakeoverCountry" type="text" class="form-control"
+                                  id="TCFTakeoverCountry" placeholder="Country">
+                              </div>
+                            </div>
+                            <div class="mb-2 row">
+                              <div class="col-6">
+                                <input name="TCFTakeoverLatitude" type="text" class="form-control"
+                                  id="TCFTakeoverLatitude" placeholder="Latitude">
+                              </div>
+                              <div class="col-6">
+                                <input name="TCFTakeoverLongitude" type="text" class="form-control"
+                                  id="TCFTakeoverLongitude" placeholder="Longitude">
+                              </div>
+                            </div>
+                          </div>
+                          <!--TCF Handover Address-->
+                          <label for="TCFHandoverAddress" class="from-lable">Handover Adress</label>
+                          <div id="TCFHandoverAddress">
+                            <div class="mb-2 row">
+                              <div class="col-10">
+                                <input name="TCFHandoverStreet" type="text" class="form-control" id="TCFHandoverStreet"
+                                  placeholder="Street">
+                              </div>
+                              <div class="col-2">
+                                <input name="TCFHandoverNumber" type="text" class="form-control" id="TCFHandoverNumber"
+                                  placeholder="Number">
+                              </div>
+                            </div>
+                            <div class="mb-2 row">
+                              <div class="col-6">
+                                <input name="TCFHandoverCity" type="text" class="form-control" id="TCFHandoverCity"
+                                  placeholder="City">
+                              </div>
+                              <div class="col-3">
+                                <input name="TCFHandoverZIP" type="text" class="form-control" id="TCFHandoverZIP"
+                                  placeholder="ZIP">
+                              </div>
+                              <div class="col-3">
+                                <input name="TCFHandoverCountry" type="text" class="form-control"
+                                  id="TCFHandoverCountry" placeholder="Country">
+                              </div>
+                            </div>
+                            <div class="mb-2 row">
+                              <div class="col-6">
+                                <input name="TCFHandoverLatitude" type="text" class="form-control"
+                                  id="TCFHandoverLatitude" placeholder="Latitude">
+                              </div>
+                              <div class="col-6">
+                                <input name="TCFHandoverLongitude" type="text" class="form-control"
+                                  id="TCFHandoverLongitude" placeholder="Longitude">
+                              </div>
+                            </div>
+                          </div>
+
                         </div>
                       </div>
                     </div>
