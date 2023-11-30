@@ -430,20 +430,20 @@ $(document).ready(function () {
     fetch(`/aas/delete/${assetID}`, {
       method: 'GET'
     })
-    .then(response => {
-      if (response.ok) {
-        // If the response is successful, handle as needed
-        // For example, redirect to the edit page or do further processing
-        window.location.href = `/aas/delete/${assetID}`;
-      } else {
-        // Handle error cases
-        console.log('Failed to retrieve AssetID');
-      }
-    })
-    .catch(error => {
-      // Handle network errors or exceptions
-      console.error('Error:', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          // If the response is successful, handle as needed
+          // For example, redirect to the edit page or do further processing
+          window.location.href = `/aas/delete/${assetID}`;
+        } else {
+          // Handle error cases
+          console.log('Failed to retrieve AssetID');
+        }
+      })
+      .catch(error => {
+        // Handle network errors or exceptions
+        console.error('Error:', error);
+      });
   }
 
   // Attach click event listener to each edit button
@@ -941,4 +941,20 @@ $(document).ready(function () {
     }
   }
 });
+
+
+
+
+/**
+ * Model activation for the deletion confirmation 
+ */
+$(document).ready(function () {
+  const myModal = document.getElementById('myModal')
+  const myInput = document.getElementById('myInput')
+
+  myModal.addEventListener('shown.bs.modal', () => {
+    myInput.focus()
+  })
+});
+
 
