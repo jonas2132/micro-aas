@@ -2712,7 +2712,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "123-123-132",
+      "value" : "12-345-677",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -5003,7 +5003,7 @@
         "value" : "ZeroToMany",
         "valueType" : "xs:string"
       } ],
-      "idShort" : "ProductCarbonFootprint_Eisenerz",
+      "idShort" : "ProductCarbonFootprint_https://example.company.de/id/1234/Eisenerz",
       "value" : [ {
         "modelType" : "ReferenceElement",
         "category" : "PARAMETER",
