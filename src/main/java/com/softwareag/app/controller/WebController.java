@@ -2,6 +2,7 @@ package com.softwareag.app.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -74,18 +75,18 @@ public class WebController {
         public ResponseEntity<String> importAAS(Model model, @RequestParam("file") MultipartFile file) {
                 if (!file.isEmpty()) {
                         try {
+                                File importedFile = convertMultipartFileToFile(file);
+                                String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+                                DataRepository dataRepository = fileExtension.equals("json") ? new JsonDataRepository() : new AASXDataRepository();
 
-                                String originalFilename = file.getOriginalFilename();
-                                String filePath = Constants.OUTPUT_DIRECTORY + "/" + originalFilename;
-                                File dest = new File(filePath);
-                                file.transferTo(dest);
-
-                                EnvironmentService environmentService = jsonReaderRepository
-                                                .read(new File(originalFilename));
+                                EnvironmentService environmentService = dataRepository
+                                                 .read(importedFile);
+                                serializeEnvironment(environmentService);
                                 environmentServices.add(environmentService);
                                 return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
                         } catch (Exception e) {
                                 // Handle exceptions if any
+                                e.printStackTrace();
                                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                                 .body("Failed to upload file");
                         }
@@ -129,24 +130,26 @@ public class WebController {
                 EnvironmentService envServiceToEdit = environmentServices.stream()
                                 .filter(service -> service.getAssetIDShort().equals(ID))
                                 .findFirst().get();
-                
-                // Getting a static amount of Nameplate and TechnicalData Values and add them to the forwarded arrays.
+
+                // Getting a static amount of Nameplate and TechnicalData Values and add them to
+                // the forwarded arrays.
                 {
-                prefillValues.add(envServiceToEdit.getAssetIDShort());
-                prefillValues.add(envServiceToEdit.getAssetID());
-                prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
-                                SubmodelElementPropertyType.URI_OF_THE_PRODUCT));
-                prefillValues.add(envServiceToEdit
-                                .getMultilanguageProperty("Nameplate", SubmodelElementPropertyType.MANUFACTURER_NAME)
-                                .get(0).getText());
-                prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
-                                SubmodelElementPropertyType.SERIAL_NUMBER));
-                prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
-                                SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION));
-                prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
-                                SubmodelElementPropertyType.DATE_OF_MANUFACTURE));
-                prefillValues.add(envServiceToEdit.getPropertyValue("TechnicalData",
-                                SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, "GeneralInformation"));
+                        prefillValues.add(envServiceToEdit.getAssetIDShort());
+                        prefillValues.add(envServiceToEdit.getAssetID());
+                        prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
+                                        SubmodelElementPropertyType.URI_OF_THE_PRODUCT));
+                        prefillValues.add(envServiceToEdit
+                                        .getMultilanguageProperty("Nameplate",
+                                                        SubmodelElementPropertyType.MANUFACTURER_NAME)
+                                        .get(0).getText());
+                        prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
+                                        SubmodelElementPropertyType.SERIAL_NUMBER));
+                        prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
+                                        SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION));
+                        prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
+                                        SubmodelElementPropertyType.DATE_OF_MANUFACTURE));
+                        prefillValues.add(envServiceToEdit.getPropertyValue("TechnicalData",
+                                        SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, "GeneralInformation"));
                 }
 
                 Submodel certainSubmodel = envServiceToEdit.getSubmodelOfIdShort("CarbonFootprint");
@@ -159,33 +162,33 @@ public class WebController {
                                 .collect(Collectors.toList())) {
                         String smcPCFID = smcPCF.getIdShort();
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE,smcPCFID));
+                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_CALCULATION_METHOD,smcPCFID));
+                                        SubmodelElementPropertyType.PCF_CALCULATION_METHOD, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCFCO2EQ,smcPCFID));
+                                        SubmodelElementPropertyType.PCFCO2EQ, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,smcPCFID));
+                                        SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_REFERENCE_VALUE_FOR_CALCULATION,smcPCFID));
+                                        SubmodelElementPropertyType.PCF_REFERENCE_VALUE_FOR_CALCULATION, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,smcPCFID));
+                                        SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION,smcPCFID));
+                                        SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.STREET,smcPCFID, "PCFGoodsAddressHandover"));
+                                        SubmodelElementPropertyType.STREET, smcPCFID, "PCFGoodsAddressHandover"));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.HOUSENUMBER,smcPCFID, "PCFGoodsAddressHandover"));
+                                        SubmodelElementPropertyType.HOUSENUMBER, smcPCFID, "PCFGoodsAddressHandover"));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.CITYTOWN,smcPCFID, "PCFGoodsAddressHandover"));
+                                        SubmodelElementPropertyType.CITYTOWN, smcPCFID, "PCFGoodsAddressHandover"));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.ZIPCODE,smcPCFID, "PCFGoodsAddressHandover"));
+                                        SubmodelElementPropertyType.ZIPCODE, smcPCFID, "PCFGoodsAddressHandover"));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.COUNTRY,smcPCFID, "PCFGoodsAddressHandover"));
+                                        SubmodelElementPropertyType.COUNTRY, smcPCFID, "PCFGoodsAddressHandover"));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.LATITUDE,smcPCFID, "PCFGoodsAddressHandover"));
+                                        SubmodelElementPropertyType.LATITUDE, smcPCFID, "PCFGoodsAddressHandover"));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.LONGITUDE,smcPCFID, "PCFGoodsAddressHandover"));
+                                        SubmodelElementPropertyType.LONGITUDE, smcPCFID, "PCFGoodsAddressHandover"));
                 }
 
                 // Getting a dynamic amount of TCF Values and add them to forwarded arrays.
@@ -196,48 +199,63 @@ public class WebController {
                                 .collect(Collectors.toList())) {
                         String smcTCFID = smcTCF.getIdShort();
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.TCF_CALCULATION_METHOD,smcTCFID));
+                                        SubmodelElementPropertyType.TCF_CALCULATION_METHOD, smcTCFID));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.TCFCO2EQ,smcTCFID));
+                                        SubmodelElementPropertyType.TCFCO2EQ, smcTCFID));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,smcTCFID));
+                                        SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION, smcTCFID));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION,smcTCFID));
+                                        SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION, smcTCFID));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.TCF_PROCESSES_FOR_GREENHOUSE_GAS_EMISSION_IN_A_TRANSPORT_SERVICE,smcTCFID));
+                                        SubmodelElementPropertyType.TCF_PROCESSES_FOR_GREENHOUSE_GAS_EMISSION_IN_A_TRANSPORT_SERVICE,
+                                        smcTCFID));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.STREET,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                                        SubmodelElementPropertyType.STREET, smcTCFID,
+                                        "TCFGoodsTransportAddressTakeover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.HOUSENUMBER,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                                        SubmodelElementPropertyType.HOUSENUMBER, smcTCFID,
+                                        "TCFGoodsTransportAddressTakeover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.CITYTOWN,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                                        SubmodelElementPropertyType.CITYTOWN, smcTCFID,
+                                        "TCFGoodsTransportAddressTakeover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.ZIPCODE,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                                        SubmodelElementPropertyType.ZIPCODE, smcTCFID,
+                                        "TCFGoodsTransportAddressTakeover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.COUNTRY,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                                        SubmodelElementPropertyType.COUNTRY, smcTCFID,
+                                        "TCFGoodsTransportAddressTakeover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.LATITUDE,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                                        SubmodelElementPropertyType.LATITUDE, smcTCFID,
+                                        "TCFGoodsTransportAddressTakeover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.LONGITUDE,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                                        SubmodelElementPropertyType.LONGITUDE, smcTCFID,
+                                        "TCFGoodsTransportAddressTakeover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.STREET,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                                        SubmodelElementPropertyType.STREET, smcTCFID,
+                                        "TCFGoodsTransportAddressHandover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.HOUSENUMBER,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                                        SubmodelElementPropertyType.HOUSENUMBER, smcTCFID,
+                                        "TCFGoodsTransportAddressHandover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.CITYTOWN,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                                        SubmodelElementPropertyType.CITYTOWN, smcTCFID,
+                                        "TCFGoodsTransportAddressHandover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.ZIPCODE,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                                        SubmodelElementPropertyType.ZIPCODE, smcTCFID,
+                                        "TCFGoodsTransportAddressHandover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.COUNTRY,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                                        SubmodelElementPropertyType.COUNTRY, smcTCFID,
+                                        "TCFGoodsTransportAddressHandover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.LATITUDE,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                                        SubmodelElementPropertyType.LATITUDE, smcTCFID,
+                                        "TCFGoodsTransportAddressHandover"));
                         prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.LONGITUDE,smcTCFID, "TCFGoodsTransportAddressHandover"));
-        
+                                        SubmodelElementPropertyType.LONGITUDE, smcTCFID,
+                                        "TCFGoodsTransportAddressHandover"));
+
                 }
 
-
-                // Converting all arrays to forward into the JSON format and then adding them to the Spring Model
+                // Converting all arrays to forward into the JSON format and then adding them to
+                // the Spring Model
                 try {
                         model.addAttribute("pageTitle", "AAS Configurator");
                         model.addAttribute("environmentServices", environmentServices);
@@ -257,15 +275,17 @@ public class WebController {
                 return "aas_form";
         }
 
-        
         @GetMapping("/aas/delete/{ID}")
         public String deleteAAS(@PathVariable String ID, Model model) {
-                System.out.println("Clicked Asset ID to delete: " + ID);
                 model.addAttribute("pageTitle", "AAS Configurator");
-                System.out.println(environmentServices);
-                environmentServices.removeIf(envServ -> envServ.getAssetIDShort().equals(ID));
-                System.out.println("After delete: ");
-                System.out.println(environmentServices);
+                System.out.println(ID);
+                EnvironmentService toDelete = environmentServices.stream()
+                                .filter(envServ -> envServ.getAssetIDShort().equals(ID))
+                                .findFirst()
+                                .orElse(null);
+
+                deleteEnvironment(toDelete);
+                environmentServices.remove(toDelete);
                 return "redirect:/aas/overview";
         }
 
@@ -326,8 +346,9 @@ public class WebController {
                         @RequestParam("TCFHandoverLatitude") String[] TCFHandoverLatitude,
                         @RequestParam("TCFHandoverLongitude") String[] TCFHandoverLongitude) {
 
-                // Deletes old environmentServices with the corresponding assedID to overwrite it with the new values
-                environmentServices.removeIf(service -> service.getAssetID().equals(assetID));                
+                // Deletes old environmentServices with the corresponding assedID to overwrite
+                // it with the new values
+                environmentServices.removeIf(service -> service.getAssetID().equals(assetID));
 
                 EnvironmentService environmentService = jsonReaderRepository
                                 .read(new File(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json"));
@@ -478,7 +499,7 @@ public class WebController {
                 }
 
                 environmentServices.add(environmentService);
-                exportEnvironment(environmentService);
+                serializeEnvironment(environmentService);
 
                 return "redirect:/aas/overview";
         }
@@ -570,7 +591,7 @@ public class WebController {
                 existingFilesLoaded = true;
         }
 
-        private void exportEnvironment(EnvironmentService environmentService) {
+        private void serializeEnvironment(EnvironmentService environmentService) {
                 DataRepository dataRepository = new AASXDataRepository();
                 DataType dataType = DataType.AASX;
 
@@ -586,6 +607,23 @@ public class WebController {
                         dataRepository = new JsonDataRepository();
 
                 }
+        }
+
+        private void deleteEnvironment(EnvironmentService environmentService) {
+                File folderToDelete = new File(Constants.OUTPUT_DIRECTORY + "/" + environmentService.getAssetIDShort());
+                File[] files = folderToDelete.listFiles();
+                for (File file : files) {
+                        file.delete();
+                }
+                folderToDelete.delete();
+        }
+
+        private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
+                File file = new File(multipartFile.getOriginalFilename());
+                try (FileOutputStream fos = new FileOutputStream(file)) {
+                        fos.write(multipartFile.getBytes());
+                }
+                return file;
         }
 
         private DataType getDataTypeByString(String format) {
