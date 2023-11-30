@@ -423,7 +423,7 @@ $(document).ready(function () {
 
   function buttonClickAction(event) {
     // Retrieve AssetID from the clicked button's data-attribute
-    var assetID = event.currentTarget.getAttribute('data-assetid');
+    var assetID = event.target.getAttribute('data-assetid');
     console.log('Clicked delete AssetID JS:', assetID);
 
     // Send the AssetID to the backend using fetch
