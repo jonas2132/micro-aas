@@ -85,9 +85,9 @@ $(document).ready(function () {
           </div>
 
         </div>
-        <!--Live Cycle Phase-->
+        <!--Life Cycle Phase-->
         <div class="mb-3">
-          <label for="PCFLiveCyclePhase">Live Cycle Phase of the Product</label>
+          <label for="PCFLiveCyclePhase">Life Cycle Phase of the Product</label>
           <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase"
             required="">
             <option value="">Choose...</option>
@@ -497,6 +497,7 @@ $(document).ready(function () {
  */
 function populateFields(fieldIds, values) {
   fieldIds.forEach(function (fieldId, index) {
+    console.log('Values to populate: ' + values);
     var inputElement = document.getElementById(fieldId);
     if (inputElement && values[index]) {
       inputElement.value = values[index] || '';
@@ -680,9 +681,9 @@ $(document).ready(function () {
             </div>
 
           </div>
-          <!--Live Cycle Phase-->
+          <!--Life Cycle Phase-->
           <div class="mb-3">
-            <label for="PCFLiveCyclePhase">Live Cycle Phase of the Product</label>
+            <label for="PCFLiveCyclePhase">Life Cycle Phase of the Product</label>
             <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase${i + 1}"
               required="">
               <option value="">Choose...</option>
