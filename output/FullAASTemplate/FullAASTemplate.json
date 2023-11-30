@@ -24,8 +24,8 @@
       } ],
       "type" : "ModelReference"
     } ],
-    "id" : "https://example.company.de/id/1234/Kupfer",
-    "idShort" : "Kupfer"
+    "id" : "software.ag.com/demo/aas/template/1234",
+    "idShort" : "FullAASTemplate"
   } ],
   "conceptDescriptions" : [ {
     "modelType" : "ConceptDescription",
@@ -1089,15 +1089,12 @@
         "category" : "PARAMETER",
         "idShort" : "PCFAssetReference",
         "value" : {
-          "keys" : [ {
-            "type" : "AssetAdministrationShell",
-            "value" : ""
-          } ],
+          "keys" : [ ],
           "type" : "ExternalReference"
         }
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU223#001",
+        "value" : "",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1119,7 +1116,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "333.0",
+        "value" : "25",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1141,7 +1138,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABZ598#001",
+        "value" : "",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1163,7 +1160,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "333.0",
+        "value" : "",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1185,7 +1182,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU208#001",
+        "value" : "",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1215,7 +1212,7 @@
         "idShort" : "PCFGoodsAddressHandover",
         "value" : [ {
           "modelType" : "Property",
-          "value" : "Musterstraße",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1237,7 +1234,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "111",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1259,7 +1256,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "123456",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1281,7 +1278,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "Musterstadt",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1303,7 +1300,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "Germany",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1325,7 +1322,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "111111",
+          "value" : "",
           "valueType" : "xs:double",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1347,7 +1344,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "Musterstraße",
+          "value" : "",
           "valueType" : "xs:double",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1381,7 +1378,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "Kupfer Description",
+        "value" : " ",
         "valueType" : "xs:string",
         "category" : "PARAMETER",
         "idShort" : "PCFAssetDescription"
@@ -1407,7 +1404,7 @@
       "idShort" : "TransportCarbonFootprint",
       "value" : [ {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU221#001",
+        "value" : "",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1429,7 +1426,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "3333.0",
+        "value" : "30",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1451,7 +1448,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABZ598#001",
+        "value" : "",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1473,7 +1470,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "333.0",
+        "value" : "",
         "valueType" : "xs:double",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1495,7 +1492,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "0173-1#07-ABU216#001",
+        "value" : "",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -1525,7 +1522,7 @@
         "idShort" : "TCFGoodsTransportAddressTakeover",
         "value" : [ {
           "modelType" : "Property",
-          "value" : "Gutenbergstraße",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1547,7 +1544,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "222",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1569,7 +1566,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "123456",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1591,7 +1588,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "Musterstadt",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1613,7 +1610,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "Germany",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1635,7 +1632,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "222",
+          "value" : "",
           "valueType" : "xs:double",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1657,7 +1654,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "222",
+          "value" : "",
           "valueType" : "xs:double",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1699,7 +1696,7 @@
         "idShort" : "TCFGoodsTransportAddressHandover",
         "value" : [ {
           "modelType" : "Property",
-          "value" : "Gutenbergstraße",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1721,7 +1718,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "222",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1743,7 +1740,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "123456",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1765,7 +1762,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "Musterstadt",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1787,7 +1784,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "Germany",
+          "value" : "",
           "valueType" : "xs:string",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1809,7 +1806,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "222",
+          "value" : "",
           "valueType" : "xs:double",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -1831,7 +1828,7 @@
           } ]
         }, {
           "modelType" : "Property",
-          "value" : "222",
+          "value" : "",
           "valueType" : "xs:double",
           "qualifiers" : [ {
             "type" : "Cardinality",
@@ -2059,7 +2056,7 @@
         } ]
       }, {
         "modelType" : "Property",
-        "value" : "23123",
+        "value" : "",
         "valueType" : "xs:string",
         "qualifiers" : [ {
           "type" : "Cardinality",
@@ -2677,7 +2674,7 @@
     "idShort" : "Nameplate",
     "submodelElements" : [ {
       "modelType" : "Property",
-      "value" : "https://example.company.de/id/Kupfer",
+      "value" : "https://www.domain-abc.com/Model-Nr-1234/Serial-Nr-5678",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -2713,7 +2710,7 @@
       },
       "value" : [ {
         "language" : "de",
-        "text" : "Example Company"
+        "text" : "Muster AG"
       } ],
       "description" : [ {
         "language" : "en",
@@ -3532,7 +3529,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "123123.0",
+      "value" : "12345678",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3553,7 +3550,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "2011",
+      "value" : "2022",
       "valueType" : "xs:string",
       "qualifiers" : [ {
         "type" : "Multiplicity",
@@ -3574,7 +3571,7 @@
       } ]
     }, {
       "modelType" : "Property",
-      "value" : "1999-10-10",
+      "value" : "2022-01-01",
       "valueType" : "xs:date",
       "qualifiers" : [ {
         "type" : "Multiplicity",
