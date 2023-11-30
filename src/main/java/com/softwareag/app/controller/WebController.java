@@ -129,7 +129,9 @@ public class WebController {
                 EnvironmentService envServiceToEdit = environmentServices.stream()
                                 .filter(service -> service.getAssetIDShort().equals(ID))
                                 .findFirst().get();
-
+                
+                // Getting a static amount of Nameplate and TechnicalData Values and add them to the forwarded arrays.
+                {
                 prefillValues.add(envServiceToEdit.getAssetIDShort());
                 prefillValues.add(envServiceToEdit.getAssetID());
                 prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
@@ -145,9 +147,11 @@ public class WebController {
                                 SubmodelElementPropertyType.DATE_OF_MANUFACTURE));
                 prefillValues.add(envServiceToEdit.getPropertyValue("TechnicalData",
                                 SubmodelElementPropertyType.MANUFACTURER_ORDER_CODE, "GeneralInformation"));
+                }
 
                 Submodel certainSubmodel = envServiceToEdit.getSubmodelOfIdShort("CarbonFootprint");
 
+                // Getting a dynamic amount of PCF Values and add them to forwarded arrays.
                 for (SubmodelElementCollection smcPCF : certainSubmodel.getSubmodelElements().stream()
                                 .filter(element -> element instanceof SubmodelElementCollection)
                                 .map(element -> (SubmodelElementCollection) element)
@@ -182,18 +186,68 @@ public class WebController {
                                         SubmodelElementPropertyType.LATITUDE,smcPCFID, "PCFGoodsAddressHandover"));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
                                         SubmodelElementPropertyType.LONGITUDE,smcPCFID, "PCFGoodsAddressHandover"));
-                                
-
                 }
 
+                // Getting a dynamic amount of TCF Values and add them to forwarded arrays.
+                for (SubmodelElementCollection smcTCF : certainSubmodel.getSubmodelElements().stream()
+                                .filter(element -> element instanceof SubmodelElementCollection)
+                                .map(element -> (SubmodelElementCollection) element)
+                                .filter(element -> element.getIdShort().startsWith("TransportCarbonFootprint"))
+                                .collect(Collectors.toList())) {
+                        String smcTCFID = smcTCF.getIdShort();
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.TCF_CALCULATION_METHOD,smcTCFID));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.TCFCO2EQ,smcTCFID));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,smcTCFID));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION,smcTCFID));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.TCF_PROCESSES_FOR_GREENHOUSE_GAS_EMISSION_IN_A_TRANSPORT_SERVICE,smcTCFID));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.STREET,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.HOUSENUMBER,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.CITYTOWN,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.ZIPCODE,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.COUNTRY,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.LATITUDE,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.LONGITUDE,smcTCFID, "TCFGoodsTransportAddressTakeover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.STREET,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.HOUSENUMBER,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.CITYTOWN,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.ZIPCODE,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.COUNTRY,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.LATITUDE,smcTCFID, "TCFGoodsTransportAddressHandover"));
+                        prefillValuesTCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
+                                        SubmodelElementPropertyType.LONGITUDE,smcTCFID, "TCFGoodsTransportAddressHandover"));
+        
+                }
+
+
+                // Converting all arrays to forward into the JSON format and then adding them to the Spring Model
                 try {
                         model.addAttribute("pageTitle", "AAS Configurator");
                         model.addAttribute("environmentServices", environmentServices);
                         model.addAttribute("editMode", true);
                         String prefillValuesJSON = objectMapper.writeValueAsString(prefillValues);
                         String prefillValuesPCFJSON = objectMapper.writeValueAsString(prefillValuesPCF);
+                        String prefillValuesTCFJSON = objectMapper.writeValueAsString(prefillValuesTCF);
                         model.addAttribute("prefillValues", prefillValuesJSON);
                         model.addAttribute("prefillValuesPCF", prefillValuesPCFJSON);
+                        model.addAttribute("prefillValuesTCF", prefillValuesTCFJSON);
 
                 } catch (JsonProcessingException e) {
                         // TODO Auto-generated catch block
@@ -259,6 +313,9 @@ public class WebController {
                         @RequestParam("TCFHandoverCountry") String[] TCFHandoverCountry,
                         @RequestParam("TCFHandoverLatitude") String[] TCFHandoverLatitude,
                         @RequestParam("TCFHandoverLongitude") String[] TCFHandoverLongitude) {
+
+                // Deletes old environmentServices with the corresponding assedID to overwrite it with the new values
+                environmentServices.removeIf(service -> service.getAssetID().equals(assetID));                
 
                 EnvironmentService environmentService = jsonReaderRepository
                                 .read(new File(Constants.RESOURCE_DIRECTORY + "/" + "FullAASTemplate_custom.json"));

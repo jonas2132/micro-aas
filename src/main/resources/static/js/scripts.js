@@ -188,72 +188,149 @@ $(document).ready(function () {
     // Create a new accordion item
     TCFCounter++;
     var newTCFItem = `
-        <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingTCF${TCFCounter}">
-                        <button id="TCF-header-button${TCFCounter}" class="accordion-button collapsed" type="button"
-                          data-bs-toggle="collapse" data-bs-target="#collapseTCF${TCFCounter}" aria-expanded="false"
-                          aria-controls="collapseTCF${TCFCounter}">
-                          Transport Carbon Footprint ${TCFCounter}
-                        </button>
-                      </h2>
-                      <div id="collapseTCF${TCFCounter}" class="accordion-collapse collapse" aria-labelledby="headingTCF${TCFCounter}"
-                        data-bs-parent="#TCFAccordion">
-                        <div class="accordion-body">
-                          <!--Calculation Method-->
-                          <div class="mb-3">
-                            <label for="TCFCalculationMethod">Calculation Method</label>
-                            <select name="TCFCalculationMethod" class="form-select d-block w-100"
-                              id="TCFCalculationMethod" required="">
-                              <option value="">Choose...</option>
-                              <option value="0173-1#07-ABU223#001">EN 15804</option>
-                              <option value="0173-1#07-ABU221#001">GHG Protocol</option>
-                              <option value="0173-1#07-ABU222#001">IEC TS 63058</option>
-                              <option value="0173-1#07-ABV505#001">ISO 14040</option>
-                              <option value="0173-1#07-ABV506#001">ISO 14044</option>
-                              <option value="0173-1#07-ABU218#001">ISO 14067</option>
-                            </select>
-                            <div class="invalid-feedback">
-                              Please enter a calulation method.
-                            </div>
-                          </div>
-                          <!--CO2eq-->
-                          <div class="mb-3">
-                            <label for="TCFCO2eq">CO2 Equivalent</label>
-                            <input name="TCFCO2eq" type="number" class="form-control" id="TCFCO2eq" placeholder="0.00"
-                              min="0">
-                            <div class="invalid-feedback">
-                              A CO2 equivalent is missing.
-                            </div>
-                          </div>
-                          <!--Quantity of measured product-->
-                          <div class="row d-flex flex-row">
-                            <div class="col-6 mb-3">
-                              <label for="TCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
-                              <input name="TCFQuantityOfMeasureForCalculation" type="number" class="form-control"
-                                id="TCFQuantityOfMeasureForCalculation" placeholder="0" min="0">
-                            </div>
-                            <div class="col-2 mb-3">
-                              <label for="TCFReferenceValueForCalculation">Reference Value</label>
-                              <select name="TCFReferenceValueForCalculation" class="form-select d-block w-100"
-                                id="TCFReferenceValueForCalculation" required="">
-                                <option value="">Choose...</option>
-                                <option value="0173-1#07-ABZ596#001">g</option>
-                                <option value="0173-1#07-ABZ597#001">kg</option>
-                                <option value="0173-1#07-ABZ598#001">t</option>
-                                <option value="0173-1#07-ABZ599#001">ml</option>
-                                <option value="0173-1#07-ABZ600#001">l</option>
-                                <option value="0173-1#07-ABZ601#001">cbm</option>
-                                <option value="0173-1#07-ABZ602#001">qm</option>
-                                <option value="0173-1#07-ABZ603#001">piece</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Please enter a reference value.
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+    <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTCF${TCFCounter}">
+      <button id="TCF-header-button" class="accordion-button collapsed" type="button"
+        data-bs-toggle="collapse" data-bs-target="#collapseTCF${TCFCounter}" aria-expanded="false"
+        aria-controls="collapseTCF${TCFCounter}">
+        Transport Carbon Footprint ${TCFCounter}
+      </button>
+    </h2>
+    <div id="collapseTCF${TCFCounter}" class="accordion-collapse collapse" aria-labelledby="headingTCF${TCFCounter}"
+      data-bs-parent="#TCFAccordion">
+      <div class="accordion-body">
+        <!--Calculation Method-->
+        <div class="mb-3">
+          <label for="TCFCalculationMethod">Calculation Method</label>
+          <select name="TCFCalculationMethod" class="form-select d-block w-100"
+            id="TCFCalculationMethod" required="">
+            <option value="">Choose...</option>
+            <option value="0173-1#07-ABU223#001">EN 15804</option>
+            <option value="0173-1#07-ABU221#001">GHG Protocol</option>
+            <option value="0173-1#07-ABU222#001">IEC TS 63058</option>
+            <option value="0173-1#07-ABV505#001">ISO 14040</option>
+            <option value="0173-1#07-ABV506#001">ISO 14044</option>
+            <option value="0173-1#07-ABU218#001">ISO 14067</option>
+          </select>
+          <div class="invalid-feedback">
+            Please enter a calulation method.
+          </div>
+        </div>
+        <!--CO2eq-->
+        <div class="mb-3">
+          <label for="TCFCO2eq">CO2 Equivalent</label>
+          <input name="TCFCO2eq" type="number" class="form-control" id="TCFCO2eq" placeholder="0.00"
+            min="0">
+          <div class="invalid-feedback">
+            A CO2 equivalent is missing.
+          </div>
+        </div>
+        <!--Quantity of measured product-->
+        <div class="row d-flex flex-row">
+          <div class="col-6 mb-3">
+            <label for="TCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
+            <input name="TCFQuantityOfMeasureForCalculation" type="number" class="form-control"
+              id="TCFQuantityOfMeasureForCalculation" placeholder="0" min="0">
+          </div>
+          <div class="col-2 mb-3">
+            <label for="TCFReferenceValueForCalculation">Reference Value</label>
+            <select name="TCFReferenceValueForCalculation" class="form-select d-block w-100"
+              id="TCFReferenceValueForCalculation" required="">
+              <option value="">Choose...</option>
+              <option value="0173-1#07-ABZ596#001">g</option>
+              <option value="0173-1#07-ABZ597#001">kg</option>
+              <option value="0173-1#07-ABZ598#001">t</option>
+              <option value="0173-1#07-ABZ599#001">ml</option>
+              <option value="0173-1#07-ABZ600#001">l</option>
+              <option value="0173-1#07-ABZ601#001">cbm</option>
+              <option value="0173-1#07-ABZ602#001">qm</option>
+              <option value="0173-1#07-ABZ603#001">piece</option>
+            </select>
+            <div class="invalid-feedback">
+              Please enter a reference value.
+            </div>
+          </div>
+        </div>
+        <!--Process for Greenhouse Gase Emission-->
+        <div class="mb-3">
+          <label for="TCFProcessesForGreenhouseGasEmissionInATransportService">Process for Greenhouse Gase Emission</label>
+          <select name="TCFProcessesForGreenhouseGasEmissionInATransportService" class="form-select d-block w-100"
+            id="TCFProcessesForGreenhouseGasEmissionInATransportService">
+            <option value="">Choose...</option>
+            <option value="0173-1#07-ABU216#001">WTT - Well-to-Tank</option>
+            <option value="0173-1#07-ABU215#001">TTW - Tank-to-Wheel</option>
+            <option value="0173-1#07-ABU217#001">WTW - Well-to-Wheel</option>
+          </select>
+          <div class="invalid-feedback">
+            Please enter a Process for Greenhouse Gase Emission.
+          </div>
+        </div>
+        <!--TCF Takeover Address-->
+        <label for="TCFTakeoverAddress" class="from-lable">Handover Adress</label>
+        <div id="TCFTakeoverAddress">
+          <div class="mb-2 row">
+            <div class="col-10">
+                <input name="TCFTakeoverStreet" type="text" class="form-control" id="TCFTakeoverStreet" placeholder="Street">
+            </div>
+            <div class="col-2">
+                <input name="TCFTakeoverNumber" type="text" class="form-control" id="TCFTakeoverNumber" placeholder="Number">
+            </div>
+          </div>
+          <div class="mb-2 row">
+            <div class="col-6">
+              <input name="TCFTakeoverCity" type="text" class="form-control" id="TCFTakeoverCity" placeholder="City">
+            </div>
+            <div class="col-3">
+              <input name="TCFTakeoverZIP" type="number" class="form-control" id="TCFTakeoverZIP" placeholder="ZIP">
+            </div>
+            <div class="col-3">
+              <input name="TCFTakeoverCountry" type="text" class="form-control" id="TCFTakeoverCountry" placeholder="Country">
+            </div>
+          </div>
+          <div class="mb-2 row">
+            <div class="col-6">
+              <input name="TCFTakeoverLatitude" type="text" class="form-control" id="TCFTakeoverLatitude" placeholder="Latitude">
+            </div>
+            <div class="col-6">
+              <input name="TCFTakeoverLongitude" type="text" class="form-control" id="TCFTakeoverLongitude" placeholder="Longitude">
+            </div>
+          </div>
+        </div>
+        <!--TCF Handover Address-->
+        <label for="TCFHandoverAddress" class="from-lable">Handover Adress</label>
+        <div id="TCFHandoverAddress">
+          <div class="mb-2 row">
+            <div class="col-10">
+                <input name="TCFHandoverStreet" type="text" class="form-control" id="TCFHandoverStreet" placeholder="Street">
+            </div>
+            <div class="col-2">
+                <input name="TCFHandoverNumber" type="text" class="form-control" id="TCFHandoverNumber" placeholder="Number">
+            </div>
+          </div>
+          <div class="mb-2 row">
+            <div class="col-6">
+              <input name="TCFHandoverCity" type="text" class="form-control" id="TCFHandoverCity" placeholder="City">
+            </div>
+            <div class="col-3">
+              <input name="TCFHandoverZIP" type="text" class="form-control" id="TCFHandoverZIP" placeholder="ZIP">
+            </div>
+            <div class="col-3">
+              <input name="TCFHandoverCountry" type="text" class="form-control" id="TCFHandoverCountry" placeholder="Country">
+            </div>
+          </div>
+          <div class="mb-2 row">
+            <div class="col-6">
+              <input name="TCFHandoverLatitude" type="text" class="form-control" id="TCFHandoverLatitude" placeholder="Latitude">
+            </div>
+            <div class="col-6">
+              <input name="TCFHandoverLongitude" type="text" class="form-control" id="TCFHandoverLongitude" placeholder="Longitude">
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
                     `;
 
     // Append the new accordion item to the accordion container
@@ -376,122 +453,149 @@ $(document).ready(function () {
 });
 
 
+/**
+ * Populates specified HTML input fields with corresponding values.
+ * @param {Array} fieldIds - An array containing the IDs of HTML input fields.
+ * @param {Array} values - An array containing values to populate the input fields.
+ * @returns {void} - This function does not return anything.
+ */
+function populateFields(fieldIds, values) {
+  fieldIds.forEach(function (fieldId, index) {
+    var inputElement = document.getElementById(fieldId);
+    if (inputElement && values[index]) {
+      inputElement.value = values[index] || '';
+    }
+  });
+}
 
-//Fill out the values of the aasForm View if the edit mode is true
+/**
+ * Populates various sets of input fields for the edit AAS view based on pre-existing data.
+ * 
+ * This function executes when the document is ready.
+ * It retrieves pre-fill values and IDs for different sections of input fields, populates them accordingly,
+ * and creates dynamic UI elements for multiple accordion items based on the retrieved data.
+ * 
+ * @returns {void} - This function does not return anything.
+ */
 $(document).ready(function () {
   var editMode = document.getElementById('editMode-container').getAttribute('editMode');
-  var environmentServices = document.getElementById('environmentServices-container').getAttribute('environmentServices');
-  var prefillValuesString = document.getElementById('prefillValues-container').getAttribute('prefillValues');
-  var prefillValues = JSON.parse(prefillValuesString);
-  var prefillValuesPCFString = document.getElementById('prefillValuesPCF-container').getAttribute('prefillValuesPCF');
-  var prefillValuesPCF = JSON.parse(prefillValuesPCFString);
-  // console.log("Edit Mode: " + editMode);
-  // console.log("environmentServices: " + environmentServices);
-  // console.log("prefillValues: " + prefillValues);
-  console.log("prefilledValuesPCF: " + prefillValuesPCF);
 
-  var inputFieldIds = [
-    'assetIDshort',
-    'assetID',
-    'URIOfTheProduct',
-    'ManufacturerName',
-    'SerialNumber',
-    'YearOfConstruction',
-    'DateOfManufacture',
-    'ManufacturerOrderCode'
-  ];
+  if (editMode) {
 
-  var inputFieldIdsPCF = [
-    'ReferableAssetID',
-    'PCFCalculationMethod',
-    'PCFCO2eq',
-    'PCFQuantityOfMeasureForCalculation',
-    'PCFReferenceValueForCalculation',
-    'PCFLiveCyclePhase',
-    'PCFDescription',
-    'PCFHandoverStreet',
-    'PCFHandoverNumber',
-    'PCFHandoverCity',
-    'PCFHandoverZIP',
-    'PCFHandoverCountry',
-    'PCFHandoverLatitude',
-    'PCFHandoverLongitude'
-  ];
+    var formHeading = document.getElementById('formHeadline');
 
-  var inputFieldIdsTCF = [
-    'TCFCalculationMethod',
-    'TCFCO2eq',
-    'TCFQuantityOfMeasureForCalculation',
-    'TCFReferenceValueForCalculation',
-    'TCFProcessesForGreenhouseGasEmissionInATransportService',
-    'TCFTakeoverStreet',
-    'TCFTakeoverNumber',
-    'TCFTakeoverCity',
-    'TCFTakeoverZIP',
-    'TCFTakeoverCountry',
-    'TCFTakeoverLatitude',
-    'TCFTakeoverLongitude',
-    'TCFHandoverStreet',
-    'TCFHandoverNumber',
-    'TCFHandoverCity',
-    'TCFHandoverZIP',
-    'TCFHandoverCountry',
-    'TCFHandoverLatitude',
-    'TCFHandoverLongitude'
-  ];
+    if (formHeading) {
+      // Create a new div element
+      var newEditHeading = document.createElement('div');
 
-  function populateFields(fieldIds, values) {
-    console.log("values: " + values);
-    console.log("indices: " + fieldIds);
-    fieldIds.forEach(function (fieldId, index) {
-      var inputElement = document.getElementById(fieldId);
-      if (inputElement && values[index]) {
-        inputElement.value = values[index] || '';
-      }
-    });
-  }
+      newEditHeading.innerHTML = `
+      <h4 class="mb-3">AAS Editor</h4>
+      Here you can edit a AAS and specify all the datails for the submodels Nameplate, Technical Data and
+      Carbon Footprint. Edit the informations you want to and submit by clicking the save button.
+    </div>
+      `;
+      formHeading.parentNode.replaceChild(newEditHeading, formHeading);
+    }
 
 
-  populateFields(inputFieldIds, prefillValues);
 
-  console.log("inputFieldsPCF length: " + inputFieldIdsPCF.length);
-  console.log("prefilledValuesPCF length: " + prefillValuesPCF.length);
+    var prefillValuesString = document.getElementById('prefillValues-container').getAttribute('prefillValues');
+    var prefillValues = JSON.parse(prefillValuesString);
+    var prefillValuesPCFString = document.getElementById('prefillValuesPCF-container').getAttribute('prefillValuesPCF');
+    var prefillValuesPCF = JSON.parse(prefillValuesPCFString);
+    var prefillValuesTCFString = document.getElementById('prefillValuesTCF-container').getAttribute('prefillValuesTCF');
+    var prefillValuesTCF = JSON.parse(prefillValuesTCFString);
 
-  for (i = 0; i < (prefillValuesPCF.length / inputFieldIdsPCF.length); i++) {
-    if (i !== 0) {
-      inputFieldIdsPCF = inputFieldIdsPCF.map(function (fieldId) {
-        return fieldId + (i+1);
-      });
-      // Create a new accordion item
-      var dataContainer = document.getElementById("data-container");
-      var dataArray = JSON.parse(dataContainer.getAttribute("data-array"));
 
-      var newPCFItem = `
+    var inputFieldIds = [
+      'assetIDshort',
+      'assetID',
+      'URIOfTheProduct',
+      'ManufacturerName',
+      'SerialNumber',
+      'YearOfConstruction',
+      'DateOfManufacture',
+      'ManufacturerOrderCode'
+    ];
+
+    var inputFieldIdsPCF = [
+      'ReferableAssetID',
+      'PCFCalculationMethod',
+      'PCFCO2eq',
+      'PCFQuantityOfMeasureForCalculation',
+      'PCFReferenceValueForCalculation',
+      'PCFLiveCyclePhase',
+      'PCFDescription',
+      'PCFHandoverStreet',
+      'PCFHandoverNumber',
+      'PCFHandoverCity',
+      'PCFHandoverZIP',
+      'PCFHandoverCountry',
+      'PCFHandoverLatitude',
+      'PCFHandoverLongitude'
+    ];
+
+    var inputFieldIdsTCF = [
+      'TCFCalculationMethod',
+      'TCFCO2eq',
+      'TCFQuantityOfMeasureForCalculation',
+      'TCFReferenceValueForCalculation',
+      'TCFProcessesForGreenhouseGasEmissionInATransportService',
+      'TCFTakeoverStreet',
+      'TCFTakeoverNumber',
+      'TCFTakeoverCity',
+      'TCFTakeoverZIP',
+      'TCFTakeoverCountry',
+      'TCFTakeoverLatitude',
+      'TCFTakeoverLongitude',
+      'TCFHandoverStreet',
+      'TCFHandoverNumber',
+      'TCFHandoverCity',
+      'TCFHandoverZIP',
+      'TCFHandoverCountry',
+      'TCFHandoverLatitude',
+      'TCFHandoverLongitude'
+    ];
+
+    //Populate static amount of Nameplate and TechnicalData Submodel
+    populateFields(inputFieldIds, prefillValues);
+
+    //Populate dynamic amount of ProductCarbonFootprint Data
+    for (i = 0; i < (prefillValuesPCF.length / inputFieldIdsPCF.length); i++) {
+      if (i !== 0) {
+        inputFieldIdsPCF = inputFieldIdsPCF.map(function (fieldId) {
+          return fieldId + (i + 1);
+        });
+        // Create a new accordion item
+        var dataContainer = document.getElementById("data-container");
+        var dataArray = JSON.parse(dataContainer.getAttribute("data-array"));
+
+        var newPCFItem = `
       <div class="accordion-item">
-      <h2 class="accordion-header" id="headingPCF${i+1}">
+      <h2 class="accordion-header" id="headingPCF${i + 1}">
         <button id="PCF-header-button" class="accordion-button collapsed" type="button"
-          data-bs-toggle="collapse" data-bs-target="#collapsePCF${i+1}" aria-expanded="false"
-          aria-controls="collapsePCF${i+1}">
-          Product Carbon Footprint ${i+1}
+          data-bs-toggle="collapse" data-bs-target="#collapsePCF${i + 1}" aria-expanded="false"
+          aria-controls="collapsePCF${i + 1}">
+          Product Carbon Footprint ${i + 1}
         </button>
       </h2>
-      <div id="collapsePCF${i+1}" class="accordion-collapse collapse" aria-labelledby="headingPCF${i+1}"
+      <div id="collapsePCF${i + 1}" class="accordion-collapse collapse" aria-labelledby="headingPCF${i + 1}"
         data-bs-parent="#PCFAccordion">
         <div class="accordion-body">
           <!--Referable Asset ID-->
           <div class="mb-3">
             <label for="ReferableAssetID">ID of the related Asset</label>
             <input name="ReferableAssetID" type="text" class="form-control"
-              list="list-environmentServices${i+1}" id="ReferableAssetID${i+1}"
+              list="list-environmentServices${i + 1}" id="ReferableAssetID${i + 1}"
               placeholder="https://example.company.de/id/1234">
-            <datalist id="list-environmentServices${i+1}">
+            <datalist id="list-environmentServices${i + 1}">
             </datalist>
           </div>
           <!--Calculation Method-->
           <div class="mb-3">
             <label for="PCFCalculationMethod">Calculation Method</label>
             <select name="PCFCalculationMethod" class="form-select d-block w-100"
-              id="PCFCalculationMethod${i+1}" required="">
+              id="PCFCalculationMethod${i + 1}" required="">
               <option value="">Choose...</option>
               <option value="0173-1#07-ABU223#001">EN 15804</option>
               <option value="0173-1#07-ABU221#001">GHG Protocol</option>
@@ -507,7 +611,7 @@ $(document).ready(function () {
           <!--CO2eq-->
           <div class="mb-3">
             <label for="PCFCO2eq">CO2 Equivalent</label>
-            <input name="PCFCO2eq" type="number" class="form-control" id="PCFCO2eq${i+1}" placeholder="0.00"
+            <input name="PCFCO2eq" type="number" class="form-control" id="PCFCO2eq${i + 1}" placeholder="0.00"
               min="0">
             <div class="invalid-feedback">
               A CO2 equivalent is missing.
@@ -518,12 +622,12 @@ $(document).ready(function () {
             <div class="col-6 mb-3">
               <label for="PCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
               <input name="PCFQuantityOfMeasureForCalculation" type="number" class="form-control"
-                id="PCFQuantityOfMeasureForCalculation${i+1}" placeholder="0" min="0">
+                id="PCFQuantityOfMeasureForCalculation${i + 1}" placeholder="0" min="0">
             </div>
             <div class="col-2 mb-3">
               <label for="PCFReferenceValueForCalculation">Reference Value</label>
               <select name="PCFReferenceValueForCalculation" class="form-select custom-select d-block"
-                id="PCFReferenceValueForCalculation${i+1}" required="">
+                id="PCFReferenceValueForCalculation${i + 1}" required="">
                 <option value="">Choose...</option>
                 <option value="0173-1#07-ABZ596#001">g</option>
                 <option value="0173-1#07-ABZ597#001">kg</option>
@@ -543,7 +647,7 @@ $(document).ready(function () {
           <!--Live Cycle Phase-->
           <div class="mb-3">
             <label for="PCFLiveCyclePhase">Live Cycle Phase of the Product</label>
-            <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase${i+1}"
+            <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase${i + 1}"
               required="">
               <option value="">Choose...</option>
               <option value="0173-1#07-ABU208#001">A1 – raw material supply (and upstream production)
@@ -571,42 +675,42 @@ $(document).ready(function () {
           <!--Description-->
           <div class="mb-3">
             <label for="PCFDescription">Asset Description</label>
-            <textarea class="form-control" id="PCFDescription${i+1}" name="PCFDescription" rows="3"
+            <textarea class="form-control" id="PCFDescription${i + 1}" name="PCFDescription" rows="3"
               value=""></textarea>
           </div>
           <!--Explanatory Statement-->
           <div class="mb-3">
             <label class="form-label" for="ExplanatoryStatement">Explanatory Statement</label>
-            <input type="file" class="form-control" id="ExplanatoryStatement${i+1}" name="ExplanatoryStatement" />
+            <input type="file" class="form-control" id="ExplanatoryStatement${i + 1}" name="ExplanatoryStatement" />
           </div>
           <!--Handover Address-->
           <label for="HandoverAddress" class="from-lable">Handover Adress</label>
           <div id="HandoverAddress">
             <div class="mb-2 row">
               <div class="col-10">
-                  <input name="PCFHandoverStreet" type="text" class="form-control" id="PCFHandoverStreet${i+1}" placeholder="Street">
+                  <input name="PCFHandoverStreet" type="text" class="form-control" id="PCFHandoverStreet${i + 1}" placeholder="Street">
               </div>
               <div class="col-2">
-                  <input name="PCFHandoverNumber" type="text" class="form-control" id="PCFHandoverNumber${i+1}" placeholder="Number">
+                  <input name="PCFHandoverNumber" type="text" class="form-control" id="PCFHandoverNumber${i + 1}" placeholder="Number">
               </div>
             </div>
             <div class="mb-2 row">
               <div class="col-6">
-                <input name="PCFHandoverCity" type="text" class="form-control" id="PCFHandoverCity${i+1}" placeholder="City">
+                <input name="PCFHandoverCity" type="text" class="form-control" id="PCFHandoverCity${i + 1}" placeholder="City">
               </div>
               <div class="col-3">
-                <input name="PCFHandoverZIP" type="number" class="form-control" id="PCFHandoverZIP${i+1}" placeholder="ZIP">
+                <input name="PCFHandoverZIP" type="number" class="form-control" id="PCFHandoverZIP${i + 1}" placeholder="ZIP">
               </div>
               <div class="col-3">
-                <input name="PCFHandoverCountry" type="text" class="form-control" id="PCFHandoverCountry${i+1}" placeholder="Country">
+                <input name="PCFHandoverCountry" type="text" class="form-control" id="PCFHandoverCountry${i + 1}" placeholder="Country">
               </div>
             </div>
             <div class="mb-2 row">
               <div class="col-6">
-                <input name="PCFHandoverLatitude" type="text" class="form-control" id="PCFHandoverLatitude${i+1}" placeholder="Latitude">
+                <input name="PCFHandoverLatitude" type="text" class="form-control" id="PCFHandoverLatitude${i + 1}" placeholder="Latitude">
               </div>
               <div class="col-6">
-                <input name="PCFHandoverLongitude" type="text" class="form-control" id="PCFHandoverLongitude${i+1}" placeholder="Longitude">
+                <input name="PCFHandoverLongitude" type="text" class="form-control" id="PCFHandoverLongitude${i + 1}" placeholder="Longitude">
               </div>
             </div>
           </div>
@@ -618,38 +722,186 @@ $(document).ready(function () {
     </div>
                         `;
 
-      // Append the new accordion item to the accordion container
-      $("#PCFAccordion").append(newPCFItem);
+        // Append the new accordion item to the accordion container
+        $("#PCFAccordion").append(newPCFItem);
 
-      if (dataArray) {
-        // Update the HTML suggestions datalist
-        var assetSuggestionsList = document.getElementById(`list-environmentServices${PCFCounter}`);
-        dataArray.forEach(function (item) {
-          var listItem = document.createElement("option");
-          listItem.textContent = item;
-          assetSuggestionsList.appendChild(listItem);
-        });
+        if (dataArray) {
+          // Update the HTML suggestions datalist
+          var assetSuggestionsList = document.getElementById(`list-environmentServices${PCFCounter}`);
+          dataArray.forEach(function (item) {
+            var listItem = document.createElement("option");
+            listItem.textContent = item;
+            assetSuggestionsList.appendChild(listItem);
+          });
+        }
       }
+      console.log("i: " + i);
+      console.log("start index: " + inputFieldIdsPCF.length * i);
+      console.log("end index: " + ((inputFieldIdsPCF.length * (i + 1)) - 1));
+      populateFields(inputFieldIdsPCF, prefillValuesPCF.slice(inputFieldIdsPCF.length * i, (inputFieldIdsPCF.length * (i + 1))));
     }
-    console.log("i: " + i);
-    console.log("start index: " + inputFieldIdsPCF.length * i);
-    console.log("end index: " + ((inputFieldIdsPCF.length * (i + 1)) - 1));
-    populateFields(inputFieldIdsPCF, prefillValuesPCF.slice(inputFieldIdsPCF.length * i, (inputFieldIdsPCF.length * (i + 1))));
 
+    //Populate dynamic amount of TransportCarbonFootprint Data
+    for (i = 0; i < (prefillValuesTCF.length / inputFieldIdsTCF.length); i++) {
+      if (i !== 0) {
+        inputFieldIdsTCF = inputFieldIdsTCF.map(function (fieldId) {
+          return fieldId + (i + 1);
+        });
 
+        var newTCFItem = `
+    <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTCF${i + 1}">
+      <button id="TCF-header-button" class="accordion-button collapsed" type="button"
+        data-bs-toggle="collapse" data-bs-target="#collapseTCF${i + 1}" aria-expanded="false"
+        aria-controls="collapseTCF${i + 1}">
+        Transport Carbon Footprint ${i + 1}
+      </button>
+    </h2>
+    <div id="collapseTCF${i + 1}" class="accordion-collapse collapse" aria-labelledby="headingTCF${i + 1}"
+      data-bs-parent="#TCFAccordion">
+      <div class="accordion-body">
+        <!--Calculation Method-->
+        <div class="mb-3">
+          <label for="TCFCalculationMethod">Calculation Method</label>
+          <select name="TCFCalculationMethod" class="form-select d-block w-100"
+            id="TCFCalculationMethod${i + 1}" required="">
+            <option value="">Choose...</option>
+            <option value="0173-1#07-ABU223#001">EN 15804</option>
+            <option value="0173-1#07-ABU221#001">GHG Protocol</option>
+            <option value="0173-1#07-ABU222#001">IEC TS 63058</option>
+            <option value="0173-1#07-ABV505#001">ISO 14040</option>
+            <option value="0173-1#07-ABV506#001">ISO 14044</option>
+            <option value="0173-1#07-ABU218#001">ISO 14067</option>
+          </select>
+          <div class="invalid-feedback">
+            Please enter a calulation method.
+          </div>
+        </div>
+        <!--CO2eq-->
+        <div class="mb-3">
+          <label for="TCFCO2eq">CO2 Equivalent</label>
+          <input name="TCFCO2eq" type="number" class="form-control" id="TCFCO2eq${i + 1}" placeholder="0.00"
+            min="0">
+          <div class="invalid-feedback">
+            A CO2 equivalent is missing.
+          </div>
+        </div>
+        <!--Quantity of measured product-->
+        <div class="row d-flex flex-row">
+          <div class="col-6 mb-3">
+            <label for="TCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
+            <input name="TCFQuantityOfMeasureForCalculation" type="number" class="form-control"
+              id="TCFQuantityOfMeasureForCalculation${i + 1}" placeholder="0" min="0">
+          </div>
+          <div class="col-2 mb-3">
+            <label for="TCFReferenceValueForCalculation">Reference Value</label>
+            <select name="TCFReferenceValueForCalculation" class="form-select d-block w-100"
+              id="TCFReferenceValueForCalculation${i + 1}" required="">
+              <option value="">Choose...</option>
+              <option value="0173-1#07-ABZ596#001">g</option>
+              <option value="0173-1#07-ABZ597#001">kg</option>
+              <option value="0173-1#07-ABZ598#001">t</option>
+              <option value="0173-1#07-ABZ599#001">ml</option>
+              <option value="0173-1#07-ABZ600#001">l</option>
+              <option value="0173-1#07-ABZ601#001">cbm</option>
+              <option value="0173-1#07-ABZ602#001">qm</option>
+              <option value="0173-1#07-ABZ603#001">piece</option>
+            </select>
+            <div class="invalid-feedback">
+              Please enter a reference value.
+            </div>
+          </div>
+        </div>
+        <!--Process for Greenhouse Gase Emission-->
+        <div class="mb-3">
+          <label for="TCFProcessesForGreenhouseGasEmissionInATransportService">Process for Greenhouse Gase Emission</label>
+          <select name="TCFProcessesForGreenhouseGasEmissionInATransportService" class="form-select d-block w-100"
+            id="TCFProcessesForGreenhouseGasEmissionInATransportService${i + 1}">
+            <option value="">Choose...</option>
+            <option value="0173-1#07-ABU216#001">WTT - Well-to-Tank</option>
+            <option value="0173-1#07-ABU215#001">TTW - Tank-to-Wheel</option>
+            <option value="0173-1#07-ABU217#001">WTW - Well-to-Wheel</option>
+          </select>
+          <div class="invalid-feedback">
+            Please enter a Process for Greenhouse Gase Emission.
+          </div>
+        </div>
+        <!--TCF Takeover Address-->
+        <label for="TCFTakeoverAddress" class="from-lable">Handover Adress</label>
+        <div id="TCFTakeoverAddress">
+          <div class="mb-2 row">
+            <div class="col-10">
+                <input name="TCFTakeoverStreet" type="text" class="form-control" id="TCFTakeoverStreet${i + 1}" placeholder="Street">
+            </div>
+            <div class="col-2">
+                <input name="TCFTakeoverNumber" type="text" class="form-control" id="TCFTakeoverNumber${i + 1}" placeholder="Number">
+            </div>
+          </div>
+          <div class="mb-2 row">
+            <div class="col-6">
+              <input name="TCFTakeoverCity" type="text" class="form-control" id="TCFTakeoverCity${i + 1}" placeholder="City">
+            </div>
+            <div class="col-3">
+              <input name="TCFTakeoverZIP" type="number" class="form-control" id="TCFTakeoverZIP${i + 1}" placeholder="ZIP">
+            </div>
+            <div class="col-3">
+              <input name="TCFTakeoverCountry" type="text" class="form-control" id="TCFTakeoverCountry${i + 1}" placeholder="Country">
+            </div>
+          </div>
+          <div class="mb-2 row">
+            <div class="col-6">
+              <input name="TCFTakeoverLatitude" type="text" class="form-control" id="TCFTakeoverLatitude${i + 1}" placeholder="Latitude">
+            </div>
+            <div class="col-6">
+              <input name="TCFTakeoverLongitude" type="text" class="form-control" id="TCFTakeoverLongitude${i + 1}" placeholder="Longitude">
+            </div>
+          </div>
+        </div>
+        <!--TCF Handover Address-->
+        <label for="TCFHandoverAddress" class="from-lable">Handover Adress</label>
+        <div id="TCFHandoverAddress">
+          <div class="mb-2 row">
+            <div class="col-10">
+                <input name="TCFHandoverStreet" type="text" class="form-control" id="TCFHandoverStreet${i + 1}" placeholder="Street">
+            </div>
+            <div class="col-2">
+                <input name="TCFHandoverNumber" type="text" class="form-control" id="TCFHandoverNumber${i + 1}" placeholder="Number">
+            </div>
+          </div>
+          <div class="mb-2 row">
+            <div class="col-6">
+              <input name="TCFHandoverCity" type="text" class="form-control" id="TCFHandoverCity${i + 1}" placeholder="City">
+            </div>
+            <div class="col-3">
+              <input name="TCFHandoverZIP" type="text" class="form-control" id="TCFHandoverZIP${i + 1}" placeholder="ZIP">
+            </div>
+            <div class="col-3">
+              <input name="TCFHandoverCountry" type="text" class="form-control" id="TCFHandoverCountry${i + 1}" placeholder="Country">
+            </div>
+          </div>
+          <div class="mb-2 row">
+            <div class="col-6">
+              <input name="TCFHandoverLatitude" type="text" class="form-control" id="TCFHandoverLatitude${i + 1}" placeholder="Latitude">
+            </div>
+            <div class="col-6">
+              <input name="TCFHandoverLongitude" type="text" class="form-control" id="TCFHandoverLongitude${i + 1}" placeholder="Longitude">
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+                    `;
+
+        // Append the new accordion item to the accordion container
+        $("#TCFAccordion").append(newTCFItem);
+      }
+      console.log("i: " + i);
+      console.log("start index: " + inputFieldIdsTCF.length * i);
+      console.log("end index: " + ((inputFieldIdsTCF.length * (i + 1)) - 1));
+      populateFields(inputFieldIdsTCF, prefillValuesTCF.slice(inputFieldIdsTCF.length * i, (inputFieldIdsTCF.length * (i + 1))));
+    }
   }
-
-
-
-  // inputFieldIdsPCF.forEach(function(fieldId, index) {
-  //   var chunkStartIndex = index * inputFieldIdsPCF.length;
-  //   var chunkEndIndex = chunkStartIndex + inputFieldIdsPCF.length;
-  //   var chunkValues = prefillValuesPCF.slice(chunkStartIndex, chunkEndIndex);
-
-  //   populateFields(inputFieldIdsPCF, chunkValues);
-  // });
-
-
-
 });
 
