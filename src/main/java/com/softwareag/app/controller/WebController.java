@@ -264,8 +264,6 @@ public class WebController {
                 model.addAttribute("pageTitle", "AAS Configurator");
                 System.out.println(environmentServices);
                 environmentServices.removeIf(envServ -> envServ.getAssetIDShort().equals(ID));
-                System.out.println("After delete: ");
-                System.out.println(environmentServices);
                 return "redirect:/aas/overview";
         }
 
