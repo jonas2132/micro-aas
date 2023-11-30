@@ -76,11 +76,13 @@ public class WebController {
                 if (!file.isEmpty()) {
                         try {
                                 File importedFile = convertMultipartFileToFile(file);
-                                String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
-                                DataRepository dataRepository = fileExtension.equals("json") ? new JsonDataRepository() : new AASXDataRepository();
+                                String fileExtension = file.getOriginalFilename()
+                                                .substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+                                DataRepository dataRepository = fileExtension.equals("json") ? new JsonDataRepository()
+                                                : new AASXDataRepository();
 
                                 EnvironmentService environmentService = dataRepository
-                                                 .read(importedFile);
+                                                .read(importedFile);
                                 serializeEnvironment(environmentService);
                                 environmentServices.add(environmentService);
                                 return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
@@ -162,7 +164,7 @@ public class WebController {
                                 .collect(Collectors.toList())) {
                         String smcPCFID = smcPCF.getIdShort();
                         prefillValuesPCF.add(envServiceToEdit.getReferenceElement("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE,smcPCFID));
+                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_CALCULATION_METHOD, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
@@ -284,6 +286,7 @@ public class WebController {
                                 .findFirst()
                                 .orElse(null);
 
+                System.out.println("Deleting " + toDelete.getAssetID());
                 deleteEnvironment(toDelete);
                 environmentServices.remove(toDelete);
                 return "redirect:/aas/overview";
@@ -304,7 +307,7 @@ public class WebController {
                         @RequestParam("DateOfManufacture") String DateOfManufacture,
                         // parameter Technical Data
                         @RequestParam("ManufacturerOrderCode") String ManufacturerOrderCode,
-                        // @RequestParam("ManufacturerLogo") File ManufacturerLogo,
+                        //@RequestParam("ManufacturerLogo") File ManufacturerLogo,
                         // @RequestParam("ProductImage") File ProductImage,
 
                         // Parameter Carbon Footprint
@@ -539,6 +542,7 @@ public class WebController {
 
         }
 
+        //aas/download?id=
         @GetMapping("/aas/download")
         public ResponseEntity<String> downloadAAS(@RequestParam("id") String id,
                         @RequestParam("format") String exportFormat,
