@@ -184,26 +184,6 @@ public class EnvironmentService implements Environment {
         // Filter ist wie eine Abfrage
     }
 
-    public List<LangStringTextType> getMultilanguageProperty(String submodelIdShort,
-            SubmodelElementPropertyType propertyType,
-            String... submodelElementCollections) {
-        System.out.println("Reading MultilanguageProperty " + propertyType.getIdShort() + " . . .");
-        try {
-            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
-                    submodelElementCollections);
-
-            return subModelElements.stream()
-                    .filter(element -> isMultilanguageProperty(element, propertyType))
-                    .map(element -> ((MultiLanguageProperty) element).getValue())
-                    .findFirst().orElse(null);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
-        // Filter ist wie eine Abfrage
-    }
-
     public void updateProperty(String value, String submodelIdShort, SubmodelElementPropertyType propertyType,
             String... submodelElementCollections) {
         System.out.println("Updating Property " + propertyType.getIdShort() + " . . .");
@@ -234,7 +214,7 @@ public class EnvironmentService implements Environment {
                     .map(element -> (ReferenceElement) element)
                     .forEach(referenceElement -> referenceElement.setValue(new DefaultReference.Builder()
                             .keys(new DefaultKey.Builder()
-                                            .type(KeyTypes.SUBMODEL) //Not sure yet, if Submodel is used as reference!
+                                            .type(KeyTypes.ASSET_ADMINISTRATION_SHELL) //Not sure yet, if ASSET_ADMINISTRATION_SHELL is used as reference!
                                             .value(value)
                                             .build())
                             .type(ReferenceTypes.EXTERNAL_REFERENCE)
@@ -282,6 +262,44 @@ public class EnvironmentService implements Environment {
             return null;
         }
 
+    }
+
+    public String getReferenceElement(String submodelIdShort,
+            SubmodelElementPropertyType propertyType,
+            String... submodelElementCollections) {
+        System.out.println("Reading ReferenceElement " + propertyType.getIdShort() + " . . .");
+        try {
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
+
+            return subModelElements.stream()
+                    .filter(element -> isReferenceElement(element, propertyType))
+                    .map(element -> ((ReferenceElement) element).getValue().getKeys().get(0).getValue())
+                    .findFirst().orElse(null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<LangStringTextType> getMultilanguageProperty(String submodelIdShort,
+            SubmodelElementPropertyType propertyType,
+            String... submodelElementCollections) {
+        System.out.println("Reading MultilanguageProperty " + propertyType.getIdShort() + " . . .");
+        try {
+            Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
+                    submodelElementCollections);
+
+            return subModelElements.stream()
+                    .filter(element -> isMultilanguageProperty(element, propertyType))
+                    .map(element -> ((MultiLanguageProperty) element).getValue())
+                    .findFirst().orElse(null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
+        // Filter ist wie eine Abfrage
     }
 
     // no final solution yet, but rn its not possible to call the enums on the

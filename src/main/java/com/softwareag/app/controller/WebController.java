@@ -58,7 +58,6 @@ public class WebController {
                 model.addAttribute("pageTitle", "AAS Builder");
                 if (!existingFilesLoaded)
                         loadEnvironments();
-                        loadEnvironments();
                 return "welcome"; // This corresponds to a view named "view.html" in your templates folder
         }
 
@@ -427,6 +426,10 @@ public class WebController {
                         environmentService.updateProperty(Double.toString(TCFQuantityOfMeasureForCalculation[i]),
                                         "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
+                                        submodelElementCollectionIdShort);
+                        environmentService.updateProperty(TCFProcessesForGreenhouseGasEmissionInATransportService[i],
+                                        "CarbonFootprint",
+                                        SubmodelElementPropertyType.TCF_PROCESSES_FOR_GREENHOUSE_GAS_EMISSION_IN_A_TRANSPORT_SERVICE,
                                         submodelElementCollectionIdShort);
                         environmentService.updateProperty(TCFTakeoverStreet[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.STREET, submodelElementCollectionIdShort,
