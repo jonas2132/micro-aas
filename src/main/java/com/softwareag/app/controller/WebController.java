@@ -257,6 +257,18 @@ public class WebController {
                 return "aas_form";
         }
 
+        
+        @GetMapping("/aas/delete/{ID}")
+        public String deleteAAS(@PathVariable String ID, Model model) {
+                System.out.println("Clicked Asset ID to delete: " + ID);
+                model.addAttribute("pageTitle", "AAS Configurator");
+                System.out.println(environmentServices);
+                environmentServices.removeIf(envServ -> envServ.getAssetIDShort().equals(ID));
+                System.out.println("After delete: ");
+                System.out.println(environmentServices);
+                return "redirect:/aas/overview";
+        }
+
         @PostMapping("/aas/submission")
         public String submission(
                         // parameter Asset Administration Shell
