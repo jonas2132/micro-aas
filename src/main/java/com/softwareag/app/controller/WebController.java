@@ -161,8 +161,8 @@ public class WebController {
                                 .filter(element -> element.getIdShort().startsWith("ProductCarbonFootprint"))
                                 .collect(Collectors.toList())) {
                         String smcPCFID = smcPCF.getIdShort();
-                        prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE, smcPCFID));
+                        prefillValuesPCF.add(envServiceToEdit.getReferenceElement("CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_ASSET_REFERENCE,smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_CALCULATION_METHOD, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
@@ -299,7 +299,7 @@ public class WebController {
                         // parameter Nameplate
                         @RequestParam("URIOfTheProduct") String URIOfTheProduct,
                         @RequestParam("ManufacturerName") String ManufacturerName,
-                        @RequestParam("SerialNumber") double SerialNumber,
+                        @RequestParam("SerialNumber") String SerialNumber,
                         @RequestParam("YearOfConstruction") String YearOfConstruction,
                         @RequestParam("DateOfManufacture") String DateOfManufacture,
                         // parameter Technical Data
@@ -361,7 +361,7 @@ public class WebController {
                                 SubmodelElementPropertyType.URI_OF_THE_PRODUCT);
                 environmentService.updateMultilanguageProperty(ManufacturerName, "Nameplate",
                                 SubmodelElementPropertyType.MANUFACTURER_NAME);
-                environmentService.updateProperty(Double.toString(SerialNumber), "Nameplate",
+                environmentService.updateProperty(SerialNumber, "Nameplate",
                                 SubmodelElementPropertyType.SERIAL_NUMBER);
                 environmentService.updateProperty(YearOfConstruction, "Nameplate",
                                 SubmodelElementPropertyType.YEAR_OF_CONSTRUCTION);
@@ -395,6 +395,9 @@ public class WebController {
                         environmentService.updateProperty(Double.toString(PCFQuantityOfMeasureForCalculation[i]),
                                         "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
+                                        submodelElementCollectionIdShort);
+                        environmentService.updateProperty(PCFReferenceValueForCalculation[i], "CarbonFootprint",
+                                        SubmodelElementPropertyType.PCF_REFERENCE_VALUE_FOR_CALCULATION,
                                         submodelElementCollectionIdShort);
                         environmentService.updateProperty(PCFLiveCyclePhase[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE,
