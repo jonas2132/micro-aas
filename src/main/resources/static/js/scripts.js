@@ -442,7 +442,7 @@ $(document).ready(function () {
           // If the response is successful, handle as needed
           // For example, redirect to the edit page or do further processing
           window.location.href = `/aas/delete/${assetID}`;
-        } else {
+        }else {
           // Handle error cases
           console.log('Failed to retrieve AssetID');
         }

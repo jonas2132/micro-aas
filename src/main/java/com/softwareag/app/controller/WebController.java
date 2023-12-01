@@ -43,6 +43,8 @@ import com.softwareag.app.service.DownloadService;
 import com.softwareag.app.service.EnvironmentService;
 import com.softwareag.app.utils.Constants;
 import com.softwareag.app.service.EnvironmentService.*;
+
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.eclipse.digitaltwin.aas4j.v3.model.*;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -78,6 +80,12 @@ public class WebController {
                                 File importedFile = convertMultipartFileToFile(file);
                                 String fileExtension = file.getOriginalFilename()
                                                 .substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+
+                                if (!fileExtension.equals("aasx") && !fileExtension.equals("json")) {
+                                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                                        .body("Invalid File format");
+                                }
+
                                 DataRepository dataRepository = fileExtension.equals("json") ? new JsonDataRepository()
                                                 : new AASXDataRepository();
 
@@ -86,11 +94,13 @@ public class WebController {
                                 serializeEnvironment(environmentService);
                                 environmentServices.add(environmentService);
                                 return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
-                        } catch (Exception e) {
+                        } catch (FileSizeLimitExceededException e) {
                                 // Handle exceptions if any
-                                e.printStackTrace();
                                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                                .body("Failed to upload file");
+                                                .body("File exceeds its maximum permitted size of 1048576 bytes");
+                        }catch(Exception ex) {
+                                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                                .body("File upload failed.");
                         }
                 } else {
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No file provided");
@@ -281,9 +291,9 @@ public class WebController {
         public String deleteAAS(@PathVariable String ID, Model model) {
                 model.addAttribute("pageTitle", "AAS Configurator");
                 EnvironmentService toDelete = environmentServices.stream()
-                                        .filter(envServ -> envServ.getAssetIDShort().equals(ID))
-                                        .findFirst()
-                                        .orElse(null);
+                                .filter(envServ -> envServ.getAssetIDShort().equals(ID))
+                                .findFirst()
+                                .orElse(null);
                 deleteEnvironment(toDelete);
                 environmentServices.remove(toDelete);
                 return "redirect:/aas/overview";
@@ -304,7 +314,7 @@ public class WebController {
                         @RequestParam("DateOfManufacture") String DateOfManufacture,
                         // parameter Technical Data
                         @RequestParam("ManufacturerOrderCode") String ManufacturerOrderCode,
-                        //@RequestParam("ManufacturerLogo") File ManufacturerLogo,
+                        // @RequestParam("ManufacturerLogo") File ManufacturerLogo,
                         // @RequestParam("ProductImage") File ProductImage,
 
                         // Parameter Carbon Footprint
@@ -539,7 +549,7 @@ public class WebController {
 
         }
 
-        //aas/download?id=
+        // aas/download?id=
         @GetMapping("/aas/download")
         public ResponseEntity<String> downloadAAS(@RequestParam("id") String id,
                         @RequestParam("format") String exportFormat,
