@@ -420,14 +420,21 @@ $(document).ready(function () {
 $(document).ready(function () {
   // Use querySelectorAll to get all edit buttons
   var deleteButtons = document.querySelectorAll(".deleteButton");
+  var deleteConfirmButtons = document.querySelectorAll(".deleteConfirmButton");
+  var assetID = null;
 
-  function buttonClickAction(event) {
+  console.log("delete buttons: " + deleteButtons);
+
+  function deleteButtonClickedAction(event) {
     // Retrieve AssetID from the clicked button's data-attribute
-    var assetID = event.currentTarget.getAttribute('data-assetid');
-    console.log('Clicked delete AssetID JS:', assetID);
 
-    // Send the AssetID to the backend using fetch
-    fetch(`/aas/delete/${assetID}`, {
+    assetID = event.currentTarget.getAttribute('data-assetid');
+    console.log('Clicked delete AssetID JS:', assetID);
+  }
+
+  function deleteConfirmButtonClickedAction(event) {
+     // Send the AssetID to the backend using fetch
+     fetch(`/aas/delete/${assetID}`, {
       method: 'GET'
     })
       .then(response => {
@@ -448,8 +455,13 @@ $(document).ready(function () {
 
   // Attach click event listener to each edit button
   deleteButtons.forEach(button => {
-    button.addEventListener("click", buttonClickAction);
+    button.addEventListener("click", deleteButtonClickedAction);
   });
+
+  deleteConfirmButtons.forEach(button => {
+    button.addEventListener("click", deleteConfirmButtonClickedAction);
+  });
+
 });
 
 // Edit button on the Overview View

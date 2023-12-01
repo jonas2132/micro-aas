@@ -280,6 +280,7 @@ public class WebController {
         @GetMapping("/aas/delete/{ID}")
         public String deleteAAS(@PathVariable String ID, Model model) {
                 model.addAttribute("pageTitle", "AAS Configurator");
+<<<<<<< HEAD
                 System.out.println(ID);
                 EnvironmentService toDelete = environmentServices.stream()
                                 .filter(envServ -> envServ.getAssetIDShort().equals(ID))
@@ -289,6 +290,10 @@ public class WebController {
                 System.out.println("Deleting " + toDelete.getAssetID());
                 deleteEnvironment(toDelete);
                 environmentServices.remove(toDelete);
+=======
+                System.out.println(environmentServices);
+                environmentServices.removeIf(envServ -> envServ.getAssetIDShort().equals(ID));
+>>>>>>> f56d83a6a7ae57103e614494180ad8829aaa0838
                 return "redirect:/aas/overview";
         }
 
