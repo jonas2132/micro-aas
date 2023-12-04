@@ -327,8 +327,8 @@ public class WebController {
                         // Parameter Product Carbon Footprint
                         @RequestParam(value = "ReferableAssetID", defaultValue = " ") String[] ReferableAssetID,
                         @RequestParam("PCFCalculationMethod") String[] PCFCalculationMethod,
-                        @RequestParam("PCFCO2eq") double[] PCFCO2eq,
-                        @RequestParam("PCFQuantityOfMeasureForCalculation") double[] PCFQuantityOfMeasureForCalculation,
+                        @RequestParam("PCFCO2eq") String[] PCFCO2eq,
+                        @RequestParam("PCFQuantityOfMeasureForCalculation") String[] PCFQuantityOfMeasureForCalculation,
                         @RequestParam("PCFReferenceValueForCalculation") String[] PCFReferenceValueForCalculation,
                         @RequestParam("PCFLiveCyclePhase") String[] PCFLiveCyclePhase,
                         @RequestParam(value = "PCFDescription", defaultValue = " ") String[] PCFDescription,
@@ -343,9 +343,9 @@ public class WebController {
 
                         // Parameter Transport Carbon Footprint
                         @RequestParam("TCFCalculationMethod") String[] TCFCalculationMethod,
-                        @RequestParam("TCFCO2eq") double[] TCFCO2eq,
+                        @RequestParam("TCFCO2eq") String[] TCFCO2eq,
                         @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
-                        @RequestParam("TCFQuantityOfMeasureForCalculation") double[] TCFQuantityOfMeasureForCalculation,
+                        @RequestParam("TCFQuantityOfMeasureForCalculation") String[] TCFQuantityOfMeasureForCalculation,
                         @RequestParam("TCFProcessesForGreenhouseGasEmissionInATransportService") String[] TCFProcessesForGreenhouseGasEmissionInATransportService,
                         @RequestParam("TCFTakeoverStreet") String[] TCFTakeoverStreet,
                         @RequestParam("TCFTakeoverNumber") String[] TCFTakeoverNumber,
@@ -406,9 +406,9 @@ public class WebController {
                         environmentService.updateProperty(PCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
-                        environmentService.updateProperty(Double.toString(PCFCO2eq[i]), "CarbonFootprint",
+                        environmentService.updateProperty(PCFCO2eq[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.PCFCO2EQ, submodelElementCollectionIdShort);
-                        environmentService.updateProperty(Double.toString(PCFQuantityOfMeasureForCalculation[i]),
+                        environmentService.updateProperty(PCFQuantityOfMeasureForCalculation[i],
                                         "CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
                                         submodelElementCollectionIdShort);
@@ -458,12 +458,12 @@ public class WebController {
                         environmentService.updateProperty(TCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);
-                        environmentService.updateProperty(Double.toString(TCFCO2eq[i]), "CarbonFootprint",
+                        environmentService.updateProperty(TCFCO2eq[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.TCFCO2EQ, submodelElementCollectionIdShort);
                         environmentService.updateProperty(TCFReferenceValueForCalculation[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_REFERENCE_VALUE_FOR_CALCULATION,
                                         submodelElementCollectionIdShort);
-                        environmentService.updateProperty(Double.toString(TCFQuantityOfMeasureForCalculation[i]),
+                        environmentService.updateProperty(TCFQuantityOfMeasureForCalculation[i],
                                         "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_QUANTITY_OF_MEASURE_FOR_CALCULATION,
                                         submodelElementCollectionIdShort);

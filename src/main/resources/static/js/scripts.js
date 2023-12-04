@@ -32,7 +32,7 @@ $(document).ready(function () {
         <div class="mb-3">
           <label for="PCFCalculationMethod">Calculation Method</label>
           <select name="PCFCalculationMethod" class="form-select d-block w-100"
-            id="PCFCalculationMethod" required="">
+            id="PCFCalculationMethod">
             <option value="">Choose...</option>
             <option value="0173-1#07-ABU223#001">EN 15804</option>
             <option value="0173-1#07-ABU221#001">GHG Protocol</option>
@@ -48,7 +48,7 @@ $(document).ready(function () {
         <!--CO2eq-->
         <div class="mb-3">
           <label for="PCFCO2eq">CO2 Equivalent</label>
-          <input name="PCFCO2eq" type="number" class="form-control" id="PCFCO2eq" placeholder="0.00"
+          <input name="PCFCO2eq" type="text" class="form-control" id="PCFCO2eq" placeholder="0.00"
             min="0">
           <div class="invalid-feedback">
             A CO2 equivalent is missing.
@@ -58,13 +58,13 @@ $(document).ready(function () {
         <div class="row d-flex flex-row">
           <div class="col-6 mb-3">
             <label for="PCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
-            <input name="PCFQuantityOfMeasureForCalculation" type="number" class="form-control"
+            <input name="PCFQuantityOfMeasureForCalculation" type="text" class="form-control"
               id="PCFQuantityOfMeasureForCalculation" placeholder="0" min="0">
           </div>
           <div class="col-2 mb-3">
             <label for="PCFReferenceValueForCalculation">Reference Value</label>
             <select name="PCFReferenceValueForCalculation" class="form-select custom-select d-block"
-              id="PCFReferenceValueForCalculation" required="">
+              id="PCFReferenceValueForCalculation">
               <option value="">Choose...</option>
               <option value="0173-1#07-ABZ596#001">g</option>
               <option value="0173-1#07-ABZ597#001">kg</option>
@@ -84,8 +84,7 @@ $(document).ready(function () {
         <!--Life Cycle Phase-->
         <div class="mb-3">
           <label for="PCFLiveCyclePhase">Life Cycle Phase of the Product</label>
-          <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase"
-            required="">
+          <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase">
             <option value="">Choose...</option>
             <option value="0173-1#07-ABU208#001">A1 – raw material supply (and upstream production)
             </option>
@@ -161,16 +160,6 @@ $(document).ready(function () {
 
     // Append the new accordion item to the accordion container
     $("#PCFAccordion").append(newPCFItem);
-
-    if (dataArray) {
-      // Update the HTML suggestions datalist
-      var assetSuggestionsList = document.getElementById(`list-environmentServices${PCFCounter}`);
-      dataArray.forEach(function (item) {
-        var listItem = document.createElement("option");
-        listItem.textContent = item;
-        assetSuggestionsList.appendChild(listItem);
-      });
-    }
   });
 });
 
@@ -180,20 +169,15 @@ $(document).ready(function () {
   var environmentServicesIDs = JSON.parse(environmentServicesIDsContainer.getAttribute("environmentServicesIDs"));
   console.log('environmentServicesIDs: ' + environmentServicesIDs);
 
-  var dataLists = document.querySelector('.environmentServicesSuggestions');
-  console.log('environmentServicesSuggestions: ' + dataLists);
+  var dataList = document.getElementById('suggestionList');
+  console.log('environmentServicesSuggestions: ' + dataList);
 
-  dataLists.forEach(function (dataList) {
-    environmentServicesIDs.forEach(function (item) {
-      var listItem = document.createElement("option");
-      listItem.textContent = item;
-      dataList.appendChild(listItem);
-    });
+
+  environmentServicesIDs.forEach(value => {
+    const option = document.createElement('option');
+    option.value = value;
+    dataList.appendChild(option);
   });
-
-
-
-  console.log('data-array: ' + dataArray);
 });
 
 
@@ -221,7 +205,7 @@ $(document).ready(function () {
         <div class="mb-3">
           <label for="TCFCalculationMethod">Calculation Method</label>
           <select name="TCFCalculationMethod" class="form-select d-block w-100"
-            id="TCFCalculationMethod" required="">
+            id="TCFCalculationMethod">
             <option value="">Choose...</option>
             <option value="0173-1#07-ABU223#001">EN 15804</option>
             <option value="0173-1#07-ABU221#001">GHG Protocol</option>
@@ -237,7 +221,7 @@ $(document).ready(function () {
         <!--CO2eq-->
         <div class="mb-3">
           <label for="TCFCO2eq">CO2 Equivalent</label>
-          <input name="TCFCO2eq" type="number" class="form-control" id="TCFCO2eq" placeholder="0.00"
+          <input name="TCFCO2eq" type="text" class="form-control" id="TCFCO2eq" placeholder="0.00"
             min="0">
           <div class="invalid-feedback">
             A CO2 equivalent is missing.
@@ -247,13 +231,13 @@ $(document).ready(function () {
         <div class="row d-flex flex-row">
           <div class="col-6 mb-3">
             <label for="TCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
-            <input name="TCFQuantityOfMeasureForCalculation" type="number" class="form-control"
+            <input name="TCFQuantityOfMeasureForCalculation" type="text" class="form-control"
               id="TCFQuantityOfMeasureForCalculation" placeholder="0" min="0">
           </div>
           <div class="col-2 mb-3">
             <label for="TCFReferenceValueForCalculation">Reference Value</label>
             <select name="TCFReferenceValueForCalculation" class="form-select d-block w-100"
-              id="TCFReferenceValueForCalculation" required="">
+              id="TCFReferenceValueForCalculation">
               <option value="">Choose...</option>
               <option value="0173-1#07-ABZ596#001">g</option>
               <option value="0173-1#07-ABZ597#001">kg</option>
@@ -665,7 +649,7 @@ $(document).ready(function () {
           <div class="mb-3">
             <label for="PCFCalculationMethod">Calculation Method</label>
             <select name="PCFCalculationMethod" class="form-select d-block w-100"
-              id="PCFCalculationMethod${i + 1}" required="">
+              id="PCFCalculationMethod${i + 1}">
               <option value="">Choose...</option>
               <option value="0173-1#07-ABU223#001">EN 15804</option>
               <option value="0173-1#07-ABU221#001">GHG Protocol</option>
@@ -681,7 +665,7 @@ $(document).ready(function () {
           <!--CO2eq-->
           <div class="mb-3">
             <label for="PCFCO2eq">CO2 Equivalent</label>
-            <input name="PCFCO2eq" type="number" class="form-control" id="PCFCO2eq${i + 1}" placeholder="0.00"
+            <input name="PCFCO2eq" type="text" class="form-control" id="PCFCO2eq${i + 1}" placeholder="0.00"
               min="0">
             <div class="invalid-feedback">
               A CO2 equivalent is missing.
@@ -691,13 +675,13 @@ $(document).ready(function () {
           <div class="row d-flex flex-row">
             <div class="col-6 mb-3">
               <label for="PCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
-              <input name="PCFQuantityOfMeasureForCalculation" type="number" class="form-control"
+              <input name="PCFQuantityOfMeasureForCalculation" type="text" class="form-control"
                 id="PCFQuantityOfMeasureForCalculation${i + 1}" placeholder="0" min="0">
             </div>
             <div class="col-2 mb-3">
               <label for="PCFReferenceValueForCalculation">Reference Value</label>
               <select name="PCFReferenceValueForCalculation" class="form-select custom-select d-block"
-                id="PCFReferenceValueForCalculation${i + 1}" required="">
+                id="PCFReferenceValueForCalculation${i + 1}">
                 <option value="">Choose...</option>
                 <option value="0173-1#07-ABZ596#001">g</option>
                 <option value="0173-1#07-ABZ597#001">kg</option>
@@ -717,8 +701,7 @@ $(document).ready(function () {
           <!--Life Cycle Phase-->
           <div class="mb-3">
             <label for="PCFLiveCyclePhase">Life Cycle Phase of the Product</label>
-            <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase${i + 1}"
-              required="">
+            <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase${i + 1}">
               <option value="">Choose...</option>
               <option value="0173-1#07-ABU208#001">A1 – raw material supply (and upstream production)
               </option>
@@ -834,7 +817,7 @@ $(document).ready(function () {
         <div class="mb-3">
           <label for="TCFCalculationMethod">Calculation Method</label>
           <select name="TCFCalculationMethod" class="form-select d-block w-100"
-            id="TCFCalculationMethod${i + 1}" required="">
+            id="TCFCalculationMethod${i + 1}">
             <option value="">Choose...</option>
             <option value="0173-1#07-ABU223#001">EN 15804</option>
             <option value="0173-1#07-ABU221#001">GHG Protocol</option>
@@ -850,7 +833,7 @@ $(document).ready(function () {
         <!--CO2eq-->
         <div class="mb-3">
           <label for="TCFCO2eq">CO2 Equivalent</label>
-          <input name="TCFCO2eq" type="number" class="form-control" id="TCFCO2eq${i + 1}" placeholder="0.00"
+          <input name="TCFCO2eq" type="text" class="form-control" id="TCFCO2eq${i + 1}" placeholder="0.00"
             min="0">
           <div class="invalid-feedback">
             A CO2 equivalent is missing.
@@ -860,13 +843,13 @@ $(document).ready(function () {
         <div class="row d-flex flex-row">
           <div class="col-6 mb-3">
             <label for="TCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
-            <input name="TCFQuantityOfMeasureForCalculation" type="number" class="form-control"
+            <input name="TCFQuantityOfMeasureForCalculation" type="text" class="form-control"
               id="TCFQuantityOfMeasureForCalculation${i + 1}" placeholder="0" min="0">
           </div>
           <div class="col-2 mb-3">
             <label for="TCFReferenceValueForCalculation">Reference Value</label>
             <select name="TCFReferenceValueForCalculation" class="form-select d-block w-100"
-              id="TCFReferenceValueForCalculation${i + 1}" required="">
+              id="TCFReferenceValueForCalculation${i + 1}">
               <option value="">Choose...</option>
               <option value="0173-1#07-ABZ596#001">g</option>
               <option value="0173-1#07-ABZ597#001">kg</option>
