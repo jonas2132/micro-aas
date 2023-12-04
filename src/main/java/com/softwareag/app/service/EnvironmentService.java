@@ -33,10 +33,12 @@
 package com.softwareag.app.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ObjectUtils.Null;
 import org.eclipse.digitaltwin.aas4j.v3.dataformat.aasx.InMemoryFile;
@@ -214,9 +216,11 @@ public class EnvironmentService implements Environment {
                     .map(element -> (ReferenceElement) element)
                     .forEach(referenceElement -> referenceElement.setValue(new DefaultReference.Builder()
                             .keys(new DefaultKey.Builder()
-                                            .type(KeyTypes.ASSET_ADMINISTRATION_SHELL) //Not sure yet, if ASSET_ADMINISTRATION_SHELL is used as reference!
-                                            .value(value)
-                                            .build())
+                                    .type(KeyTypes.ASSET_ADMINISTRATION_SHELL) // Not sure yet, if
+                                                                               // ASSET_ADMINISTRATION_SHELL is used as
+                                                                               // reference!
+                                    .value(value)
+                                    .build())
                             .type(ReferenceTypes.EXTERNAL_REFERENCE)
                             .build()));
 
@@ -247,19 +251,25 @@ public class EnvironmentService implements Environment {
 
         System.out.println("Reading Property " + propertyType.getIdShort() + " . . .");
         try {
+            if(!submodelExists(submodelIdShort))
+                return " ";
 
             Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
                     submodelElementCollections);
+
+            if(!submodelElementExists(subModelElements, propertyType.getIdShort()))
+                return " ";
 
             return subModelElements.stream()
                     .filter(element -> isProperty(element, propertyType))
                     .map(element -> ((Property) element).getValue())
                     .findFirst()
                     .map(Object::toString)
-                    .orElse("0");
+                    .orElseGet(() -> "0");
+
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            return " ";
         }
 
     }
@@ -269,8 +279,14 @@ public class EnvironmentService implements Environment {
             String... submodelElementCollections) {
         System.out.println("Reading ReferenceElement " + propertyType.getIdShort() + " . . .");
         try {
+            if(!submodelExists(submodelIdShort))
+                return " ";
+
             Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
                     submodelElementCollections);
+
+            if(!submodelElementExists(subModelElements, propertyType.getIdShort()))
+                return " ";
 
             return subModelElements.stream()
                     .filter(element -> isReferenceElement(element, propertyType))
@@ -278,7 +294,7 @@ public class EnvironmentService implements Environment {
                     .findFirst().orElse(null);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            return " ";
         }
     }
 
@@ -287,16 +303,26 @@ public class EnvironmentService implements Environment {
             String... submodelElementCollections) {
         System.out.println("Reading MultilanguageProperty " + propertyType.getIdShort() + " . . .");
         try {
+            if(!submodelExists(submodelIdShort))
+                return Arrays.asList(
+                            new DefaultLangStringTextType.Builder().text(" ").language("de").build());
+
             Collection<SubmodelElement> subModelElements = getSubmodelElements(submodelIdShort,
                     submodelElementCollections);
+
+            if(!submodelElementExists(subModelElements, propertyType.getIdShort()))
+                return Arrays.asList(
+                            new DefaultLangStringTextType.Builder().text(" ").language("de").build());
 
             return subModelElements.stream()
                     .filter(element -> isMultilanguageProperty(element, propertyType))
                     .map(element -> ((MultiLanguageProperty) element).getValue())
-                    .findFirst().orElse(null);
+                    .findFirst().orElse(Arrays.asList(
+                            new DefaultLangStringTextType.Builder().text(" ").language("de").build()));
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            return Arrays.asList(
+                    new DefaultLangStringTextType.Builder().text(" ").language("de").build());
         }
         // Map ist für Transformation der Elemente, flatMap erstellt einen neuen Stream,
         // Filter ist wie eine Abfrage
@@ -353,7 +379,6 @@ public class EnvironmentService implements Environment {
 
     }
 
-
     public Submodel getSubmodelOfIdShort(String submodelIdShort) {
         return getSubmodels().stream()
                 .filter(submodel -> isSubmodelTypeOf(submodel, submodelIdShort))
@@ -366,7 +391,6 @@ public class EnvironmentService implements Environment {
         return submodelElement instanceof MultiLanguageProperty
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
     }
-    
 
     public boolean isProperty(SubmodelElement submodelElement,
             SubmodelElementPropertyType submodelElementPropertyType) {
@@ -384,6 +408,20 @@ public class EnvironmentService implements Environment {
             SubmodelElementPropertyType submodelElementPropertyType) {
         return submodelElement instanceof File
                 && submodelElement.getIdShort().equals(submodelElementPropertyType.getIdShort());
+    }
+
+    private boolean submodelExists(String submodelIdShort) {
+        return getSubmodels().stream()
+            .filter(submodel -> submodel.getIdShort().equals(submodelIdShort))
+            .collect(Collectors.toList())
+            .size() > 0;
+    }
+
+    private boolean submodelElementExists(Collection<SubmodelElement>  submodelElements, String submodelElementIdShort) {
+        return submodelElements.stream()
+            .filter(element -> element.getIdShort().equals(submodelElementIdShort))
+            .collect(Collectors.toList())
+            .size() > 0;
     }
 
     private boolean isSubmodelTypeOf(Submodel submodel, String submodelIdShort) throws IllegalArgumentException {

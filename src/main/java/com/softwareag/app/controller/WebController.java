@@ -104,7 +104,7 @@ public class WebController {
                                 // Handle exceptions if any
                                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                                 .body("File exceeds its maximum permitted size of 1048576 bytes");
-                        }catch(Exception ex) {
+                        } catch (Exception ex) {
                                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                                 .body("File upload failed.");
                         }
@@ -157,9 +157,9 @@ public class WebController {
                         prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
                                         SubmodelElementPropertyType.URI_OF_THE_PRODUCT));
                         prefillValues.add(envServiceToEdit
-                                        .getMultilanguageProperty("Nameplate",
+                                        .getPropertyValue("Nameplate",
                                                         SubmodelElementPropertyType.MANUFACTURER_NAME)
-                                        .get(0).getText());
+                                        );
                         prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
                                         SubmodelElementPropertyType.SERIAL_NUMBER));
                         prefillValues.add(envServiceToEdit.getPropertyValue("Nameplate",
@@ -192,7 +192,7 @@ public class WebController {
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
                                         SubmodelElementPropertyType.PCF_LIVE_CYCLE_PHASE, smcPCFID));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
-                                        SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION, smcPCFID));
+                                        SubmodelElementPropertyType.PCF_ASSET_DESCRIPTION, smcPCFID));                                        
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
                                         SubmodelElementPropertyType.STREET, smcPCFID, "PCFGoodsAddressHandover"));
                         prefillValuesPCF.add(envServiceToEdit.getPropertyValue("CarbonFootprint",
@@ -560,6 +560,8 @@ public class WebController {
         public ResponseEntity<String> downloadAAS(@RequestParam("id") String id,
                         @RequestParam("format") String exportFormat,
                         HttpServletResponse response) {
+                if (!existingFilesLoaded)
+                        loadEnvironments();
                 try {
                         EnvironmentService foundEnvironmentService = environmentServices.stream()
                                         .filter(environmentService -> environmentService.getAssetID().equals(id))
@@ -567,14 +569,12 @@ public class WebController {
                                         .orElse(null);
 
                         if (foundEnvironmentService == null) {
-                                sendAlert("Invalid AssetID!", response);
                                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid AssetID!");
                         }
 
                         DataType exportDataType = getDataTypeByString(exportFormat);
 
                         if (exportDataType == null) {
-                                sendAlert("Invalid Datatype!", response);
                                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Datatype!");
                         }
 
@@ -584,6 +584,7 @@ public class WebController {
 
                         return ResponseEntity.status(HttpStatus.OK).body("Download successful!");
                 } catch (Exception ex) {
+                        ex.printStackTrace();
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Downlaod Error!");
                 }
         }
