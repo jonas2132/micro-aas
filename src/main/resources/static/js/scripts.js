@@ -5,10 +5,6 @@ $(document).ready(function () {
   var PCFCounter = 1;
   $("#addPCFitem").click(function () {
     // Create a new accordion item
-    var dataContainer = document.getElementById("data-container");
-    var dataArray = JSON.parse(dataContainer.getAttribute("data-array"));
-
-
 
     PCFCounter++;
     var newPCFItem = `
@@ -176,6 +172,28 @@ $(document).ready(function () {
       });
     }
   });
+});
+
+
+$(document).ready(function () {
+  var environmentServicesIDsContainer = document.getElementById("environmentServicesIDs-container");
+  var environmentServicesIDs = JSON.parse(environmentServicesIDsContainer.getAttribute("environmentServicesIDs"));
+  console.log('environmentServicesIDs: ' + environmentServicesIDs);
+
+  var dataLists = document.querySelector('.environmentServicesSuggestions');
+  console.log('environmentServicesSuggestions: ' + dataLists);
+
+  dataLists.forEach(function (dataList) {
+    environmentServicesIDs.forEach(function (item) {
+      var listItem = document.createElement("option");
+      listItem.textContent = item;
+      dataList.appendChild(listItem);
+    });
+  });
+
+
+
+  console.log('data-array: ' + dataArray);
 });
 
 
@@ -423,7 +441,6 @@ $(document).ready(function () {
   var deleteConfirmButtons = document.querySelectorAll(".deleteConfirmButton");
   var assetID = null;
 
-  console.log("delete buttons: " + deleteButtons);
 
   function deleteButtonClickedAction(event) {
     // Retrieve AssetID from the clicked button's data-attribute
@@ -433,15 +450,16 @@ $(document).ready(function () {
   }
 
   function deleteConfirmButtonClickedAction(event) {
-     // Send the AssetID to the backend using fetch
-     fetch(`/aas/delete/${assetID}`, {
+    // Send the AssetID to the backend using fetch
+    fetch(`/aas/delete/${assetID}`, {
       method: 'GET'
     })
       .then(response => {
         if (response.ok) {
           // If the response is successful, handle as needed
           // For example, redirect to the edit page or do further processing
-          window.location.href = `/aas/delete/${assetID}`;
+          console.log('Asset deleted successfully')
+          window.location.href = `/aas/overview`;
         } else {
           // Handle error cases
           console.log('Failed to retrieve AssetID');
@@ -968,5 +986,8 @@ $(document).ready(function () {
     myInput.focus()
   })
 });
+
+
+
 
 

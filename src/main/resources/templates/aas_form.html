@@ -6,7 +6,7 @@
 
 <body>
   <!--Container to hold data which was send by the backend to access it with the js code-->
-  <div id="data-container" th:attr="data-array=${dataArray}" style="display: none;"></div>
+  <div id="environmentServicesIDs-container" th:attr="environmentServicesIDs=${environmentServicesIDs}" style="display: none;"></div>
   <div id="environmentServices-container" th:attr="environmentServices=${environmentServices}" style="display: none;">
   </div>
   <div id="editMode-container" th:attr="editMode=${editMode}" style="display: none;"></div>
@@ -167,7 +167,7 @@
                             <input name="ReferableAssetID" type="text" class="form-control"
                               list="list-environmentServices" id="ReferableAssetID"
                               placeholder="https://example.company.de/id/1234">
-                            <datalist id="list-environmentServices">
+                            <datalist class="environmentServicesSuggestions" id="list-environmentServices">
                             </datalist>
                           </div>
                           <!--Calculation Method-->
@@ -322,7 +322,7 @@
                         <button id="TCF-header-button" class="accordion-button collapsed" type="button"
                           data-bs-toggle="collapse" data-bs-target="#collapseTCF" aria-expanded="false"
                           aria-controls="collapseTCF">
-                          Transport Carbon Footprint
+                          Transport Carbon Footprint 1
                         </button>
                       </h2>
                       <div id="collapseTCF" class="accordion-collapse collapse" aria-labelledby="headingTCF"
