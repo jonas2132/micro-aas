@@ -165,16 +165,19 @@
                           <div class="mb-3">
                             <label for="ReferableAssetID">ID of the related Asset</label>
                             <input name="ReferableAssetID" type="text" class="form-control"
-                              list="list-environmentServices" id="ReferableAssetID"
+                              list="suggestionList" id="ReferableAssetID"
                               placeholder="https://example.company.de/id/1234">
-                            <datalist class="environmentServicesSuggestions" id="list-environmentServices">
+                            <datalist id="suggestionList">
+                              <option>one</option>
+                              <option>two</option>
+                              <option>three</option>
                             </datalist>
                           </div>
                           <!--Calculation Method-->
                           <div class="mb-3">
                             <label for="PCFCalculationMethod">Calculation Method</label>
                             <select name="PCFCalculationMethod" class="form-select d-block w-100"
-                              id="PCFCalculationMethod" required="">
+                              id="PCFCalculationMethod">
                               <option value="">Choose...</option>
                               <option value="0173-1#07-ABU223#001">EN 15804</option>
                               <option value="0173-1#07-ABU221#001">GHG Protocol</option>
@@ -190,7 +193,7 @@
                           <!--CO2eq-->
                           <div class="mb-3">
                             <label for="PCFCO2eq">CO2 Equivalent</label>
-                            <input name="PCFCO2eq" type="number" class="form-control" id="PCFCO2eq" placeholder="0.00"
+                            <input name="PCFCO2eq" type="text" class="form-control" id="PCFCO2eq" placeholder="0.00"
                               min="0">
                             <div class="invalid-feedback">
                               A CO2 equivalent is missing.
@@ -200,13 +203,13 @@
                           <div class="row d-flex flex-row">
                             <div class="col-6 mb-3">
                               <label for="PCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
-                              <input name="PCFQuantityOfMeasureForCalculation" type="number" class="form-control"
+                              <input name="PCFQuantityOfMeasureForCalculation" type="text" class="form-control"
                                 id="PCFQuantityOfMeasureForCalculation" placeholder="0" min="0">
                             </div>
                             <div class="col-2 mb-3">
                               <label for="PCFReferenceValueForCalculation">Reference Value</label>
                               <select name="PCFReferenceValueForCalculation" class="form-select custom-select d-block"
-                                id="PCFReferenceValueForCalculation" required="">
+                                id="PCFReferenceValueForCalculation">
                                 <option value="">Choose...</option>
                                 <option value="0173-1#07-ABZ596#001">g</option>
                                 <option value="0173-1#07-ABZ597#001">kg</option>
@@ -226,8 +229,7 @@
                           <!--Life Cycle Phase-->
                           <div class="mb-3">
                             <label for="PCFLiveCyclePhase">Life Cycle Phase of the Product</label>
-                            <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase"
-                              required="">
+                            <select name="PCFLiveCyclePhase" class="form-select d-block w-100" id="PCFLiveCyclePhase">
                               <option value="">Choose...</option>
                               <option value="0173-1#07-ABU208#001">A1 – raw material supply (and upstream production)
                               </option>
@@ -332,7 +334,7 @@
                           <div class="mb-3">
                             <label for="TCFCalculationMethod">Calculation Method</label>
                             <select name="TCFCalculationMethod" class="form-select d-block w-100"
-                              id="TCFCalculationMethod" required="">
+                              id="TCFCalculationMethod">
                               <option value="">Choose...</option>
                               <option value="0173-1#07-ABU223#001">EN 15804</option>
                               <option value="0173-1#07-ABU221#001">GHG Protocol</option>
@@ -348,7 +350,7 @@
                           <!--CO2eq-->
                           <div class="mb-3">
                             <label for="TCFCO2eq">CO2 Equivalent</label>
-                            <input name="TCFCO2eq" type="number" class="form-control" id="TCFCO2eq" placeholder="0.00"
+                            <input name="TCFCO2eq" type="text" class="form-control" id="TCFCO2eq" placeholder="0.00"
                               min="0">
                             <div class="invalid-feedback">
                               A CO2 equivalent is missing.
@@ -358,13 +360,13 @@
                           <div class="row d-flex flex-row">
                             <div class="col-6 mb-3">
                               <label for="TCFQuantityOfMeasureForCalculation">Quantity of the measured product</label>
-                              <input name="TCFQuantityOfMeasureForCalculation" type="number" class="form-control"
+                              <input name="TCFQuantityOfMeasureForCalculation" type="text" class="form-control"
                                 id="TCFQuantityOfMeasureForCalculation" placeholder="0" min="0">
                             </div>
                             <div class="col-2 mb-3">
                               <label for="TCFReferenceValueForCalculation">Reference Value</label>
                               <select name="TCFReferenceValueForCalculation" class="form-select d-block w-100"
-                                id="TCFReferenceValueForCalculation" required="">
+                                id="TCFReferenceValueForCalculation">
                                 <option value="">Choose...</option>
                                 <option value="0173-1#07-ABZ596#001">g</option>
                                 <option value="0173-1#07-ABZ597#001">kg</option>
