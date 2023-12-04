@@ -450,11 +450,12 @@ public class WebController {
 
                         if (i > 0) {
                                 submodelElementCollectionIdShort += "_"
-                                                + (i++);
+                                                + (i+1);
                                 environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
                                                 "TransportCarbonFootprint", submodelElementCollectionIdShort);
                         }
 
+                        
                         environmentService.updateProperty(TCFCalculationMethod[i], "CarbonFootprint",
                                         SubmodelElementPropertyType.TCF_CALCULATION_METHOD,
                                         submodelElementCollectionIdShort);

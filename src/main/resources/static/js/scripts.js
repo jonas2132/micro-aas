@@ -2,7 +2,11 @@
  * Adds a new accordion item to the AAS/Form page when the "addPCFitem" button is clicked.
  */
 $(document).ready(function () {
-  var PCFCounter = 1;
+  var prefillValuesPCFString = document.getElementById('prefillValuesPCF-container').getAttribute('prefillValuesPCF');
+  var prefillValuesPCF = JSON.parse(prefillValuesPCFString);
+  var PCFCounter = prefillValuesPCF == null ? 1 : prefillValuesPCF.length / 14;
+  console.log('PCF Counter: ' + PCFCounter);
+
   $("#addPCFitem").click(function () {
     // Create a new accordion item
 
@@ -185,7 +189,9 @@ $(document).ready(function () {
  * Adds a new accordion item to the AAS/Form page when the "addTCFitem" button is clicked.
  */
 $(document).ready(function () {
-  var TCFCounter = 1;
+  var prefillValuesTCFString = document.getElementById('prefillValuesTCF-container').getAttribute('prefillValuesTCF');
+  var prefillValuesTCF = JSON.parse(prefillValuesTCFString);
+  var TCFCounter = prefillValuesTCF == null ? 1 : prefillValuesTCF.length/19;
   $("#addTCFitem").click(function () {
     // Create a new accordion item
     TCFCounter++;
@@ -533,8 +539,8 @@ $(document).ready(function () {
 
   console.log('edit Mode: ' + editMode);
 
+
   if (editMode) {
-    console.log('Wieso sind wir hier im Edit mode?')
 
     var formHeading = document.getElementById('formHeadline');
 
@@ -620,9 +626,6 @@ $(document).ready(function () {
         inputFieldIdsPCF = inputFieldIdsPCF.map(function (fieldId) {
           return fieldId + (i + 1);
         });
-        // Create a new accordion item
-        var dataContainer = document.getElementById("data-container");
-        var dataArray = JSON.parse(dataContainer.getAttribute("data-array"));
 
         var newPCFItem = `
       <div class="accordion-item">
@@ -777,20 +780,10 @@ $(document).ready(function () {
 
         // Append the new accordion item to the accordion container
         $("#PCFAccordion").append(newPCFItem);
-
-        if (dataArray) {
-          // Update the HTML suggestions datalist
-          var assetSuggestionsList = document.getElementById(`list-environmentServices${PCFCounter}`);
-          dataArray.forEach(function (item) {
-            var listItem = document.createElement("option");
-            listItem.textContent = item;
-            assetSuggestionsList.appendChild(listItem);
-          });
-        }
       }
-      console.log("i: " + i);
-      console.log("start index: " + inputFieldIdsPCF.length * i);
-      console.log("end index: " + ((inputFieldIdsPCF.length * (i + 1)) - 1));
+      // console.log("i: " + i);
+      // console.log("start index: " + inputFieldIdsPCF.length * i);
+      // console.log("end index: " + ((inputFieldIdsPCF.length * (i + 1)) - 1));
       populateFields(inputFieldIdsPCF, prefillValuesPCF.slice(inputFieldIdsPCF.length * i, (inputFieldIdsPCF.length * (i + 1))));
     }
 
