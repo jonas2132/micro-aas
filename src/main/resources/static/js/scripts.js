@@ -191,7 +191,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   var prefillValuesTCFString = document.getElementById('prefillValuesTCF-container').getAttribute('prefillValuesTCF');
   var prefillValuesTCF = JSON.parse(prefillValuesTCFString);
-  var TCFCounter = prefillValuesTCF == null ? 1 : prefillValuesTCF.length/19;
+  var TCFCounter = prefillValuesTCF == null ? 1 : prefillValuesTCF.length / 19;
   $("#addTCFitem").click(function () {
     // Create a new accordion item
     TCFCounter++;
@@ -516,8 +516,9 @@ $(document).ready(function () {
  * @returns {void} - This function does not return anything.
  */
 function populateFields(fieldIds, values) {
+  console.log('Values to populate: ' + values);
+  console.log('inputIDs: ' + fieldIds);
   fieldIds.forEach(function (fieldId, index) {
-    console.log('Values to populate: ' + values);
     var inputElement = document.getElementById(fieldId);
     if (inputElement && values[index]) {
       inputElement.value = values[index] || '';
@@ -536,9 +537,6 @@ function populateFields(fieldIds, values) {
  */
 $(document).ready(function () {
   var editMode = document.getElementById('editMode-container').getAttribute('editMode') == "true" ? true : false;
-
-  console.log('edit Mode: ' + editMode);
-
 
   if (editMode) {
 
@@ -565,6 +563,14 @@ $(document).ready(function () {
     var prefillValuesPCF = JSON.parse(prefillValuesPCFString);
     var prefillValuesTCFString = document.getElementById('prefillValuesTCF-container').getAttribute('prefillValuesTCF');
     var prefillValuesTCF = JSON.parse(prefillValuesTCFString);
+
+    console.log("prefillValues: " + prefillValues);
+    console.log("prefillValues.length: " + prefillValues.length);
+    console.log("prefillValuesPCF: " + prefillValuesPCF);
+    console.log("prefillValuesPCF.length: " + prefillValuesPCF.length / 14);
+    console.log("prefillValuesTCF: " + prefillValuesTCF);
+    console.log("prefillValuesTCF.length: " + prefillValuesTCF.length / 19);
+
 
 
     var inputFieldIds = [
@@ -623,7 +629,7 @@ $(document).ready(function () {
     //Populate dynamic amount of ProductCarbonFootprint Data
     for (i = 0; i < (prefillValuesPCF.length / inputFieldIdsPCF.length); i++) {
       if (i !== 0) {
-        inputFieldIdsPCF = inputFieldIdsPCF.map(function (fieldId) {
+        let inputFieldIdsPCFModified = inputFieldIdsPCF.map(function (fieldId) {
           return fieldId + (i + 1);
         });
 
@@ -780,17 +786,19 @@ $(document).ready(function () {
 
         // Append the new accordion item to the accordion container
         $("#PCFAccordion").append(newPCFItem);
+        console.log("PCF i: " + i);
+        populateFields(inputFieldIdsPCFModified, prefillValuesPCF.slice(inputFieldIdsPCFModified.length * i, (inputFieldIdsPCFModified.length * (i + 1))));
+      } else {
+        console.log("PCF i: " + i);
+        populateFields(inputFieldIdsPCF, prefillValuesPCF.slice(inputFieldIdsPCF.length * i, (inputFieldIdsPCF.length * (i + 1))));
       }
-      // console.log("i: " + i);
-      // console.log("start index: " + inputFieldIdsPCF.length * i);
-      // console.log("end index: " + ((inputFieldIdsPCF.length * (i + 1)) - 1));
-      populateFields(inputFieldIdsPCF, prefillValuesPCF.slice(inputFieldIdsPCF.length * i, (inputFieldIdsPCF.length * (i + 1))));
+
     }
 
     //Populate dynamic amount of TransportCarbonFootprint Data
     for (i = 0; i < (prefillValuesTCF.length / inputFieldIdsTCF.length); i++) {
       if (i !== 0) {
-        inputFieldIdsTCF = inputFieldIdsTCF.map(function (fieldId) {
+        let inputFieldIdsTCFModified = inputFieldIdsPCF.map(function (fieldId) {
           return fieldId + (i + 1);
         });
 
@@ -942,11 +950,12 @@ $(document).ready(function () {
 
         // Append the new accordion item to the accordion container
         $("#TCFAccordion").append(newTCFItem);
+        console.log("TCF i: " + i);
+        populateFields(inputFieldIdsTCFModified, prefillValuesTCF.slice(inputFieldIdsTCFModified.length * i, (inputFieldIdsTCFModified.length * (i + 1))));
+      } else {
+        console.log("TCF i: " + i);
+        populateFields(inputFieldIdsTCF, prefillValuesTCF.slice(inputFieldIdsTCF.length * i, (inputFieldIdsTCF.length * (i + 1))));
       }
-      console.log("i: " + i);
-      console.log("start index: " + inputFieldIdsTCF.length * i);
-      console.log("end index: " + ((inputFieldIdsTCF.length * (i + 1)) - 1));
-      populateFields(inputFieldIdsTCF, prefillValuesTCF.slice(inputFieldIdsTCF.length * i, (inputFieldIdsTCF.length * (i + 1))));
     }
   }
 });

@@ -393,8 +393,7 @@ public class WebController {
                         String submodelElementCollectionIdShort = "ProductCarbonFootprint";
 
                         if (i > 0) {
-                                submodelElementCollectionIdShort += "_"
-                                                + getAssetIdShortByAssetId(ReferableAssetID[i]);
+                                submodelElementCollectionIdShort += "_" + (i + 1);
                                 environmentService.duplicateSubmodelElementCollection("CarbonFootprint",
                                                 "ProductCarbonFootprint", submodelElementCollectionIdShort);
 
