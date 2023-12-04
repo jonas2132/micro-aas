@@ -798,7 +798,7 @@ $(document).ready(function () {
     //Populate dynamic amount of TransportCarbonFootprint Data
     for (i = 0; i < (prefillValuesTCF.length / inputFieldIdsTCF.length); i++) {
       if (i !== 0) {
-        let inputFieldIdsTCFModified = inputFieldIdsPCF.map(function (fieldId) {
+        let inputFieldIdsTCFModified = inputFieldIdsTCF.map(function (fieldId) {
           return fieldId + (i + 1);
         });
 

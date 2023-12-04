@@ -34,7 +34,6 @@ public class App {
         //        "AASTest.aasx");
 
         SpringApplication.run(App.class, args);
-
     }
 
 }
