@@ -117,11 +117,11 @@ public class WebController {
                 for (EnvironmentService serv : environmentServices) {
                         environmentServicesIDs.add(serv.getAssetID());
                 }
-
-                String dataArrayJson;
+                System.out.println(("environmentServiceIDs: " + environmentServicesIDs));
+                String environmentServicesIDsJSON;
                 try {
-                        dataArrayJson = objectMapper.writeValueAsString(environmentServicesIDs);
-                        model.addAttribute("dataArray", dataArrayJson);
+                        environmentServicesIDsJSON = objectMapper.writeValueAsString(environmentServicesIDs);
+                        model.addAttribute("environmentServicesIDs", environmentServicesIDsJSON);
 
                 } catch (JsonProcessingException e) {
                         // TODO Auto-generated catch block
