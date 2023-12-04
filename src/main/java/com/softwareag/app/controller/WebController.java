@@ -308,59 +308,59 @@ public class WebController {
         @PostMapping("/aas/submission")
         public String submission(
                         // parameter Asset Administration Shell
-                        @RequestParam("assetIDshort") String assetIDshort, // includes actual AssetIDShort of AAS and
+                        @RequestParam(value = "assetIDshort", defaultValue = " ") String assetIDshort, // includes actual AssetIDShort of AAS and
                                                                            // CarbonFootprint Submodel assetIDshorts
                         @RequestParam("assetID") String assetID,
 
                         // parameter Nameplate
-                        @RequestParam("URIOfTheProduct") String URIOfTheProduct,
-                        @RequestParam("ManufacturerName") String ManufacturerName,
-                        @RequestParam("SerialNumber") String SerialNumber,
-                        @RequestParam("YearOfConstruction") String YearOfConstruction,
-                        @RequestParam("DateOfManufacture") String DateOfManufacture,
+                        @RequestParam(value = "URIOfTheProduct", defaultValue = " ") String URIOfTheProduct,
+                        @RequestParam(value = "ManufacturerName", defaultValue = " ") String ManufacturerName,
+                        @RequestParam(value = "SerialNumber", defaultValue = " ") String SerialNumber,
+                        @RequestParam(value = "YearOfConstruction", defaultValue = " ") String YearOfConstruction,
+                        @RequestParam(value = "DateOfManufacture", defaultValue = " ") String DateOfManufacture,
                         // parameter Technical Data
-                        @RequestParam("ManufacturerOrderCode") String ManufacturerOrderCode,
+                        @RequestParam(value = "ManufacturerOrderCode", defaultValue = " ") String ManufacturerOrderCode,
                         // @RequestParam("ManufacturerLogo") File ManufacturerLogo,
                         // @RequestParam("ProductImage") File ProductImage,
 
                         // Parameter Carbon Footprint
                         // Parameter Product Carbon Footprint
                         @RequestParam(value = "ReferableAssetID", defaultValue = " ") String[] ReferableAssetID,
-                        @RequestParam("PCFCalculationMethod") String[] PCFCalculationMethod,
-                        @RequestParam("PCFCO2eq") String[] PCFCO2eq,
-                        @RequestParam("PCFQuantityOfMeasureForCalculation") String[] PCFQuantityOfMeasureForCalculation,
-                        @RequestParam("PCFReferenceValueForCalculation") String[] PCFReferenceValueForCalculation,
-                        @RequestParam("PCFLiveCyclePhase") String[] PCFLiveCyclePhase,
+                        @RequestParam(value = "PCFCalculationMethod", defaultValue = " ") String[] PCFCalculationMethod,
+                        @RequestParam(value = "PCFCO2eq", defaultValue = " ") String[] PCFCO2eq,
+                        @RequestParam(value = "PCFQuantityOfMeasureForCalculation", defaultValue = " ") String[] PCFQuantityOfMeasureForCalculation,
+                        @RequestParam(value = "PCFReferenceValueForCalculation", defaultValue = " ") String[] PCFReferenceValueForCalculation,
+                        @RequestParam(value = "PCFLiveCyclePhase", defaultValue = " ") String[] PCFLiveCyclePhase,
                         @RequestParam(value = "PCFDescription", defaultValue = " ") String[] PCFDescription,
                         // @RequestParam("ExplanatoryStatement") File[] ExplanatoryStatement,
-                        @RequestParam("PCFHandoverStreet") String[] PCFHandoverStreet,
-                        @RequestParam("PCFHandoverNumber") String[] PCFHandoverNumber,
-                        @RequestParam("PCFHandoverCity") String[] PCFHandoverCity,
-                        @RequestParam("PCFHandoverZIP") String[] PCFHandoverZIP,
-                        @RequestParam("PCFHandoverCountry") String[] PCFHandoverCountry,
-                        @RequestParam("PCFHandoverLatitude") String[] PCFHandoverLatitude,
-                        @RequestParam("PCFHandoverStreet") String[] PCFHandoverLongitude,
+                        @RequestParam(value = "PCFHandoverStreet", defaultValue = " ") String[] PCFHandoverStreet,
+                        @RequestParam(value = "PCFHandoverNumber", defaultValue = " ") String[] PCFHandoverNumber,
+                        @RequestParam(value = "PCFHandoverCity", defaultValue = " ") String[] PCFHandoverCity,
+                        @RequestParam(value = "PCFHandoverZIP", defaultValue = " ") String[] PCFHandoverZIP,
+                        @RequestParam(value = "PCFHandoverCountry", defaultValue = " ") String[] PCFHandoverCountry,
+                        @RequestParam(value = "PCFHandoverLatitude", defaultValue = " ") String[] PCFHandoverLatitude,
+                        @RequestParam(value = "PCFHandoverStreet", defaultValue = " ") String[] PCFHandoverLongitude,
 
                         // Parameter Transport Carbon Footprint
-                        @RequestParam("TCFCalculationMethod") String[] TCFCalculationMethod,
-                        @RequestParam("TCFCO2eq") String[] TCFCO2eq,
-                        @RequestParam("TCFReferenceValueForCalculation") String[] TCFReferenceValueForCalculation,
-                        @RequestParam("TCFQuantityOfMeasureForCalculation") String[] TCFQuantityOfMeasureForCalculation,
-                        @RequestParam("TCFProcessesForGreenhouseGasEmissionInATransportService") String[] TCFProcessesForGreenhouseGasEmissionInATransportService,
-                        @RequestParam("TCFTakeoverStreet") String[] TCFTakeoverStreet,
-                        @RequestParam("TCFTakeoverNumber") String[] TCFTakeoverNumber,
-                        @RequestParam("TCFTakeoverCity") String[] TCFTakeoverCity,
-                        @RequestParam("TCFTakeoverZIP") String[] TCFTakeoverZIP,
-                        @RequestParam("TCFTakeoverCountry") String[] TCFTakeoverCountry,
-                        @RequestParam("TCFTakeoverLatitude") String[] TCFTakeoverLatitude,
-                        @RequestParam("TCFTakeoverLongitude") String[] TCFTakeoverLongitude,
-                        @RequestParam("TCFHandoverStreet") String[] TCFHandoverStreet,
-                        @RequestParam("TCFHandoverNumber") String[] TCFHandoverNumber,
-                        @RequestParam("TCFHandoverCity") String[] TCFHandoverCity,
-                        @RequestParam("TCFHandoverZIP") String[] TCFHandoverZIP,
-                        @RequestParam("TCFHandoverCountry") String[] TCFHandoverCountry,
-                        @RequestParam("TCFHandoverLatitude") String[] TCFHandoverLatitude,
-                        @RequestParam("TCFHandoverLongitude") String[] TCFHandoverLongitude) {
+                        @RequestParam(value = "TCFCalculationMethod", defaultValue = " ") String[] TCFCalculationMethod,
+                        @RequestParam(value = "TCFCO2eq", defaultValue = " ") String[] TCFCO2eq,
+                        @RequestParam(value = "TCFReferenceValueForCalculation", defaultValue = " ") String[] TCFReferenceValueForCalculation,
+                        @RequestParam(value = "TCFQuantityOfMeasureForCalculation", defaultValue = " ") String[] TCFQuantityOfMeasureForCalculation,
+                        @RequestParam(value = "TCFProcessesForGreenhouseGasEmissionInATransportService", defaultValue = " ") String[] TCFProcessesForGreenhouseGasEmissionInATransportService,
+                        @RequestParam(value = "TCFTakeoverStreet", defaultValue = " ") String[] TCFTakeoverStreet,
+                        @RequestParam(value = "TCFTakeoverNumber", defaultValue = " ") String[] TCFTakeoverNumber,
+                        @RequestParam(value = "TCFTakeoverCity", defaultValue = " ") String[] TCFTakeoverCity,
+                        @RequestParam(value = "TCFTakeoverZIP", defaultValue = " ") String[] TCFTakeoverZIP,
+                        @RequestParam(value = "TCFTakeoverCountry", defaultValue = " ") String[] TCFTakeoverCountry,
+                        @RequestParam(value = "TCFTakeoverLatitude", defaultValue = " ") String[] TCFTakeoverLatitude,
+                        @RequestParam(value = "TCFTakeoverLongitude", defaultValue = " ") String[] TCFTakeoverLongitude,
+                        @RequestParam(value = "TCFHandoverStreet", defaultValue = " ") String[] TCFHandoverStreet,
+                        @RequestParam(value = "TCFHandoverNumber", defaultValue = " ") String[] TCFHandoverNumber,
+                        @RequestParam(value = "TCFHandoverCity", defaultValue = " ") String[] TCFHandoverCity,
+                        @RequestParam(value = "TCFHandoverZIP", defaultValue = " ") String[] TCFHandoverZIP,
+                        @RequestParam(value = "TCFHandoverCountry", defaultValue = " ") String[] TCFHandoverCountry,
+                        @RequestParam(value = "TCFHandoverLatitude", defaultValue = " ") String[] TCFHandoverLatitude,
+                        @RequestParam(value = "TCFHandoverLongitude", defaultValue = " ") String[] TCFHandoverLongitude) {
 
                 // Deletes old environmentServices with the corresponding assedID to overwrite
                 // it with the new values
