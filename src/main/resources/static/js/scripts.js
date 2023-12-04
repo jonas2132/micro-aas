@@ -545,9 +545,12 @@ function populateFields(fieldIds, values) {
  * @returns {void} - This function does not return anything.
  */
 $(document).ready(function () {
-  var editMode = document.getElementById('editMode-container').getAttribute('editMode');
+  var editMode = document.getElementById('editMode-container').getAttribute('editMode') == "true" ? true : false;
+
+  console.log('edit Mode: ' + editMode);
 
   if (editMode) {
+    console.log('Wieso sind wir hier im Edit mode?')
 
     var formHeading = document.getElementById('formHeadline');
 
@@ -562,7 +565,7 @@ $(document).ready(function () {
     </div>
       `;
       formHeading.parentNode.replaceChild(newEditHeading, formHeading);
-    }
+    };
 
 
 
